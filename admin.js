@@ -58,16 +58,20 @@
     }
 
     function getClient() {
-        if (client) return client;
+        // Return the existing shared client if it's already created
+        if (window.supabaseClient) return window.supabaseClient;
+        
         if (!config || !config.url || !config.anonKey) {
             throw new Error("Supabase is not configured. Check supabase-config.js.");
         }
         if (!window.supabase || typeof window.supabase.createClient !== "function") {
             throw new Error("Supabase did not load. Check your internet connection and reload.");
         }
-        client = window.supabase.createClient(config.url, config.anonKey);
-        return client;
-    }
+    
+    // Create it once and store it globally
+    window.supabaseClient = window.supabase.createClient(config.url, config.anonKey);
+    return window.supabaseClient;
+}
 
     function setBusy(button, busy) {
         button.disabled = busy;
