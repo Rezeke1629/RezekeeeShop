@@ -1,10 +1,16 @@
-﻿(() => {
+(() => {
     const dashboardLink = document.querySelector("[data-owner-dashboard]");
     const config = window.REZEKEE_SUPABASE_CONFIG;
-    if (!dashboardLink || !config || !config.url || !config.anonKey ||
-        !window.supabase || typeof window.supabase.createClient !== "function") return;
+    if (!dashboardLink || !config || !config.url || !config.anonKey || !window.supabase) return;
 
-    const client = window.supabase.createClient(config.url, config.anonKey);
+    // Initialize the shared client once if not already created
+    if (!window.supabaseClient && typeof window.supabase.createClient === "function") {
+        window.supabaseClient = window.supabase.createClient(config.url, config.anonKey);
+    }
+
+    const client = window.supabaseClient;
+    if (!client) return;
+    
     let checkId = 0;
 
     async function updateOwnerLink(session) {
