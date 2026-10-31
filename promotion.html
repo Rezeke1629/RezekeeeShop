@@ -1,0 +1,1290 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="store-actions.css?v=6">
+    <link rel="stylesheet" href="site-shared.css?v=2">
+    <link rel="stylesheet" href="home-page.css?v=6">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Promotions &amp; Special Deals | RezekeeeShop</title>
+    <style>
+        * { box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        :root {
+            --bg: #000000;
+            --bg-soft: rgba(0, 0, 0, 0.55);
+            --fg: #eafcff;
+            --heading: #00eaff;
+            --muted-text: rgba(223, 252, 255, 0.55);
+            --menu: #dffcff;
+            --line: rgba(0, 234, 255, 0.9);
+            --line-strong: #00eaff;
+            --line-glow: rgba(0, 234, 255, 0.5);
+            --panel: rgba(0, 0, 0, 0.9);
+            --panel-card: rgba(0, 234, 255, 0.04);
+            --panel-hover: rgba(0, 234, 255, 0.12);
+            --dot-bg: rgba(0, 234, 255, 0.08);
+            --dot-shadow: rgba(0, 234, 255, 0.6);
+            --dot-color: #ffffff;
+            --button-text: #081d22;
+            --toggle-track: #142967;
+            --toggle-border: #102257;
+            --toggle-thumb: #304da7;
+            --toggle-sun: #d6b900;
+            --toggle-moon: #ffffff;
+            --toggle-shadow: rgba(5, 15, 54, 0.5);
+            --product-surface: #07141b;
+            --product-surface-raised: #0c2029;
+            --product-text: #eafcff;
+            --product-muted: #a4c1c8;
+            --product-border: rgba(0, 234, 255, 0.3);
+            --product-image-bg: #000000;
+            --promo-badge-bg: #ff334b;
+            --promo-badge-text: #ffffff;
+        }
+
+        body.light-mode {
+            --bg: #f5f5f5;
+            --bg-soft: rgba(255, 255, 255, 0.85);
+            --fg: #111111;
+            --heading: #111111;
+            --muted-text: rgba(0, 0, 0, 0.55);
+            --menu: #111111;
+            --line: rgba(0, 0, 0, 0.9);
+            --line-strong: #111111;
+            --line-glow: rgba(0, 0, 0, 0.28);
+            --panel: rgba(255, 255, 255, 0.96);
+            --panel-card: rgba(0, 0, 0, 0.03);
+            --panel-hover: rgba(0, 0, 0, 0.06);
+            --dot-bg: rgba(0, 0, 0, 0.05);
+            --dot-shadow: rgba(0, 0, 0, 0.18);
+            --dot-color: #0f0f0f;
+            --button-text: #ffffff;
+            --toggle-track: #f0f0f4;
+            --toggle-border: #e0e0e7;
+            --toggle-thumb: #ffffff;
+            --toggle-sun: #e0b800;
+            --toggle-moon: #6c7897;
+            --toggle-shadow: rgba(25, 34, 76, 0.2);
+            --product-surface: #ffffff;
+            --product-surface-raised: #f1fbfc;
+            --product-text: #14252a;
+            --product-muted: #536c72;
+            --product-border: rgba(0, 130, 150, 0.25);
+            --product-image-bg: #ffffff;
+            --promo-badge-bg: #e11d48;
+            --promo-badge-text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            font-size: 16px;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 4;
+            width: 100%;
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto;
+            align-items: center;
+            gap: clamp(18px, 3vw, 42px);
+            padding: 12px clamp(16px, 3vw, 40px);
+            background: var(--bg-soft);
+            border-bottom: 2px solid var(--line);
+            box-shadow: 0 0 18px var(--line-glow);
+            transition: padding 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .topbar.compact {
+            padding-block: 7px;
+            box-shadow: 0 0 12px var(--line-glow);
+        }
+
+        .menu {
+            grid-column: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(12px, 2.4vw, 32px);
+            justify-self: stretch;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--menu);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .menu a:hover { color: var(--line-strong); }
+
+        .promotion-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 0 16px;
+            border: 1px solid var(--line-strong);
+            border-radius: 9px;
+            background: var(--panel-card);
+            color: var(--line-strong);
+            box-shadow: 0 0 12px var(--line-glow);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .promotion-link:hover { background: var(--panel-hover); box-shadow: 0 0 18px var(--line-glow); transform: translateY(-1px); }
+
+        .topbar-actions {
+            grid-column: 3;
+            justify-self: end;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-button, .search-button {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            border: 1px solid var(--line-strong);
+            border-radius: 12px;
+            background: var(--dot-bg);
+            color: var(--menu);
+            box-shadow: 0 0 10px var(--dot-shadow);
+            cursor: pointer;
+            transition: width 0.25s ease, height 0.25s ease, color 0.2s ease, background 0.2s ease;
+        }
+
+        .profile-button:hover, .search-button:hover {
+            color: var(--line-strong);
+            background: var(--panel-hover);
+        }
+
+        .profile-button svg, .search-button svg { width: 20px; height: 20px; }
+        .topbar.compact .profile-button, .topbar.compact .search-button { width: 36px; height: 36px; }
+        .topbar.compact .dots-box { width: 42px; height: 42px; }
+        .topbar.compact .dot { width: 6px; height: 6px; }
+
+        .dots-box {
+            width: 52px;
+            height: 52px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            padding: 0;
+            border: 2px solid var(--line-strong);
+            border-radius: 12px;
+            background: var(--dot-bg);
+            box-shadow: 0 0 12px var(--dot-shadow);
+            cursor: pointer;
+            transition: width 0.2s ease, height 0.2s ease, border-radius 0.2s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--dot-color);
+            display: block;
+            box-shadow: 0 0 8px var(--dot-color);
+        }
+
+        .search-panel {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 12px;
+            z-index: 6;
+            display: none;
+            width: min(360px, calc(100vw - 24px));
+            transform: none;
+            color: var(--fg);
+        }
+
+        .search-panel.open { display: block; }
+        .search-form { display: flex; gap: 8px; margin: 0; padding: 6px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+        .search-input { width: 100%; padding: 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--bg); color: var(--fg); font: inherit; }
+        .search-results { position: absolute; top: calc(100% + 8px); right: 0; display: grid; gap: 8px; width: 100%; max-height: min(45vh, 360px); overflow-y: auto; padding: 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+        .search-result { display: grid; gap: 4px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 7px; color: var(--fg); text-decoration: none; background: var(--panel-card); }
+        .search-result:hover { background: var(--panel-hover); }
+
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50vw;
+            height: 100vh;
+            height: 100dvh;
+            transform: translateX(100%);
+            background: var(--panel);
+            border-left: 2px solid var(--line-strong);
+            box-shadow: -5px 0 20px var(--line-glow);
+            padding: 90px 24px 24px;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease, border-color 0.25s ease;
+            z-index: 10;
+        }
+
+        .side-panel.open { transform: translateX(0); }
+
+        .appearance-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 12px 14px;
+            margin: 12px 0 0;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel-card);
+            color: var(--fg);
+        }
+
+        .appearance-label { font-weight: 600; }
+
+        .side-panel a {
+            display: block;
+            text-decoration: none;
+            color: var(--menu);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 18px 14px;
+            margin: 12px 0;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel-card);
+            transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .side-panel a:hover {
+            background: var(--panel-hover);
+            color: var(--line-strong);
+            box-shadow: 0 0 10px var(--line-glow);
+        }
+
+        .theme-toggle:focus-visible,
+        .search-button:focus-visible,
+        .dots-box:focus-visible {
+            outline: 3px solid var(--line-strong);
+            outline-offset: 3px;
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 82px;
+            height: 44px;
+            flex-shrink: 0;
+            padding: 0;
+            border: 1px solid var(--toggle-border);
+            border-radius: 999px;
+            background: var(--toggle-track);
+            box-shadow: inset 0 2px 5px var(--toggle-shadow), 0 2px 5px var(--toggle-shadow);
+            cursor: pointer;
+            transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .theme-toggle-thumb {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            z-index: 1;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--toggle-thumb);
+            box-shadow: 0 2px 6px var(--toggle-shadow);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        body:not(.light-mode) .theme-toggle-thumb { transform: translateX(38px); }
+
+        .theme-icon {
+            position: absolute;
+            top: 50%;
+            z-index: 2;
+            transform: translateY(-50%);
+            font-size: 20px;
+            line-height: 1;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .theme-icon.sun { left: 11px; color: var(--toggle-sun); opacity: 0; }
+        .theme-icon.moon { right: 11px; color: var(--toggle-moon); opacity: 1; }
+        body.light-mode .theme-icon.sun { opacity: 1; }
+        body.light-mode .theme-icon.moon { opacity: 0; }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 5;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* HERO & PROMOTION SECTION */
+        .promo-hero {
+            position: relative;
+            width: min(1200px, calc(100% - 32px));
+            margin: 36px auto 28px;
+            padding: clamp(28px, 5vw, 54px) clamp(20px, 4vw, 44px);
+            border: 1px solid var(--line-strong);
+            border-radius: 18px;
+            background: radial-gradient(circle at 10% 20%, rgba(0, 234, 255, 0.12) 0%, rgba(0, 0, 0, 0.95) 70%), var(--product-surface);
+            box-shadow: 0 0 35px rgba(0, 234, 255, 0.18);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .promo-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            margin-bottom: 16px;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            background: rgba(0, 234, 255, 0.08);
+            color: var(--line-strong);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .promo-hero h1 {
+            margin: 0 0 16px;
+            color: #ffffff;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            line-height: 1.2;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.55), 0 0 24px rgba(0, 234, 255, 0.6), 0 0 48px rgba(0, 234, 255, 0.3);
+        }
+
+        body.light-mode .promo-hero h1 { color: #000000; text-shadow: none; }
+
+        .promo-hero p {
+            max-width: 720px;
+            margin: 0 auto 28px;
+            color: rgba(234, 252, 255, 0.92);
+            font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+            line-height: 1.6;
+            text-shadow: 0 0 10px rgba(0, 234, 255, 0.45), 0 0 24px rgba(0, 234, 255, 0.25);
+        }
+
+        .promo-perks-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px clamp(12px, 3vw, 28px);
+            margin-top: 14px;
+        }
+
+        .promo-perk-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border: 1px solid rgba(0, 234, 255, 0.28);
+            border-radius: 999px;
+            background: rgba(0, 234, 255, 0.04);
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.35), 0 0 18px rgba(0, 234, 255, 0.4);
+        }
+
+        /* PROMOTIONS GRID & CARDS */
+        .promo-main {
+            width: min(1200px, calc(100% - 32px));
+            margin: 0 auto 70px;
+        }
+
+        .promo-header-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .promo-header-row h2 {
+            margin: 0;
+            color: var(--heading);
+            font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+        }
+
+        .promo-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .promo-filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--fg);
+            font: inherit;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .promo-filter-btn:hover, .promo-filter-btn.active {
+            background: var(--line-strong);
+            color: var(--button-text);
+        }
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .promo-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 14px;
+            border: 1px solid var(--product-border);
+            border-radius: 14px;
+            background: linear-gradient(155deg, var(--product-surface-raised), var(--product-surface) 38%);
+            color: var(--product-text);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .promo-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--line-strong);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28), 0 0 16px var(--line-glow);
+        }
+
+        .promo-badge-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 2;
+            padding: 5px 10px;
+            border-radius: 6px;
+            background: var(--promo-badge-bg);
+            color: var(--promo-badge-text);
+            font-size: 0.72rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: 0 2px 10px rgba(255, 51, 75, 0.45);
+        }
+
+        .promo-card-brand {
+            height: 28px;
+            margin: 2px 0 8px auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .promo-card-brand img {
+            max-width: 72px;
+            max-height: 26px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: contrast(2);
+        }
+
+        .promo-gallery {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 210px;
+            overflow: hidden;
+            margin: 2px 0 12px;
+            border: 1px solid var(--product-border);
+            border-radius: 9px;
+            background: var(--product-image-bg);
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .promo-gallery img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .promo-card:hover .promo-gallery img { transform: scale(1.05); }
+
+        .promo-card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .promo-card-sku {
+            padding: 3px 8px;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--fg);
+        }
+
+        .promo-card-stock {
+            color: #00c56a;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        .promo-card h3 {
+            margin: 0 0 10px;
+            color: #ffffff;
+            font-size: 0.98rem;
+            line-height: 1.35;
+            min-height: 40px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+
+        body.light-mode .promo-card h3 { color: #111111; }
+
+        .promo-card-specs {
+            display: grid;
+            gap: 4px;
+            margin: 0 0 14px;
+            padding: 0;
+            list-style: none;
+            color: var(--product-muted);
+            font-size: 0.78rem;
+            line-height: 1.4;
+            min-height: 90px;
+        }
+
+        .promo-card-specs li {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .promo-card-specs li::before {
+            content: "• ";
+            color: var(--line-strong);
+            font-weight: 800;
+            margin-right: 4px;
+        }
+
+        .promo-free-gift {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            background: rgba(0, 234, 255, 0.06);
+            border: 1px dashed var(--line-strong);
+            color: var(--line-strong);
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .promo-card-pricing {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin: auto 0 14px;
+        }
+
+        .promo-current-price {
+            color: #ffffff;
+            font-size: 1.35rem;
+            font-weight: 900;
+        }
+
+        body.light-mode .promo-current-price { color: #111111; }
+
+        .promo-original-price {
+            color: var(--product-muted);
+            font-size: 0.9rem;
+            text-decoration: line-through;
+        }
+
+        .promo-discount-badge {
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: var(--promo-badge-bg);
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+
+        .promo-card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 8px;
+        }
+
+        .promo-card-actions button {
+            min-height: 40px;
+            padding: 8px 10px;
+            border: 1px solid var(--line-strong);
+            border-radius: 6px;
+            background: var(--line-strong);
+            color: var(--button-text);
+            font: inherit;
+            font-size: 0.8rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: opacity 0.2s, filter 0.2s;
+        }
+
+        .promo-card-actions button:hover { filter: brightness(1.12); }
+
+        .promo-card-actions .promo-see-more {
+            background: transparent;
+            color: var(--line-strong);
+        }
+
+        .promo-card-actions .promo-fav-btn {
+            padding: 0 12px;
+            background: transparent;
+            color: var(--line-strong);
+            font-size: 1.1rem;
+        }
+
+        .promo-card-actions .button-cart-icon,
+        .promo-card-actions .button-eye-icon {
+            width: 16px;
+            height: 16px;
+            padding: 0;
+            flex: 0 0 auto;
+            stroke: currentColor;
+            fill: none;
+        }
+
+        @media (max-width: 980px) {
+            .promo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 760px) {
+            .topbar { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 10px 16px; }
+            .brand { grid-column: 1; grid-row: 1; justify-self: start; }
+            .brand-logo { width: min(28vw, 132px); max-height: 52px; }
+            .menu { display: none; }
+            .topbar-actions { grid-column: 2; grid-row: 1; }
+            .promo-grid { grid-template-columns: minmax(0, 1fr); }
+            .promo-hero { padding: 24px 16px; }
+            .search-panel { top: calc(100% + 8px); right: 12px; left: auto; width: min(360px, calc(100vw - 24px)); transform: none; }
+            .search-form { padding: 4px; }
+            .search-input { flex: 1; min-width: 0; padding-inline: 10px; font-size: 1rem; }
+            .profile-button, .search-button { width: 34px; height: 34px; }
+            .search-button svg { width: 18px; height: 18px; }
+            .dots-box { width: 40px; height: 40px; }
+            .dot { width: 6px; height: 6px; }
+            .appearance-control { flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+    </style>
+    <link rel="stylesheet" href="style.css?v=1">
+</head>
+<body class="home-page">
+    <header class="topbar">
+        <a class="brand" href="home.html" aria-label="Go to Home">
+            <img class="brand-logo" src="inmage/rezekee-shop-horizontal.png" alt="RezekeeeShop logo">
+        </a>
+
+        <nav class="menu" aria-label="Main navigation">
+            <a href="home.html">Home</a>
+            <a href="products.html#brands">Products</a>
+            <a href="about.html">About</a>
+            <a class="promotion-link" href="promotion.html" aria-current="page">Promotion</a>
+        </nav>
+
+        <div class="topbar-actions">
+            <button class="store-action-button" type="button" data-store-view="cart" aria-label="Open shopping basket (0 items)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9.5" cy="19" r="1.2" fill="currentColor"></circle><circle cx="18" cy="19" r="1.2" fill="currentColor"></circle></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="search-button" type="button" id="searchButton" aria-label="Search store" title="Search store" aria-expanded="false" aria-controls="searchPanel">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </button>
+            <button class="store-action-button" type="button" data-store-view="favorites" aria-label="Open favorites (0 saved)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.8 8.8c0 5.3-8.8 11-8.8 11s-8.8-5.7-8.8-11A4.8 4.8 0 0 1 12 6.5a4.8 4.8 0 0 1 8.8 2.3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="profile-button" type="button" id="profileButton" aria-label="Sign in with phone" title="Sign in">
+                <svg id="profileIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"></circle><path d="M4.5 20c.7-3.5 3.2-5.4 7.5-5.4s6.8 1.9 7.5 5.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </button>
+            <button class="dots-box" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidePanel" id="menuToggle">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+        </div>
+        <div class="search-panel" id="searchPanel" aria-label="Store search">
+            <form class="search-form" role="search" id="searchForm">
+                <input class="search-input" id="storeSearch" type="search" aria-label="Search any item you want" placeholder="Search any item you want" autocomplete="off">
+            </form>
+            <div class="search-results" id="searchResults" aria-live="polite"></div>
+        </div>
+    </header>
+
+    <dialog class="profile-dialog" id="authDialog" aria-labelledby="authTitle">
+        <form class="auth-step" id="phoneForm">
+            <h2 id="authTitle">Sign in or create an account</h2>
+            <button class="google-signin" id="googleSignInButton" type="button">Continue with Google</button>
+            <div class="auth-divider" aria-hidden="true">or use your phone</div>
+            <label for="authPhone">Phone number</label>
+            <input id="authPhone" name="phone" type="tel" autocomplete="tel" placeholder="Phone number" required>
+            <p class="profile-note">Select your country, then enter your local phone number. We'll send a one-time SMS code.</p>
+            <div class="profile-actions"><button class="profile-cancel" type="button" data-auth-close>Cancel</button><button class="profile-save" id="sendCodeButton" type="submit">Send code</button></div>
+        </form>
+        <form class="auth-step" id="otpForm" hidden>
+            <h2>Verify your phone</h2>
+            <label for="authCode">SMS verification code</label>
+            <input id="authCode" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" required>
+            <div class="profile-actions"><button class="profile-cancel" id="changePhoneButton" type="button">Use another number</button><button class="profile-save" id="verifyCodeButton" type="submit">Verify and sign in</button></div>
+        </form>
+        <section class="account-view" id="accountView" hidden>
+            <h2>Account</h2>
+            <p class="profile-note" id="signedInPhone"></p>
+            <div class="profile-actions"><button class="profile-cancel" type="button" data-auth-close>Close</button><button class="profile-save" id="signOutButton" type="button">Sign out</button></div>
+        </section>
+        <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+    </dialog>
+
+    <div class="overlay" id="overlay"></div>
+
+    <aside class="side-panel" id="sidePanel" aria-label="More navigation" aria-hidden="true" inert>
+        <button class="side-panel-close" type="button" aria-label="Close navigation menu" id="sidePanelClose">×</button>
+        <a href="home.html">Home page</a>
+        <a href="products.html#brands">Products</a>
+        <a href="promotion.html">Promotions</a>
+        <a href="about.html">About us</a>
+        <div class="appearance-control">
+            <span class="appearance-label" id="appearanceLabel">Appearance</span>
+            <button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false" aria-describedby="appearanceLabel">
+                <span class="theme-toggle-thumb"><i class="fa-solid fa-moon"></i></span>
+                <span class="theme-icon sun" aria-hidden="true"><i class="fa-solid fa-sun"></i></span>
+                <span class="theme-icon moon" aria-hidden="true"><i class="fa-solid fa-moon"></i></span>
+            </button>
+        </div>
+    </aside>
+
+    <main>
+        <section class="promo-hero">
+            <div class="promo-eyebrow">• Limited-Time Special Deals</div>
+            <h1>Exclusive Laptop Promotions &amp; Discounts</h1>
+            <p>Upgrade your gaming or work setup with our best promotional prices. Every promotional laptop includes official warranty and a free premium gift bundle.</p>
+            <div class="promo-perks-row">
+                <span class="promo-perk-pill">• Free ROG / TUF Backpack</span>
+                <span class="promo-perk-pill">• Free Gaming Mouse</span>
+                <span class="promo-perk-pill">• 2-Year Official Warranty</span>
+                <span class="promo-perk-pill">• Fast Delivery in Cambodia</span>
+            </div>
+        </section>
+
+        <section class="promo-main">
+            <div class="promo-header-row">
+                <h2>Featured Promotional Deals</h2>
+                <div class="promo-filters">
+                    <button class="promo-filter-btn active" type="button" data-promo-filter="all">All Deals</button>
+                    <button class="promo-filter-btn" type="button" data-promo-filter="gaming">Gaming</button>
+                    <button class="promo-filter-btn" type="button" data-promo-filter="budget">Under $1,000</button>
+                    <button class="promo-filter-btn" type="button" data-promo-filter="premium">High Performance</button>
+                </div>
+            </div>
+
+            <div class="promo-grid" id="promotionsGrid" aria-live="polite">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="store-footer">
+        <div class="store-footer-main">
+            <section class="store-footer-brand">
+                <a href="home.html" aria-label="RezekeeeShop home"><img class="store-footer-logo" src="inmage/Gemini_Generated_Image_bgsyf5bgsyf5bgsy-removebg-preview.png" alt="RezekeeeShop"></a>
+                <h4>OPENING HOURS</h4>
+                <p>Monday to Sunday, 8:00 AM to 5:30 PM.</p>
+            </section>
+            <div class="footer-column">
+                <h4>CONTACT US</h4>
+
+                <div class="contact-subblock">
+                    <span class="contact-subtitle">Sales Showroom</span>
+                    <a href="tel:0965110561" class="contact-link"><i class="fa-solid fa-phone"></i> 096 511 0561</a>
+                </div>
+
+                <div class="contact-subblock">
+                    <span class="contact-subtitle">Service Center</span>
+                    <a href="tel:0965660561" class="contact-link"><i class="fa-solid fa-phone"></i> 096 566 0561</a>
+                </div>
+            </div>
+            <section>
+                <h4>INFORMATION</h4>
+                <ul class="store-footer-list">
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="about.html">About us</a></li>
+                </ul>
+            </section>
+            <section>
+                <h4>MY ACCOUNT</h4>
+                <ul class="store-footer-list">
+                    <li><button class="footer-login-button" type="button" id="footerLoginButton">Login</button></li>
+                    <li><a href="favorites.html">My favorites</a></li>
+                </ul>
+            </section>
+            <section>
+                <h4>FOLLOW US</h4>
+                <ul class="store-footer-list store-footer-social-list">
+                    <li><a href="https://www.facebook.com/share/19gmzMMRUH/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg> Facebook</a></li>
+                    <li><a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 6.8a4.7 4.7 0 0 1-3.3-1.4 4.7 4.7 0 0 1-1.2-3.2h-3.1v12.4a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .9.1V8.8a6 6 0 0 0-.9-.1 5.9 5.9 0 1 0 5.9 5.9V9.2a7.8 7.8 0 0 0 4.5 1.4V7.5a4.7 4.7 0 0 1-1-.7z"/></svg> TikTok</a></li>
+                    <li><a href="https://www.instagram.com/rezekeee.shop?exln=a21zbm4yenc0MjZz&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg> Instagram</a></li>
+                    <li><a href="https://t.me/RezekeeeShop" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 3.8 11.5c-1.2.5-1.2 1.2-.2 1.5l4.6 1.4 1.8 5.4c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.4-1.7-1.5-1.3z"/></svg> Telegram</a></li>
+                </ul>
+            </section>
+
+        </div>
+        <div class="store-footer-bottom">
+            <span>&copy; RezekeeeShop &middot; Cambodia</span>
+            <div class="store-footer-payments" aria-label="Accepted payment methods">
+                <img class="store-payment-image" src="inmage/Asset102x_1756112120.png" alt="Wing Bank">
+                <img class="store-payment-image" src="inmage/KHQR-available-here-logo-with-bg.webp" alt="KHQR">
+                <img class="store-payment-image" src="inmage/Visa_Inc.-Logo.wine.png" alt="Visa">
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/intlTelInput.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="owner-nav.js"></script>
+    <script src="store-auth.js"></script>
+    <script src="store-actions.js?v=5"></script>
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const sidePanel = document.getElementById('sidePanel');
+        const overlay = document.getElementById('overlay');
+        const themeToggle = document.getElementById('themeToggle');
+        const searchButton = document.getElementById('searchButton');
+        const searchPanel = document.getElementById('searchPanel');
+        const storeSearch = document.getElementById('storeSearch');
+        const searchResults = document.getElementById('searchResults');
+        const promotionsGrid = document.getElementById('promotionsGrid');
+        const topbar = document.querySelector('.topbar');
+        const profileButton = document.getElementById('profileButton');
+        const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+
+        const brandLogos = {
+            acer: { name: "Acer", src: "inmage/kisspng-logo-acer-iconia-one-1-b3-a4-font-ivpro-sistemas-multimedia-1713923641585.webp" },
+            asus: { name: "ASUS", src: "inmage/hd-asus-official-logo-transparent-png-701751694773683zhb9eu5zq3.png" },
+            dell: { name: "Dell", src: "inmage/images.jpg" },
+            msi: { name: "MSI", src: "inmage/msi-logo-png-svg.webp" },
+            hp: { name: "HP", src: "inmage/HP-logo-technology-brand-emblem-transparent-png-jpg.webp" },
+            lenovo: { name: "Lenovo", src: "inmage/lenovo-logo-png-svg.webp" },
+            mac: { name: "Apple", src: "inmage/apple-logo-transparent.png" }
+        };
+
+        function getBrandInfo(name) {
+            const m = String(name || "").match(/\b(ASUS|Acer|Dell|MSI|HP|Lenovo|Mac|Apple|Alien[\s-]?ware)\b/i);
+            const lower = m ? m[1].toLowerCase().replace(/[\s-]/g, "") : "";
+            // Alienware is Dell's gaming line, so it uses the Dell logo (also when typed "alien ware").
+            const key = lower === "apple" ? "mac" : (lower === "alienware" ? "dell" : (lower || "asus"));
+            return brandLogos[key] || brandLogos.asus;
+        }
+
+        function parseSpecificationItems(input) {
+            if (!input) return [];
+            const text = Array.isArray(input) ? input.join("\n") : String(input);
+            const rawLines = text.trim().split(/\r?\n/);
+            const results = [];
+            let currentItem = null;
+
+            for (const rawLine of rawLines) {
+                const line = rawLine.trim();
+                if (!line) continue;
+
+                const isBullet = /^[-×××*×]/.test(line);
+                const hasKey = /^[A-Za-z0-9][\w\s/&.'"-]{1,30}:/.test(line);
+
+                if (!isBullet && !hasKey && currentItem) {
+                    currentItem += "; " + line;
+                    results[results.length - 1] = currentItem;
+                    continue;
+                }
+
+                const parts = line.split(/(?<=[\s,;])[-×××*×]\s*(?=[A-Za-z0-9])|^[-×××*×]\s*/);
+                for (const part of parts) {
+                    let cleaned = part.trim();
+                    cleaned = cleaned.replace(/^[-×××*×\s:]+/, "").replace(/[\s,;]+$/, "");
+                    cleaned = cleaned
+                        .replace(/^CPU\s*\/\s*Processor:/i, "CPU:")
+                        .replace(/^Operating\s+System:/i, "OS:")
+                        .replace(/^RAM\s*\/\s*Memory:/i, "RAM:")
+                        .replace(/^Graphic:/i, "Graphics:");
+                    if (cleaned.length > 0) {
+                        results.push(cleaned);
+                        currentItem = cleaned;
+                    }
+                }
+            }
+            return results;
+        }
+
+        // Theme Handling
+        function applyTheme(theme) {
+            const isLight = theme === 'light';
+            document.body.classList.toggle('light-mode', isLight);
+            themeToggle.setAttribute('aria-pressed', String(isLight));
+            themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+            localStorage.setItem('rezekee-theme', theme);
+        }
+
+        applyTheme(localStorage.getItem('rezekee-theme') || 'dark');
+        themeToggle.addEventListener('click', () => {
+            applyTheme(document.body.classList.contains('light-mode') ? 'dark' : 'light');
+        });
+
+        function updateTopbarSize() {
+            const isCompact = window.scrollY > 40;
+            topbar.classList.toggle('compact', isCompact);
+            sessionStorage.setItem('rezekee-topbar-compact', String(isCompact));
+        }
+
+        function restoreTopbarSize() {
+            topbar.classList.toggle('compact', window.scrollY > 40 || sessionStorage.getItem('rezekee-topbar-compact') === 'true');
+        }
+
+        restoreTopbarSize();
+        window.addEventListener('pageshow', restoreTopbarSize);
+        window.addEventListener('scroll', updateTopbarSize, { passive: true });
+
+        // Navigation drawer
+        function toggleDrawer(open) {
+            sidePanel.classList.toggle('open', open);
+            overlay.classList.toggle('show', open);
+            menuToggle.setAttribute('aria-expanded', String(open));
+            menuToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+            sidePanel.setAttribute('aria-hidden', String(!open));
+            sidePanel.inert = !open;
+        }
+
+        menuToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            toggleDrawer(!sidePanel.classList.contains('open'));
+        });
+
+        overlay.addEventListener('click', () => toggleDrawer(false));
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && sidePanel.classList.contains('open')) {
+                toggleDrawer(false);
+                menuToggle.focus();
+            }
+        });
+
+        // Search Panel
+        searchButton.addEventListener('click', () => {
+            const open = !searchPanel.classList.contains('open');
+            searchPanel.classList.toggle('open', open);
+            searchButton.setAttribute('aria-expanded', String(open));
+            if (open) storeSearch.focus();
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!searchPanel.contains(e.target) && !searchButton.contains(e.target)) {
+                searchPanel.classList.remove('open');
+                searchButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        storeSearch.addEventListener('input', () => {
+            const query = storeSearch.value.trim().toLowerCase();
+            const products = JSON.parse(localStorage.getItem('rezekee-products') || '[]');
+            if (!query) {
+                searchResults.innerHTML = '';
+                return;
+            }
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query) || (p.sku && p.sku.toLowerCase().includes(query)));
+            if (!filtered.length) {
+                searchResults.innerHTML = '<div class="search-result">No matching laptops found.</div>';
+                return;
+            }
+            searchResults.innerHTML = filtered.map(p => `
+                <a class="search-result" href="product-details.html?id=${encodeURIComponent(p.id)}">
+                    <strong>${p.name}</strong>
+                    <span>${formatter.format(p.price_usd || p.price)}</span>
+                </a>
+            `).join('');
+        });
+
+        // Load Promotional Products
+        let allPromoProducts = [];
+        let activeFilter = 'all';
+
+        async function loadPromotions() {
+            let products = [];
+            if (window.REZEKEE_SUPABASE_CONFIG && window.supabase) {
+                try {
+                    const sb = window.supabase.createClient(window.REZEKEE_SUPABASE_CONFIG.url, window.REZEKEE_SUPABASE_CONFIG.anonKey);
+                    const { data, error } = await sb.from("products").select("*").eq("is_active", true).order("created_at", { ascending: false });
+                    if (!error && data?.length) {
+                        products = data;
+                        // Keep the shared cache fresh so every page shows the latest discounts.
+                        localStorage.setItem('rezekee-products', JSON.stringify(products));
+                    }
+                } catch (e) {
+                    console.warn(e);
+                }
+            }
+            if (!products.length) {
+                // Fall back to the last cached list, then to the built-in promos below.
+                products = JSON.parse(localStorage.getItem('rezekee-products') || '[]');
+            }
+
+            const fallbackPromos = [
+                {
+                    id: "test-asus-tuf-fa506ncq",
+                    sku: "ASUS TUF",
+                    name: "ASUS TUF Gaming A15 FA506NCQ-HN026W",
+                    description: "AMD Ryzen 7 7435HS, 16GB DDR5, 512GB SSD, NVIDIA RTX 3050 4GB, 15.6-inch FHD 144Hz display.",
+                    specifications: [
+                        "CPU: AMD Ryzen 7 7435HS",
+                        "OS: Windows 11 Home",
+                        "RAM: 16GB DDR5 5600",
+                        "Storage: SSD 512GB M.2",
+                        "Graphics: NVIDIA RTX 3050 4GB",
+                        "Display: 15.6-inch FHD (1920 x 1080) 144Hz IPS",
+                        "Battery: 3-cell 48WHrs",
+                        "Backlit Chiclet Keyboard",
+                        "What's in box: TUF Gaming M3 Mouse + Backpack",
+                        "2Y + 1st Year Local Perfect Warranty"
+                    ],
+                    price_usd: 899,
+                    discount_percent: 11,
+                    image_url: "inmage/asus-tuf-fa506ncq.png"
+                },
+                {
+                    id: "test-asus-rog-strix-g16",
+                    sku: "LURS-0939",
+                    name: "ASUS ROG Strix G16 G614PR-RV151W",
+                    description: "AMD Ryzen 9 8940HX, 16GB DDR5 5600, 512GB SSD, NVIDIA GeForce RTX 5070 8GB, 16-inch FHD+ 165Hz display.",
+                    specifications: [
+                        "CPU: AMD Ryzen 9 8940HX",
+                        "OS: Windows 11 Home SL License",
+                        "RAM: 16GB DDR5 5600",
+                        "Storage: SSD 512GB M.2 2280",
+                        "Graphics: NVIDIA GeForce RTX 5070 8GB",
+                        "Display: 16-inch FHD+ 165Hz G-SYNC",
+                        "Battery: 4-cell 90WHrs",
+                        "Backlit 4-zone RGB keyboard",
+                        "ROG gaming mouse and backpack included",
+                        "2Y + 1st Year Local Perfect Warranty"
+                    ],
+                    price_usd: 2599,
+                    discount_percent: 8,
+                    image_url: "inmage/ASUS ROG Strix G16 (Model G614PR-RV151W).png"
+                },
+                {
+                    id: "test-asus-rog-zephyrus-g16",
+                    sku: "LURZ-0930",
+                    name: "ASUS ROG Zephyrus G16 GU606AR-TB042W",
+                    description: "Intel Core Ultra 9 386H, 32GB LPDDR5X, 1TB SSD, NVIDIA RTX 5070 Ti 12GB, 16-inch 2.5K OLED 240Hz display.",
+                    specifications: [
+                        "CPU: Core Ultra 9 Processor 386H",
+                        "OS: Windows 11 Home",
+                        "RAM: 32GB LPDDR5X 8533",
+                        "Storage: SSD 1TB M.2 2280",
+                        "Graphics: NVIDIA RTX 5070 Ti 12GB",
+                        "Display: 16-inch 2.5K OLED 240Hz",
+                        "Battery: 4-cell 90WHrs",
+                        "ROG Impact Mouse & Sleeve Included",
+                        "2Y + 1st Year Local Perfect Warranty"
+                    ],
+                    price_usd: 3799,
+                    discount_percent: 8,
+                    image_url: "inmage/ASUS ROG Zephyrus G16 GU606AR-TB042W.png"
+                }
+            ];
+
+            const catalog = products.length ? products : fallbackPromos;
+            allPromoProducts = catalog.map((p) => {
+                const disc = Number(p.discount_percent || 0);
+                const original = Number(p.price_usd || p.price || 0);
+                const discount = disc > 0 ? disc : (p.id.startsWith("test-") ? 10 : 0);
+                const current = discount > 0 ? original * (1 - discount / 100) : original;
+                return {
+                    ...p,
+                    originalPrice: original,
+                    discountPercent: discount,
+                    currentPrice: current
+                };
+            });
+
+            renderPromoGrid();
+        }
+
+        function renderPromoGrid() {
+            let filtered = allPromoProducts;
+            if (activeFilter === 'gaming') {
+                filtered = allPromoProducts.filter(p => /rog|tuf|gaming|rtx|geforce|nitro|legion|victus|katana/i.test(p.name));
+            } else if (activeFilter === 'budget') {
+                filtered = allPromoProducts.filter(p => p.currentPrice <= 1000);
+            } else if (activeFilter === 'premium') {
+                filtered = allPromoProducts.filter(p => p.currentPrice > 1500);
+            }
+
+            if (!filtered.length) {
+                promotionsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--product-muted); padding: 40px 0;">No promotional models found in this category.</p>';
+                return;
+            }
+
+            promotionsGrid.innerHTML = filtered.map((item) => {
+                const brand = getBrandInfo(item.name);
+                const specs = parseSpecificationItems(item.specifications || item.description).slice(0, 5);
+                const img = Array.isArray(item.image_urls) && item.image_urls.length ? item.image_urls[0] : (item.image_url || item.image || "");
+                const badgeText = item.discountPercent > 0 ? `${item.discountPercent}% OFF` : `HOT DEAL`;
+
+                return `
+                    <article class="promo-card">
+                        <span class="promo-badge-tag">${badgeText}</span>
+                        <div class="promo-card-brand">
+                            <img src="${brand.src}" alt="${brand.name}">
+                        </div>
+                        <div class="promo-gallery">
+                            <img src="${img}" alt="${item.name}" loading="lazy">
+                        </div>
+                        <div class="promo-card-meta">
+                            <span class="promo-card-sku">${item.sku || "PROMO-DEAL"}</span>
+                            <span class="promo-card-stock">? In Stock</span>
+                        </div>
+                        <h3>${item.name}</h3>
+                        <div class="promo-free-gift">• Free Backpack + Gaming Mouse Bundle</div>
+                        <ul class="promo-card-specs">
+                            ${specs.map(s => `<li>${s}</li>`).join("")}
+                        </ul>
+                        <div class="promo-card-pricing">
+                            <span class="promo-current-price">${formatter.format(item.currentPrice)}</span>
+                            ${item.discountPercent > 0 ? `<span class="promo-original-price">${formatter.format(item.originalPrice)}</span>` : ""}
+                            ${item.discountPercent > 0 ? `<span class="promo-discount-badge">Save ${formatter.format(item.originalPrice - item.currentPrice)}</span>` : ""}
+                        </div>
+                        <div class="promo-card-actions">
+                            <button type="button" data-promo-cart="${item.id}"><svg class="button-cart-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9.5" cy="19" r="1.2" fill="currentColor"></circle><circle cx="18" cy="19" r="1.2" fill="currentColor"></circle></svg><span>Add To Cart</span></button>
+                            <button class="promo-see-more" type="button" data-promo-detail="${item.id}"><svg class="button-eye-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"></circle></svg><span>See More</span></button>
+                            <button class="promo-fav-btn" type="button" data-promo-fav="${item.id}" aria-label="Favorite">?</button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            // Bind actions
+            promotionsGrid.querySelectorAll('[data-promo-cart]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const prod = allPromoProducts.find(p => String(p.id) === String(btn.dataset.promoCart));
+                    if (!prod) return;
+                    window.dispatchEvent(new CustomEvent("rezekee:add-to-cart", {
+                        detail: {
+                            product: {
+                                id: String(prod.id),
+                                name: prod.name,
+                                price: prod.currentPrice,
+                                image: Array.isArray(prod.image_urls) ? prod.image_urls[0] : (prod.image_url || prod.image || "")
+                            },
+                            quantity: 1
+                        }
+                    }));
+                });
+            });
+
+            promotionsGrid.querySelectorAll('[data-promo-detail]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const prod = allPromoProducts.find(p => String(p.id) === String(btn.dataset.promoDetail));
+                    if (!prod) return;
+                    localStorage.setItem("rezekee-selected-product", JSON.stringify(prod));
+                    window.location.href = `product-details.html?id=${encodeURIComponent(prod.id)}`;
+                });
+            });
+
+            promotionsGrid.querySelectorAll('[data-promo-fav]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const prod = allPromoProducts.find(p => String(p.id) === String(btn.dataset.promoFav));
+                    if (!prod) return;
+                    btn.textContent = btn.textContent === "?" ? "?" : "?";
+                    window.dispatchEvent(new CustomEvent("rezekee:toggle-favorite", {
+                        detail: {
+                            product: {
+                                id: String(prod.id),
+                                name: prod.name,
+                                price: prod.currentPrice,
+                                image: Array.isArray(prod.image_urls) ? prod.image_urls[0] : (prod.image_url || prod.image || "")
+                            }
+                        }
+                    }));
+                });
+            });
+        }
+
+        document.querySelectorAll('[data-promo-filter]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('[data-promo-filter]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeFilter = btn.dataset.promoFilter;
+                renderPromoGrid();
+            });
+        });
+
+        document.addEventListener('click', (event) => {
+            if (event.target instanceof Element && event.target.closest('#footerLoginButton')) {
+                profileButton.click();
+            }
+        });
+
+        loadPromotions();
+    </script>
+</body>
+</html>
+

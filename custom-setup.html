@@ -1,0 +1,1630 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="store-actions.css?v=6">
+    <link rel="stylesheet" href="site-shared.css?v=2">
+    <link rel="stylesheet" href="home-page.css?v=6">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Custom Gaming Setup | RezekeeeShop</title>
+    <style>
+        * { box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        :root {
+            --bg: #000000;
+            --bg-soft: rgba(0, 0, 0, 0.55);
+            --fg: #eafcff;
+            --heading: #00eaff;
+            --muted-text: rgba(223, 252, 255, 0.55);
+            --menu: #dffcff;
+            --line: rgba(0, 234, 255, 0.9);
+            --line-strong: #00eaff;
+            --line-glow: rgba(0, 234, 255, 0.5);
+            --panel: rgba(0, 0, 0, 0.9);
+            --panel-card: rgba(0, 234, 255, 0.04);
+            --panel-hover: rgba(0, 234, 255, 0.12);
+            --dot-bg: rgba(0, 234, 255, 0.08);
+            --dot-shadow: rgba(0, 234, 255, 0.6);
+            --dot-color: #ffffff;
+            --button-text: #081d22;
+            --toggle-track: #142967;
+            --toggle-border: #102257;
+            --toggle-thumb: #304da7;
+            --toggle-sun: #d6b900;
+            --toggle-moon: #ffffff;
+            --toggle-shadow: rgba(5, 15, 54, 0.5);
+            --product-surface: #07141b;
+            --product-surface-raised: #0c2029;
+            --product-text: #eafcff;
+            --product-muted: #a4c1c8;
+            --product-border: rgba(0, 234, 255, 0.3);
+            --product-image-bg: #000000;
+        }
+
+        body.light-mode {
+            --bg: #f5f5f5;
+            --bg-soft: rgba(255, 255, 255, 0.85);
+            --fg: #111111;
+            --heading: #111111;
+            --muted-text: rgba(0, 0, 0, 0.55);
+            --menu: #111111;
+            --line: rgba(0, 0, 0, 0.9);
+            --line-strong: #111111;
+            --line-glow: rgba(0, 0, 0, 0.28);
+            --panel: rgba(255, 255, 255, 0.96);
+            --panel-card: rgba(0, 0, 0, 0.03);
+            --panel-hover: rgba(0, 0, 0, 0.06);
+            --dot-bg: rgba(0, 0, 0, 0.05);
+            --dot-shadow: rgba(0, 0, 0, 0.18);
+            --dot-color: #0f0f0f;
+            --button-text: #ffffff;
+            --toggle-track: #f0f0f4;
+            --toggle-border: #e0e0e7;
+            --toggle-thumb: #ffffff;
+            --toggle-sun: #e0b800;
+            --toggle-moon: #6c7897;
+            --toggle-shadow: rgba(25, 34, 76, 0.2);
+            --product-surface: #ffffff;
+            --product-surface-raised: #f1fbfc;
+            --product-text: #14252a;
+            --product-muted: #536c72;
+            --product-border: rgba(0, 130, 150, 0.25);
+            --product-image-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            font-size: 16px;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 4;
+            width: 100%;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            align-items: center;
+            gap: 18px;
+            padding: 16px clamp(12px, 4vw, 28px);
+            background: var(--bg-soft);
+            border-bottom: 2px solid var(--line);
+            box-shadow: 0 0 18px var(--line-glow);
+            transition: padding 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .topbar.compact {
+            padding-block: 7px;
+            box-shadow: 0 0 12px var(--line-glow);
+        }
+
+        .menu {
+            grid-column: 1;
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 4vw, 28px);
+            justify-self: start;
+        }
+
+        .brand {
+            grid-column: 2;
+            justify-self: center;
+            display: flex;
+            align-items: center;
+            color: inherit;
+            text-decoration: none;
+            min-width: 0;
+            padding: 6px 12px;
+            border: 1px solid var(--line-strong);
+            border-radius: 12px;
+            background: #000;
+            box-shadow: 0 0 14px var(--line-glow);
+        }
+
+        .brand-logo {
+            width: min(22vw, 220px);
+            height: auto;
+            display: block;
+            max-height: 90px;
+            transition: width 0.25s ease, max-height 0.25s ease;
+        }
+
+        .brand-mark {
+            width: clamp(42px, 5vw, 62px);
+            height: clamp(42px, 5vw, 62px);
+            flex: 0 0 auto;
+            display: block;
+            background: url("inmage/Gemini_Generated_Image_30simj30simj30si.jpg") center top / 300% auto no-repeat;
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            margin-left: -2px;
+            color: #eafcff;
+            font-family: "Times New Roman", Times, serif;
+            font-size: clamp(1.05rem, 2vw, 1.45rem);
+            font-weight: 700;
+        }
+
+        body.light-mode .brand-name { color: #111111; }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--menu);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .menu a:hover { color: var(--line-strong); }
+
+        .topbar-actions {
+            grid-column: 3;
+            justify-self: end;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-button {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            border: 1px solid var(--line-strong);
+            border-radius: 50%;
+            background: var(--dot-bg);
+            color: var(--menu);
+            box-shadow: 0 0 10px var(--dot-shadow);
+            cursor: pointer;
+            transition: width 0.25s ease, height 0.25s ease, color 0.2s ease, background 0.2s ease;
+        }
+
+        .profile-button:hover { color: var(--line-strong); background: var(--panel-hover); }
+        .profile-button svg { width: 21px; height: 21px; }
+        .topbar.compact .profile-button { width: 36px; height: 36px; }
+
+        .profile-dialog {
+            width: min(400px, calc(100vw - 32px));
+            max-height: calc(100dvh - 32px);
+            padding: 24px;
+            border: 1px solid var(--line-strong);
+            border-radius: 10px;
+            background: var(--panel);
+            color: var(--fg);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-dialog::backdrop { background: rgba(0, 0, 0, 0.62); }
+        .profile-dialog form { margin: 0; }
+        .profile-dialog h2 { margin: 0 0 20px; color: var(--heading); font-size: 1.35rem; }
+        .profile-dialog label { display: block; margin-bottom: 7px; color: var(--fg); font-weight: 600; }
+        .profile-dialog input {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid var(--line-strong);
+            border-radius: 6px;
+            background: var(--bg);
+            color: var(--fg);
+            font: inherit;
+        }
+
+        .profile-dialog input:focus-visible { outline: 2px solid var(--line-strong); outline-offset: 2px; }
+        .profile-dialog .iti { width: 100%; }
+        .profile-dialog .iti__country-list { background: var(--panel); color: var(--fg); border-color: var(--line-strong); }
+        .profile-dialog .iti__country.iti__highlight { background: var(--panel-hover); }
+        .profile-dialog .iti__divider { border-color: var(--line-strong); }
+        .google-signin { width: 100%; padding: 11px 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--panel-card); color: var(--fg); font: inherit; font-weight: 700; cursor: pointer; }
+        .auth-divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; color: var(--muted-text); font-size: 0.85rem; }
+        .auth-divider::before, .auth-divider::after { flex: 1; border-top: 1px solid var(--line); content: ""; }
+        .auth-step[hidden], .account-view[hidden] { display: none; }
+        .auth-message { min-height: 1.4em; margin: 12px 0 0; color: var(--muted-text); font-size: 0.9rem; line-height: 1.45; }
+        .auth-message.error { color: #ff8c8c; }
+        .profile-note { margin: 10px 0 0; color: var(--muted-text); font-size: 0.85rem; line-height: 1.45; }
+        .profile-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 22px; }
+        .profile-actions button { padding: 9px 12px; border: 1px solid var(--line-strong); border-radius: 6px; font: inherit; font-size: 0.9rem; cursor: pointer; }
+        .profile-remove { margin-right: auto; background: transparent; color: var(--fg); }
+        .profile-cancel { background: var(--panel-card); color: var(--fg); }
+        .profile-save { background: var(--line-strong); color: var(--button-text); font-weight: 700; }
+        #sendCodeButton { color: #fff; }
+        .search-button { width: 42px; height: 42px; flex-shrink: 0; display: grid; place-items: center; padding: 0; border: 1px solid var(--line-strong); border-radius: 50%; background: var(--dot-bg); color: var(--menu); box-shadow: 0 0 10px var(--dot-shadow); cursor: pointer; transition: width 0.25s ease, height 0.25s ease, color 0.2s ease, background 0.2s ease; }
+        .search-button:hover { color: var(--line-strong); background: var(--panel-hover); }
+        .search-button svg { width: 20px; height: 20px; }
+        .topbar.compact .search-button { width: 36px; height: 36px; }
+        .search-panel { position: absolute; top: 50%; right: 12px; z-index: 6; display: none; width: min(320px, calc(100% - 24px)); transform: translateY(-50%); color: var(--fg); }
+        .search-panel.open { display: block; }
+        .search-form { display: flex; gap: 8px; margin: 0; padding: 6px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+        .search-input { width: 100%; padding: 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--bg); color: var(--fg); font: inherit; }
+        .search-input:focus-visible, .search-result:focus-visible { outline: 2px solid var(--line-strong); outline-offset: 2px; }
+        .search-results { position: absolute; top: calc(100% + 8px); right: 0; display: grid; gap: 8px; width: 100%; max-height: min(45vh, 360px); overflow-y: auto; padding: 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+        .search-result { display: grid; gap: 4px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 7px; color: var(--fg); text-decoration: none; background: var(--panel-card); }
+        .search-result:hover { background: var(--panel-hover); }
+        .search-result-description, .search-empty { margin: 0; color: var(--muted-text); font-size: 0.9rem; line-height: 1.45; }
+        .search-empty { padding: 8px 2px; }
+
+        .theme-toggle {
+            position: relative;
+            width: 82px;
+            height: 44px;
+            flex-shrink: 0;
+            padding: 0;
+            border: 1px solid var(--toggle-border);
+            border-radius: 999px;
+            background: var(--toggle-track);
+            box-shadow: inset 0 2px 5px var(--toggle-shadow), 0 2px 5px var(--toggle-shadow);
+            cursor: pointer;
+            transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .theme-toggle:focus-visible,
+        .search-button:focus-visible,
+        .dots-box:focus-visible {
+            outline: 3px solid var(--line-strong);
+            outline-offset: 3px;
+        }
+
+        .topbar.compact .dots-box {
+            width: 42px;
+            height: 42px;
+        }
+
+        .topbar.compact .dot {
+            width: 6px;
+            height: 6px;
+        }
+
+        .theme-toggle-thumb {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            z-index: 1;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--toggle-thumb);
+            box-shadow: 0 2px 6px var(--toggle-shadow);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        body:not(.light-mode) .theme-toggle-thumb { transform: translateX(38px); }
+
+        .theme-icon {
+            position: absolute;
+            top: 50%;
+            z-index: 2;
+            transform: translateY(-50%);
+            font-size: 20px;
+            line-height: 1;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .theme-icon.sun { left: 11px; color: var(--toggle-sun); opacity: 0; }
+        .theme-icon.moon { right: 11px; color: var(--toggle-moon); opacity: 1; }
+        body.light-mode .theme-icon.sun { opacity: 1; }
+        body.light-mode .theme-icon.moon { opacity: 0; }
+
+        .dots-box {
+            width: 52px;
+            height: 52px;
+            border: 2px solid var(--line-strong);
+            border-radius: 12px;
+            background: var(--dot-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            box-shadow: 0 0 12px var(--dot-shadow);
+            cursor: pointer;
+            padding: 0;
+            flex-shrink: 0;
+            transition: width 0.2s ease, height 0.2s ease, border-radius 0.2s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--dot-color);
+            display: block;
+            box-shadow: 0 0 8px var(--dot-color);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 5;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50vw;
+            height: 100vh;
+            height: 100dvh;
+            transform: translateX(100%);
+            background: var(--panel);
+            border-left: 2px solid var(--line-strong);
+            box-shadow: -5px 0 20px var(--line-glow);
+            padding: 90px 24px 24px;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease, border-color 0.25s ease;
+            z-index: 10;
+        }
+
+        .side-panel.open { transform: translateX(0); }
+
+        .appearance-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 12px 14px;
+            margin: 12px 0 0;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel-card);
+            color: var(--fg);
+        }
+
+        .appearance-label { font-weight: 600; }
+
+        .side-panel a {
+            display: block;
+            text-decoration: none;
+            color: var(--menu);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 18px 14px;
+            margin: 12px 0;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel-card);
+        }
+
+        .side-panel a:hover {
+            background: var(--panel-hover);
+            color: var(--line-strong);
+            box-shadow: 0 0 10px var(--line-glow);
+        }
+
+
+        .content {
+            max-width: 900px;
+            margin: clamp(40px, 10vh, 80px) auto;
+            padding: clamp(20px, 5vw, 40px);
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--heading);
+            font-size: clamp(2rem, 8vw, 3rem);
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: var(--fg);
+            font-size: clamp(1rem, 4vw, 1.1rem);
+            line-height: 1.7;
+        }
+
+        .scroll-test-area {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            border-top: 1px dashed rgba(0, 234, 255, 0.35);
+            color: var(--muted-text);
+        }
+
+        .scroll-test-area p {
+            font-size: 0.9rem;
+        }
+        @media (max-width: 560px) {
+            .topbar { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 10px 12px; }
+            .brand { grid-column: 1; grid-row: 1; justify-self: start; }
+            .brand-logo { width: min(28vw, 112px); max-height: 48px; }
+            .menu { display: none; }
+            .topbar-actions { grid-column: 2; grid-row: 1; gap: 6px; }
+            .search-panel { top: 50%; right: 12px; left: auto; width: min(40vw, calc(100% - 160px)); transform: translateY(-50%); }
+            .search-form { padding: 4px; }
+            .search-input { flex: 1; min-width: 0; padding-inline: 6px; font-size: clamp(8px, 2.6vw, 10px); }
+            .profile-button { width: 34px; height: 34px; }
+            .search-button { width: 34px; height: 34px; }
+            .search-button svg { width: 18px; height: 18px; }
+            .dots-box { width: 40px; height: 40px; }
+            .dot { width: 6px; height: 6px; }
+            .topbar.compact .profile-button { width: 30px; height: 30px; }
+            .topbar.compact .search-button { width: 30px; height: 30px; }
+            .topbar.compact .dots-box { width: 34px; height: 34px; }
+            .topbar.compact .dot { width: 5px; height: 5px; }
+            .appearance-control { flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+
+        .topbar { grid-template-columns: auto minmax(0, 1fr) auto; gap: clamp(18px, 3vw, 42px); padding: 12px clamp(16px, 3vw, 40px); }
+        .brand { grid-column: 1; justify-self: start; padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 12px; background: #000; box-shadow: 0 0 14px var(--line-glow); }
+        .brand-logo { width: min(16vw, 180px); max-height: 68px; }
+        .menu { grid-column: 2; justify-content: center; gap: clamp(12px, 2.4vw, 32px); justify-self: stretch; }
+        .menu a { letter-spacing: 0.04em; text-transform: uppercase; }
+        .topbar-actions { grid-column: 3; gap: 12px; }
+        .promotion-link { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 16px; border: 1px solid var(--line-strong); border-radius: 9px; background: var(--panel-card); color: var(--line-strong); box-shadow: 0 0 12px var(--line-glow); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; text-transform: uppercase; white-space: nowrap; transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
+        .promotion-link:hover { background: var(--panel-hover); box-shadow: 0 0 18px var(--line-glow); transform: translateY(-1px); }
+        .profile-button, .search-button { border-radius: 12px; }
+        .search-panel { top: calc(100% + 8px); right: 12px; width: min(360px, calc(100vw - 24px)); transform: none; }
+
+        @media (max-width: 760px) {
+            .topbar { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 10px 16px; }
+            .brand { grid-column: 1; grid-row: 1; }
+            .brand-logo { width: min(28vw, 132px); max-height: 52px; }
+            .brand-name { display: inline; font-size: clamp(0.85rem, 4vw, 1.15rem); }
+            .menu { display: none; }
+            .topbar-actions { grid-column: 2; grid-row: 1; gap: 6px; }
+            .promotion-link { display: none; }
+            .search-panel { top: calc(100% + 8px); right: 12px; left: auto; width: min(360px, calc(100vw - 24px)); transform: none; }
+            .search-form { padding: 4px; }
+            .search-input { flex: 1; min-width: 0; padding-inline: 10px; font-size: 1rem; }
+            .profile-button, .search-button { width: 34px; height: 34px; }
+            .search-button svg { width: 18px; height: 18px; }
+        }
+
+        @media (max-width: 360px) {
+            .topbar { column-gap: 6px; padding-inline: 8px; }
+            .brand { padding-inline: 4px; }
+            .brand-logo { width: clamp(60px, 24vw, 84px); max-height: 40px; }
+            .brand-name { display: inline; font-size: clamp(0.7rem, 3.5vw, 0.9rem); }
+            .topbar-actions { gap: 4px; }
+            .profile-button, .search-button { width: 30px; height: 30px; border-radius: 9px; }
+            .profile-button svg, .search-button svg { width: 16px; height: 16px; }
+            .dots-box { width: 34px; height: 34px; }
+            .dot { width: 4px; height: 4px; }
+        }
+        /* ===== Custom setup builder ===== */
+        .setup-builder {
+            width: min(1080px, 100%);
+            margin: 0 auto;
+            padding: clamp(20px, 4vw, 44px) clamp(14px, 3vw, 28px) 60px;
+        }
+
+        .setup-intro {
+            text-align: center;
+            margin-bottom: clamp(24px, 4vw, 40px);
+        }
+
+        .setup-eyebrow {
+            margin: 0 0 8px;
+            color: var(--line-strong);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .setup-intro h1 {
+            margin: 0 0 12px;
+            color: var(--heading);
+            font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+            letter-spacing: -0.03em;
+        }
+
+        .setup-lead {
+            margin: 0 auto;
+            max-width: 720px;
+            color: var(--muted-text);
+            font-size: clamp(0.98rem, 2.4vw, 1.1rem);
+            line-height: 1.7;
+        }
+
+        .setup-panel,
+        .setup-results {
+            border: 1px solid var(--line-strong);
+            border-radius: 12px;
+            background: var(--panel-card);
+            box-shadow: 0 0 16px var(--line-glow);
+            padding: clamp(18px, 3.5vw, 30px);
+            margin-bottom: clamp(20px, 3.5vw, 30px);
+        }
+
+        .setup-panel h2,
+        .setup-results h2 {
+            margin: 0 0 16px;
+            color: var(--heading);
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+        }
+
+        .setup-panel h3 {
+            margin: 22px 0 12px;
+            color: var(--fg);
+            font-size: clamp(1rem, 2.6vw, 1.15rem);
+        }
+
+        .budget-presets,
+        .usage-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .budget-chip,
+        .usage-chip {
+            min-height: 44px;
+            padding: 8px 18px;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--fg);
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .budget-chip:hover,
+        .usage-chip:hover {
+            background: var(--panel-hover);
+            transform: translateY(-1px);
+        }
+
+        .budget-chip.active,
+        .usage-chip[aria-pressed="true"] {
+            background: var(--line-strong);
+            color: var(--button-text);
+            box-shadow: 0 0 14px var(--line-glow);
+        }
+
+        .budget-chip:focus-visible,
+        .usage-chip:focus-visible,
+        .build-button:focus-visible,
+        .budget-input-row input:focus-visible {
+            outline: 3px solid var(--line-strong);
+            outline-offset: 3px;
+        }
+        .budget-form {
+            margin-top: 18px;
+        }
+
+        .budget-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--fg);
+            font-weight: 600;
+        }
+
+        .budget-input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .budget-currency {
+            display: grid;
+            place-items: center;
+            width: 46px;
+            height: 48px;
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            background: var(--dot-bg);
+            color: var(--heading);
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+
+        .budget-input-row input {
+            flex: 1 1 180px;
+            min-width: 0;
+            height: 48px;
+            padding: 0 14px;
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            background: var(--bg-soft);
+            color: var(--fg);
+            font: inherit;
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        .build-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 10px 22px;
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            background: var(--line-strong);
+            color: var(--button-text);
+            font: inherit;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+        }
+
+        .build-button:hover {
+            box-shadow: 0 0 16px var(--line-glow);
+            transform: translateY(-1px);
+        }
+
+        .build-button.secondary {
+            background: transparent;
+            color: var(--fg);
+        }
+
+        .build-button.secondary:hover {
+            background: var(--panel-hover);
+        }
+
+        .budget-hint {
+            margin: 10px 0 0;
+            color: var(--muted-text);
+            font-size: 0.88rem;
+        }
+
+        .results-summary {
+            margin: 0 0 18px;
+            color: var(--muted-text);
+            font-size: 1rem;
+        }
+
+        .parts-list {
+            list-style: none;
+            margin: 0 0 18px;
+            padding: 0;
+            display: grid;
+            gap: 10px;
+        }
+
+        .parts-list li {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+            padding: 12px 16px;
+            border: 1px solid var(--product-border);
+            border-radius: 8px;
+            background: var(--panel-card);
+        }
+
+        .part-name {
+            font-weight: 700;
+            color: var(--fg);
+        }
+
+        .part-role {
+            display: block;
+            color: var(--muted-text);
+            font-size: 0.82rem;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        .part-price {
+            color: var(--heading);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .parts-total {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            background: var(--panel-hover);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .parts-total strong {
+            color: var(--heading);
+            font-size: 1.3rem;
+        }
+
+        .results-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .results-note {
+            margin: 16px 0 0;
+            color: var(--muted-text);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .setup-shop {
+            border: 1px solid var(--line-strong);
+            border-radius: 12px;
+            background: var(--panel-card);
+            box-shadow: 0 0 16px var(--line-glow);
+            padding: clamp(18px, 3.5vw, 30px);
+            margin-bottom: clamp(20px, 3.5vw, 30px);
+        }
+
+        .setup-shop h2 {
+            margin: 0 0 6px;
+            color: var(--heading);
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+        }
+
+        .setup-shop-note {
+            margin: 0 0 18px;
+            color: var(--muted-text);
+            font-size: 0.9rem;
+        }
+
+        .setup-shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+            gap: 14px;
+        }
+
+        .shop-part-card {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 14px;
+            border: 1px solid var(--product-border);
+            border-radius: 10px;
+            background: var(--panel-card);
+        }
+
+        .shop-part-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: contain;
+            background: var(--product-image-bg);
+            border-radius: 8px;
+        }
+
+        .shop-part-badge {
+            align-self: flex-start;
+            padding: 4px 10px;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            color: var(--heading);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .shop-part-card h3 {
+            margin: 0;
+            font-size: 0.98rem;
+            color: var(--fg);
+            line-height: 1.4;
+        }
+
+        .shop-part-price {
+            margin: 0;
+            color: var(--heading);
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .shop-part-price s {
+            color: var(--muted-text);
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .shop-part-card .product-actions {
+            margin-top: auto;
+            display: grid;
+            gap: 8px;
+        }
+
+        .product-actions button,
+        .product-actions a {
+            min-height: 38px;
+            border: 1px solid var(--line-strong);
+            border-radius: 7px;
+            font: inherit;
+            font-size: 0.76rem;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .add-to-cart {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--line-strong);
+            color: var(--button-text);
+            font-weight: 700;
+        }
+
+        .add-to-cart:hover,
+        .add-to-cart.is-added {
+            background: var(--product-surface-raised);
+            color: var(--line-strong);
+            box-shadow: 0 0 12px var(--line-glow);
+        }
+
+        .product-actions .button-cart-icon {
+            width: 17px;
+            height: 17px;
+            padding: 0;
+            flex: 0 0 auto;
+        }
+
+        .see-more {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--product-text);
+            text-decoration: none;
+        }
+
+        .product-actions .button-eye-icon {
+            width: 16px;
+            height: 16px;
+            padding: 0;
+            stroke: currentColor;
+            fill: none;
+            flex: 0 0 auto;
+        }
+
+        body.light-mode .button-eye-icon { opacity: 0.8; }
+
+        .see-more:hover {
+            background: var(--panel-hover);
+            color: var(--line-strong);
+        }
+
+        .shop-part-card .favorite-product-button {
+            width: 38px;
+            min-height: 38px;
+            border: 1px solid var(--line-strong);
+            border-radius: 7px;
+            background: transparent;
+            color: var(--product-text);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .shop-part-card .favorite-product-button[aria-pressed="true"] {
+            color: #e72836;
+        }
+
+        .shop-part-card .favorite-product-button:hover {
+            background: var(--panel-hover);
+            color: #e72836;
+        }
+
+        .product-actions button:focus-visible,
+        .product-actions a:focus-visible {
+            outline: 3px solid var(--line-strong);
+            outline-offset: 2px;
+        }
+
+        .part-shop-match {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+            color: var(--muted-text);
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+
+        .part-shop-add {
+            padding: 3px 10px;
+            border: 1px solid var(--line-strong);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--heading);
+            font: inherit;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .part-shop-add:hover {
+            background: var(--panel-hover);
+            box-shadow: 0 0 10px var(--line-glow);
+        }
+
+        .part-shop-add:focus-visible {
+            outline: 3px solid var(--line-strong);
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 560px) {
+            .budget-input-row { flex-direction: column; align-items: stretch; }
+            .budget-currency { width: 100%; height: 44px; }
+            .results-actions .build-button { width: 100%; }
+        }
+    </style>
+    <link rel="stylesheet" href="style.css?v=1">
+</head>
+<body class="home-page">
+    <a class="skip-link" href="#mainContent">Skip to the setup builder</a>
+    <header class="topbar">
+        <a class="brand" href="home.html" aria-label="RezekeeeShop home">
+            <img class="brand-logo" src="inmage/rezekee-shop-horizontal.png" alt="RezekeeeShop logo">
+        </a>
+
+        <nav class="menu" aria-label="Main navigation">
+            <a href="home.html">Home</a>
+            <a href="products.html#brands">Products</a>
+            <a href="about.html">About</a>
+            <a class="promotion-link" href="promotion.html">Promotion</a>
+        </nav>
+
+        <div class="topbar-actions">
+            <button class="store-action-button" type="button" data-store-view="cart" aria-label="Open shopping basket (0 items)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9.5" cy="19" r="1.2" fill="currentColor"></circle><circle cx="18" cy="19" r="1.2" fill="currentColor"></circle></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="search-button" type="button" id="searchButton" aria-label="Search store" title="Search store" aria-expanded="false" aria-controls="searchPanel">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </button>
+            <button class="store-action-button" type="button" data-store-view="favorites" aria-label="Open favorites (0 saved)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.8 8.8c0 5.3-8.8 11-8.8 11s-8.8-5.7-8.8-11A4.8 4.8 0 0 1 12 6.5a4.8 4.8 0 0 1 8.8 2.3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="profile-button" type="button" id="profileButton" aria-label="Sign in with phone" title="Sign in">
+                <svg id="profileIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"></circle>
+                    <path d="M4.5 20c.7-3.5 3.2-5.4 7.5-5.4s6.8 1.9 7.5 5.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                </svg>
+            </button>
+            <button class="dots-box" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidePanel" id="menuToggle">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+        </div>
+        <div class="search-panel" id="searchPanel" aria-label="Store search">
+            <form class="search-form" role="search" id="searchForm">
+                <label class="search-label" for="storeSearch">Search products</label>
+                <input class="search-input" id="storeSearch" type="search" aria-label="Search products" placeholder="Search by product or brand" autocomplete="off">
+            </form>
+            <div class="search-results" id="searchResults" aria-live="polite"></div>
+        </div>
+    </header>
+
+    <dialog class="profile-dialog" id="authDialog" aria-labelledby="authTitle">
+        <form class="auth-step" id="phoneForm">
+            <h2 id="authTitle">Sign in or create an account</h2>
+            <button class="google-signin" id="googleSignInButton" type="button">Continue with Google</button>
+            <div class="auth-divider" aria-hidden="true">or use your phone</div>
+            <label for="authPhone">Phone number</label>
+            <input id="authPhone" name="phone" type="tel" autocomplete="tel" placeholder="Phone number" required>
+            <p class="profile-note">Select your country, then enter your local phone number. We'll send a one-time SMS code.</p>
+            <div class="profile-actions"><button class="profile-cancel" type="button" data-auth-close>Cancel</button><button class="profile-save" id="sendCodeButton" type="submit">Send code</button></div>
+        </form>
+        <form class="auth-step" id="otpForm" hidden>
+            <h2>Verify your phone</h2>
+            <label for="authCode">SMS verification code</label>
+            <input id="authCode" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" required>
+            <div class="profile-actions"><button class="profile-cancel" id="changePhoneButton" type="button">Use another number</button><button class="profile-save" id="verifyCodeButton" type="submit">Verify and sign in</button></div>
+        </form>
+        <section class="account-view" id="accountView" hidden>
+            <h2>Account</h2>
+            <p class="profile-note" id="signedInPhone"></p>
+            <div class="profile-actions"><button class="profile-cancel" type="button" data-auth-close>Close</button><button class="profile-save" id="signOutButton" type="button">Sign out</button></div>
+        </section>
+        <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+    </dialog>
+
+    <div class="overlay" id="overlay"></div>
+
+    <aside class="side-panel" id="sidePanel" aria-label="More navigation" aria-hidden="true" inert>
+        <button class="side-panel-close" type="button" aria-label="Close navigation menu" id="sidePanelClose">×</button>
+        <a href="home.html">Home page</a>
+        <a href="products.html#brands">Products</a>
+        <a href="custom-setup.html">Custom Setup</a>
+        <a href="promotion.html">Promotions</a>
+        <a href="about.html">About us</a>
+        
+        
+        
+        
+        <div class="appearance-control">
+            <span class="appearance-label" id="appearanceLabel">Appearance</span>
+            <button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false" aria-describedby="appearanceLabel">
+                <span class="theme-toggle-thumb"></span>
+                <span class="theme-icon sun" aria-hidden="true">?</span>
+                <span class="theme-icon moon" aria-hidden="true">?</span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="setup-builder" id="mainContent">
+        <section class="setup-intro">
+            <p class="setup-eyebrow">Custom gaming setup</p>
+            <h1>Build your dream setup at your price.</h1>
+            <p class="setup-lead">Tell us your budget - any amount you want, e.g. $1000 - and we will split it into a balanced gaming setup covering the tower, the screen and the accessories. You can change any part before you order.</p>
+        </section>
+
+        <section class="setup-panel" aria-labelledby="budgetTitle">
+            <h2 id="budgetTitle">1. Choose your budget</h2>
+            <div class="budget-presets" role="group" aria-label="Quick budget presets">
+                <button class="budget-chip" type="button" data-budget="600">$600</button>
+                <button class="budget-chip" type="button" data-budget="800">$800</button>
+                <button class="budget-chip" type="button" data-budget="1000">$1000</button>
+                <button class="budget-chip" type="button" data-budget="1500">$1500</button>
+                <button class="budget-chip" type="button" data-budget="2000">$2000</button>
+                <button class="budget-chip" type="button" data-budget="3000">$3000</button>
+            </div>
+            <form class="budget-form" id="budgetForm">
+                <label for="budgetInput">Or type any price (USD)</label>
+                <div class="budget-input-row">
+                    <span class="budget-currency" aria-hidden="true">$</span>
+                    <input id="budgetInput" name="budget" type="number" min="300" step="50" inputmode="numeric" placeholder="1000" value="1000" required>
+                    <button class="build-button" type="submit">Build my setup</button>
+                </div>
+                <p class="budget-hint">Minimum $300. You can change any part afterwards.</p>
+            </form>
+            <div class="usage-picker">
+                <h3 id="usageTitle">2. What is it mostly for?</h3>
+                <div class="usage-options" role="group" aria-labelledby="usageTitle">
+                    <button class="usage-chip" type="button" data-usage="gaming" aria-pressed="true">Gaming</button>
+                    <button class="usage-chip" type="button" data-usage="streaming" aria-pressed="false">Streaming</button>
+                    <button class="usage-chip" type="button" data-usage="creator" aria-pressed="false">Content creation</button>
+                    <button class="usage-chip" type="button" data-usage="study" aria-pressed="false">Study and work</button>
+                </div>
+            </div>
+        </section>
+        <section class="setup-results" id="setupResults" hidden aria-labelledby="resultsTitle">
+            <h2 id="resultsTitle">Your suggested setup</h2>
+            <p class="results-summary" id="resultsSummary" aria-live="polite"></p>
+            <ul class="parts-list" id="partsList"></ul>
+            <div class="parts-total">
+                <span>Total</span>
+                <strong id="partsTotal">$0</strong>
+            </div>
+            <div class="results-actions">
+                <a class="build-button" href="products.html#brands">Shop this budget in laptops</a>
+                <a class="build-button secondary" href="tel:+855965110561">Call us to lock the build</a>
+            </div>
+            <p class="results-note">This is an estimated parts guide generated from your budget. Final availability and prices are confirmed by our showroom team - call 0965110561 to lock in your build.</p>
+        </section>
+
+        <section class="setup-shop" id="setupShopSection" hidden aria-labelledby="setupShopTitle">
+            <h2 id="setupShopTitle">Real parts from our shop</h2>
+            <p class="setup-shop-note" id="setupShopNote"></p>
+            <div class="setup-shop-grid" id="setupShopGrid"></div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/intlTelInput.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="storefront-data.js?v=5"></script>
+    <script src="owner-nav.js"></script>
+    <script src="store-auth.js"></script>
+    <script src="store-actions.js?v=5"></script>
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const searchButton = document.getElementById('searchButton');
+        const searchPanel = document.getElementById('searchPanel');
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('storeSearch');
+        const searchResults = document.getElementById('searchResults');
+        const themeToggle = document.getElementById('themeToggle');
+        const sidePanel = document.getElementById('sidePanel');
+        const overlay = document.getElementById('overlay');
+        const sidePanelClose = document.getElementById('sidePanelClose');
+        const profileButton = document.getElementById('profileButton');
+        const topbar = document.querySelector('.topbar');
+
+        function updateTopbarSize() {
+            const isCompact = window.scrollY > 40;
+            topbar.classList.toggle('compact', isCompact);
+            sessionStorage.setItem('rezekee-topbar-compact', String(isCompact));
+        }
+
+        function restoreTopbarSize() {
+            topbar.classList.toggle('compact', window.scrollY > 40 || sessionStorage.getItem('rezekee-topbar-compact') === 'true');
+        }
+
+        restoreTopbarSize();
+        window.addEventListener('pageshow', restoreTopbarSize);
+        window.addEventListener('scroll', updateTopbarSize, { passive: true });
+
+        function applyTheme(theme) {
+            const isLight = theme === 'light';
+            document.body.classList.toggle('light-mode', isLight);
+            themeToggle.setAttribute('aria-pressed', String(isLight));
+            themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+            localStorage.setItem('rezekee-theme', theme);
+        }
+
+        const savedTheme = localStorage.getItem('rezekee-theme') || 'dark';
+        applyTheme(savedTheme);
+
+        const searchableItems = [
+            { title: 'Product 1', description: 'Latest product', keywords: 'product 1', url: 'products.html#product-1' },
+            { title: 'Product 2', description: 'Latest product', keywords: 'product 2', url: 'products.html#product-2' },
+            { title: 'Product 3', description: 'Latest product', keywords: 'product 3', url: 'products.html#product-3' },
+            { title: 'Products', description: 'Browse laptops by brand', keywords: 'products latest store shop items brands acer asus dell msi hp lenovo mac', url: 'products.html#brands' },
+            { title: 'Home', description: 'Welcome to Rezekee', keywords: 'home welcome', url: 'home.html' },
+            { title: 'Custom Setup', description: 'Build a gaming PC at your budget', keywords: 'custom setup build pc gaming budget price 1000 dollars parts', url: 'custom-setup.html' },
+            { title: 'Promotions', description: 'Special deals on selected laptops', keywords: 'promotion promotions special deals offer discounts cheap', url: 'promotion.html' },
+            { title: 'About us', description: 'Learn about our team and goals', keywords: 'about team design digital products', url: 'about.html' }
+        ];
+
+        window.addEventListener('rezekee:products-loaded', (event) => {
+            const products = event.detail.products;
+            searchableItems.splice(0, 3, ...products.map((product) => ({
+                title: product.name,
+                description: product.description || 'Shop product',
+                keywords: `${product.name} ${product.description || ''}`,
+                url: `products.html#product-${product.id}`
+            })));
+            renderSearchResults();
+        });
+
+        function renderSearchResults() {
+            const query = searchInput.value.trim().toLocaleLowerCase();
+            searchResults.replaceChildren();
+            const matches = query
+                ? searchableItems.filter((item) => `${item.title} ${item.description} ${item.keywords}`.toLocaleLowerCase().includes(query))
+                : [];
+            if (!query || !matches.length) {
+                const empty = document.createElement('p');
+                empty.className = 'search-empty';
+                empty.textContent = query ? 'No matching products or pages found.' : 'Type a product or page name to search.';
+                searchResults.append(empty);
+                return;
+            }
+            for (const item of matches) {
+                const link = document.createElement('a');
+                link.className = 'search-result';
+                link.href = item.url;
+                const title = document.createElement('strong');
+                title.textContent = item.title;
+                const description = document.createElement('span');
+                description.className = 'search-result-description';
+                description.textContent = item.description;
+                link.append(title, description);
+                searchResults.append(link);
+            }
+        }
+
+        function setSearchOpen(isOpen) {
+            searchPanel.classList.toggle('open', isOpen);
+            topbar.classList.toggle('search-open', isOpen);
+            searchButton.setAttribute('aria-expanded', String(isOpen));
+            if (isOpen) searchInput.focus();
+        }
+
+        searchButton.addEventListener('click', () => {
+            const isOpen = !searchPanel.classList.contains('open');
+            renderSearchResults();
+            setSearchOpen(isOpen);
+        });
+        searchForm.addEventListener('submit', (event) => event.preventDefault());
+        searchInput.addEventListener('input', renderSearchResults);
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                setSearchOpen(false);
+                searchButton.focus();
+            }
+        });
+        searchResults.addEventListener('click', (event) => {
+            if (event.target instanceof Element && event.target.closest('a.search-result')) setSearchOpen(false);
+        });
+        document.addEventListener('pointerdown', (event) => {
+            if (event.target instanceof Node && !searchPanel.contains(event.target) && !searchButton.contains(event.target)) setSearchOpen(false);
+        });
+
+        function setMenuOpen(isOpen) {
+            sidePanel.classList.toggle('open', isOpen);
+            overlay.classList.toggle('show', isOpen);
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+            menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+            sidePanel.setAttribute('aria-hidden', String(!isOpen));
+            sidePanel.inert = !isOpen;
+        }
+
+        menuToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            setMenuOpen(!sidePanel.classList.contains('open'));
+        });
+
+        overlay.addEventListener('click', () => {
+            setMenuOpen(false);
+        });
+        sidePanelClose.addEventListener('click', () => setMenuOpen(false));
+        document.addEventListener('click', (event) => {
+            if (event.target instanceof Element && event.target.closest('#footerLoginButton')) {
+                profileButton.click();
+            }
+        });
+
+        themeToggle.addEventListener('click', () => {
+            applyTheme(document.body.classList.contains('light-mode') ? 'dark' : 'light');
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && searchPanel.classList.contains('open')) {
+                setSearchOpen(false);
+                searchButton.focus();
+            }
+            if (event.key === 'Escape' && sidePanel.classList.contains('open')) {
+                setMenuOpen(false);
+                menuToggle.focus();
+            }
+        });
+    </script>
+    <script>
+        (function () {
+            const budgetForm = document.getElementById('budgetForm');
+            const budgetInput = document.getElementById('budgetInput');
+            const budgetChips = [...document.querySelectorAll('.budget-chip')];
+            const usageChips = [...document.querySelectorAll('.usage-chip')];
+            const setupResults = document.getElementById('setupResults');
+            const resultsSummary = document.getElementById('resultsSummary');
+            const partsList = document.getElementById('partsList');
+            const partsTotal = document.getElementById('partsTotal');
+
+            const MIN_BUDGET = 300;
+            let activeUsage = 'gaming';
+            let lastBudget = 0;
+            let setupProducts = [];
+            const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+            const setupShopSection = document.getElementById('setupShopSection');
+            const setupShopGrid = document.getElementById('setupShopGrid');
+            const setupShopNote = document.getElementById('setupShopNote');
+            const setupCategoryLabels = {
+                gpu: 'Graphics card',
+                cpu: 'Processor (CPU)',
+                ram: 'Memory (RAM)',
+                storage: 'Storage drive',
+                monitor: 'Monitor',
+                peripherals: 'Keyboard, mouse & headset'
+            };
+
+            const usageWeights = {
+                gaming:    { gpu: 0.34, cpu: 0.20, ram: 0.08, storage: 0.09, monitor: 0.15, extras: 0.14 },
+                streaming: { gpu: 0.28, cpu: 0.24, ram: 0.12, storage: 0.10, monitor: 0.14, extras: 0.12 },
+                creator:   { gpu: 0.26, cpu: 0.25, ram: 0.13, storage: 0.13, monitor: 0.15, extras: 0.08 },
+                study:     { gpu: 0.22, cpu: 0.22, ram: 0.10, storage: 0.11, monitor: 0.17, extras: 0.18 }
+            };
+
+            const usageNames = {
+                gaming: 'gaming',
+                streaming: 'game streaming',
+                creator: 'content creation',
+                study: 'study and work'
+            };
+
+            function pickFrom(lot, ratio) {
+                let index = Math.round((lot.length - 1) * ratio);
+                if (index < 0) index = 0;
+                if (index > lot.length - 1) index = lot.length - 1;
+                return lot[index];
+            }
+
+            const catalogs = {
+                gpu: [
+                    'GTX 1650 4GB', 'RTX 3050 6GB', 'RTX 4060 8GB', 'RTX 4070 12GB', 'RTX 4080 16GB', 'RTX 4090 24GB'
+                ],
+                cpu: [
+                    'Intel Core i3 / Ryzen 3', 'Intel Core i5 / Ryzen 5', 'Intel Core i5-14600K / Ryzen 5 7600X', 'Intel Core i7 / Ryzen 7', 'Intel Core i9 / Ryzen 9', 'Ryzen 9 7950X3D'
+                ],
+                ram: [
+                    '8GB DDR4', '16GB DDR4', '16GB DDR5', '32GB DDR5', '32GB DDR5 RGB', '64GB DDR5'
+                ],
+                storage: [
+                    '500GB SSD', '1TB SSD', '1TB NVMe SSD', '2TB NVMe SSD', '2TB NVMe + 2TB HDD', '4TB NVMe RAID'
+                ],
+                monitor: [
+                    '22" 1080p 75Hz', '24" 1080p 144Hz', '27" 1440p 165Hz', '27" 1440p 240Hz', '32" 4K 144Hz', '34" ultrawide 175Hz'
+                ],
+                extras: [
+                    'Keyboard + mouse combo', 'Mechanical keyboard + gaming mouse', 'Headset + mousepad', 'RGB keyboard + mouse + headset', 'Full RGB peripheral kit', 'Pro peripherals + stream deck'
+                ]
+            };
+
+            const roleNames = {
+                gpu: 'Graphics card',
+                cpu: 'Processor',
+                ram: 'Memory',
+                storage: 'Storage drive',
+                monitor: 'Monitor',
+                extras: 'Keyboard, mouse &amp; headset'
+            };
+
+            function buildSetup(budget) {
+                const weights = usageWeights[activeUsage];
+                const ratios = {
+                    gpu: (budget - MIN_BUDGET) / 5700,
+                    cpu: (budget - MIN_BUDGET) / 5700,
+                    ram: (budget - MIN_BUDGET) / 5700,
+                    storage: (budget - MIN_BUDGET) / 5700,
+                    monitor: (budget - MIN_BUDGET) / 5700,
+                    extras: (budget - MIN_BUDGET) / 5700
+                };
+                const parts = [];
+                let running = 0;
+                const order = ['gpu', 'cpu', 'ram', 'storage', 'monitor', 'extras'];
+                order.forEach((key, i) => {
+                    const isLast = i === order.length - 1;
+                    const price = isLast ? budget - running : Math.round((budget * weights[key]) / 5) * 5;
+                    running += price;
+                    parts.push({
+                        key,
+                        name: pickFrom(catalogs[key], ratios[key]),
+                        price
+                    });
+                });
+                return parts;
+            }
+
+            function renderSetup(budget) {
+                lastBudget = budget;
+                const parts = buildSetup(budget);
+                partsList.replaceChildren();
+                for (const part of parts) {
+                    const item = document.createElement('li');
+                    const label = document.createElement('span');
+                    label.className = 'part-name';
+                    label.innerHTML = part.name + '<span class="part-role">' + roleNames[part.key] + '</span>';
+                    const match = findShopMatch(part.key);
+                    if (match) {
+                        const matchLine = document.createElement('span');
+                        matchLine.className = 'part-shop-match';
+                        const matchText = document.createElement('span');
+                        matchText.textContent = 'In our shop: ' + match.name + ' - ' + money.format(salePriceOf(match));
+                        const matchAdd = document.createElement('button');
+                        matchAdd.type = 'button';
+                        matchAdd.className = 'part-shop-add';
+                        matchAdd.textContent = 'Add';
+                        matchAdd.addEventListener('click', () => {
+                            const imageUrls = imageUrlsOf(match);
+                            window.dispatchEvent(new CustomEvent('rezekee:add-to-cart', {
+                                detail: { product: { id: String(match.id), name: match.name, price: salePriceOf(match), image: imageUrls[0] || '', image_urls: imageUrls } }
+                            }));
+                        });
+                        matchLine.append(matchText, matchAdd);
+                        label.append(matchLine);
+                    }
+                    const price = document.createElement('span');
+                    price.className = 'part-price';
+                    price.textContent = '$' + part.price.toLocaleString('en-US');
+                    item.append(label, price);
+                    partsList.append(item);
+                }
+                const total = parts.reduce((sum, part) => sum + part.price, 0);
+                partsTotal.textContent = '$' + total.toLocaleString('en-US');
+                resultsSummary.textContent = 'A balanced ' + usageNames[activeUsage] + ' setup for about $' + budget.toLocaleString('en-US') + '.';
+                setupResults.hidden = false;
+                setupResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            function salePriceOf(product) {
+                const base = Number(product.price_usd) || 0;
+                const discount = Math.min(100, Math.max(0, Number(product.discount_percent) || 0));
+                return Math.round(base * (1 - discount / 100) * 100) / 100;
+            }
+
+            function imageUrlsOf(product) {
+                if (Array.isArray(product.image_urls) && product.image_urls.length) return product.image_urls;
+                return product.image_url ? [product.image_url] : [];
+            }
+
+            async function loadSetupProducts() {
+                const config = window.REZEKEE_SUPABASE_CONFIG;
+                if (!config || !config.url || !config.anonKey ||
+                    !window.supabase || typeof window.supabase.createClient !== 'function') return;
+                try {
+                    const setupClient = window.supabase.createClient(config.url, config.anonKey);
+                    const { data, error } = await setupClient
+                        .from('products')
+                        .select('id,name,price_usd,discount_percent,image_url,image_urls,setup_category')
+                        .eq('is_active', true)
+                        .neq('setup_category', '')
+                        .order('created_at', { ascending: false });
+                    if (error) throw error;
+                    setupProducts = Array.isArray(data) ? data : [];
+                    renderShopProducts();
+                    if (!setupResults.hidden && lastBudget) renderSetup(lastBudget);
+                } catch (error) {
+                    console.error('Could not load custom setup parts:', error.message || error);
+                }
+            }
+
+            function renderShopProducts() {
+                if (!setupProducts.length) return;
+                setupShopGrid.replaceChildren();
+                for (const product of setupProducts) {
+                    const card = document.createElement('article');
+                    card.className = 'shop-part-card product-card';
+                    card.dataset.productId = String(product.id);
+                    const imageUrls = imageUrlsOf(product);
+                    if (imageUrls[0]) {
+                        const image = document.createElement('img');
+                        image.src = imageUrls[0];
+                        image.alt = product.name;
+                        image.loading = 'lazy';
+                        card.append(image);
+                    }
+                    const badge = document.createElement('span');
+                    badge.className = 'shop-part-badge';
+                    badge.textContent = setupCategoryLabels[product.setup_category] || product.setup_category;
+                    const name = document.createElement('h3');
+                    name.textContent = product.name;
+                    const priceLine = document.createElement('p');
+                    priceLine.className = 'shop-part-price';
+                    const sale = salePriceOf(product);
+                    priceLine.textContent = money.format(sale);
+                    const basePrice = Number(product.price_usd) || 0;
+                    if (sale < basePrice) {
+                        const oldPrice = document.createElement('s');
+                        oldPrice.textContent = money.format(basePrice);
+                        priceLine.append(document.createTextNode(' '), oldPrice);
+                    }
+                    const actions = document.createElement('div');
+                    actions.className = 'product-actions';
+                    const cartIcon = '<svg class="button-cart-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9.5" cy="19" r="1.2" fill="currentColor"></circle><circle cx="18" cy="19" r="1.2" fill="currentColor"></circle></svg>';
+                    const productPayload = () => ({ id: String(product.id), name: product.name, price: sale, image: imageUrls[0] || '', image_urls: imageUrls });
+                    const addButton = document.createElement('button');
+                    addButton.type = 'button';
+                    addButton.className = 'add-to-cart';
+                    addButton.innerHTML = cartIcon + '<span>Add To Basket</span>';
+                    addButton.addEventListener('click', () => {
+                        window.dispatchEvent(new CustomEvent('rezekee:add-to-cart', {
+                            detail: { product: productPayload() }
+                        }));
+                    });
+                    const favoriteButton = document.createElement('button');
+                    favoriteButton.type = 'button';
+                    favoriteButton.className = 'favorite-product-button';
+                    favoriteButton.textContent = '?';
+                    favoriteButton.setAttribute('aria-label', 'Add to favorites');
+                    favoriteButton.setAttribute('aria-pressed', 'false');
+                    favoriteButton.addEventListener('click', () => {
+                        window.dispatchEvent(new CustomEvent('rezekee:toggle-favorite', {
+                            detail: { product: productPayload() }
+                        }));
+                    });
+                    const seeMore = document.createElement('button');
+                    seeMore.type = 'button';
+                    seeMore.className = 'see-more';
+                    seeMore.innerHTML = '<svg class="button-eye-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"></circle></svg><span>See More</span>';
+                    seeMore.addEventListener('click', () => {
+                        localStorage.setItem('rezekee-selected-product', JSON.stringify(product));
+                        window.location.href = `product-details.html?id=${encodeURIComponent(product.id)}`;
+                    });
+                    actions.append(addButton, favoriteButton, seeMore);
+                    card.append(badge, name, priceLine, actions);
+                    setupShopGrid.append(card);
+                }
+                setupShopNote.textContent = 'These parts come straight from the shop catalog. Any active discount is already included.';
+                setupShopSection.hidden = false;
+                window.dispatchEvent(new CustomEvent('rezekee:products-loaded'));
+            }
+
+            function findShopMatch(category) {
+                const setupCategory = category === 'extras' ? 'peripherals' : category;
+                const candidates = setupProducts.filter((product) => product.setup_category === setupCategory);
+                if (!candidates.length) return null;
+                return candidates.reduce((best, product) =>
+                    (!best || salePriceOf(product) < salePriceOf(best)) ? product : best, null);
+            }
+
+            function syncChipState() {
+                for (const chip of budgetChips) {
+                    chip.classList.toggle('active', Number(chip.dataset.budget) === Number(budgetInput.value));
+                }
+            }
+
+            budgetForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const budget = Math.max(MIN_BUDGET, Math.round(Number(budgetInput.value) || 0));
+                budgetInput.value = budget;
+                syncChipState();
+                renderSetup(budget);
+            });
+
+            for (const chip of budgetChips) {
+                chip.addEventListener('click', () => {
+                    budgetInput.value = chip.dataset.budget;
+                    syncChipState();
+                    renderSetup(Number(chip.dataset.budget));
+                });
+            }
+
+            for (const chip of usageChips) {
+                chip.addEventListener('click', () => {
+                    activeUsage = chip.dataset.usage;
+                    for (const other of usageChips) {
+                        other.setAttribute('aria-pressed', String(other === chip));
+                    }
+                    if (!setupResults.hidden) {
+                        renderSetup(Math.max(MIN_BUDGET, Math.round(Number(budgetInput.value) || 0)));
+                    }
+                });
+            }
+
+            syncChipState();
+            loadSetupProducts();
+        })();
+    </script>
+    <footer class="store-footer">
+        <div class="store-footer-main">
+            <section class="store-footer-brand">
+                <a href="home.html" aria-label="RezekeeeShop home"><img class="store-footer-logo" src="inmage/Gemini_Generated_Image_bgsyf5bgsyf5bgsy-removebg-preview.png" alt="RezekeeeShop"></a>
+                <h4>OPENING HOURS</h4>
+                <p>Monday to Sunday, 8:00 AM to 5:30 PM.</p>
+            </section>
+            <div class="footer-column">
+                <h4>CONTACT US</h4>
+
+                <div class="contact-subblock">
+                    <span class="contact-subtitle">Sales Showroom</span>
+                    <a href="tel:0965110561" class="contact-link"><i class="fa-solid fa-phone"></i> 096 511 0561</a>
+                </div>
+                <div class="contact-subblock">
+                    <span class="contact-subtitle">Service Center</span>
+                    <a href="tel:0965660561" class="contact-link"><i class="fa-solid fa-phone"></i> 096 566 0561</a>
+                </div>
+            </div>
+            <section>
+                <h4>INFORMATION</h4>
+                <ul class="store-footer-list">
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="about.html">About us</a></li>
+                </ul>
+            </section>
+            <section>
+                <h4>MY ACCOUNT</h4>
+                <ul class="store-footer-list">
+                    <li><button class="footer-login-button" type="button" id="footerLoginButton">Login</button></li>
+                    <li><a href="favorites.html">My favorites</a></li>
+                </ul>
+            </section>
+            <section>
+                <h4>FOLLOW US</h4>
+                <ul class="store-footer-list store-footer-social-list">
+                    <li><a href="https://www.facebook.com/share/19gmzMMRUH/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg> Facebook</a></li>
+                    <li><a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 6.8a4.7 4.7 0 0 1-3.3-1.4 4.7 4.7 0 0 1-1.2-3.2h-3.1v12.4a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .9.1V8.8a6 6 0 0 0-.9-.1 5.9 5.9 0 1 0 5.9 5.9V9.2a7.8 7.8 0 0 0 4.5 1.4V7.5a4.7 4.7 0 0 1-1-.7z"/></svg> TikTok</a></li>
+                    <li><a href="https://www.instagram.com/rezekeee.shop?exln=a21zbm4yenc0MjZz&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg> Instagram</a></li>
+                    <li><a href="https://t.me/RezekeeeShop" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 3.8 11.5c-1.2.5-1.2 1.2-.2 1.5l4.6 1.4 1.8 5.4c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.4-1.7-1.5-1.3z"/></svg> Telegram</a></li>
+                </ul>
+            </section>
+
+        </div>
+        <div class="store-footer-bottom">
+            <span>&copy; RezekeeeShop &middot; Cambodia</span>
+            <div class="store-footer-payments" aria-label="Accepted payment methods">
+                <img class="store-payment-image" src="inmage/Asset102x_1756112120.png" alt="Wing Bank">
+                <img class="store-payment-image" src="inmage/KHQR-available-here-logo-with-bg.webp" alt="KHQR">
+                <img class="store-payment-image" src="inmage/Visa_Inc.-Logo.wine.png" alt="Visa">
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

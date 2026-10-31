@@ -1,0 +1,281 @@
+/* Body Styles */
+body {
+    background: linear-gradient(135deg, #000000 0%, #011f2a 35%, #00d9ff 100%);
+    color: #dffcff;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+/* H1 Heading Styles */
+h1 {
+    color: #00eaff;
+    font-size: 2em;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    border: 5px solid #00eaff;
+    max-width: 600px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px auto;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 15px rgba(0, 234, 255, 0.8);
+}
+
+/* H2 Heading Styles */
+h2 {
+    color: #b8f9ff;
+    font-size: 1.8em;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    border: 5px solid #00d9ff;
+    max-width: 500px;
+    padding: 10px;
+    margin: 20px auto;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 12px rgba(0, 217, 255, 0.6);
+}
+
+/* Box Class Styles */
+.box {
+    width: 200px;
+    height: 200px;
+    border: 5px solid #00eaff;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #6cf6ff, #00bcd4 35%, #000 100%);
+    float: left;
+    margin: 10px;
+    box-shadow: 0 0 20px rgba(0, 234, 255, 0.9);
+}
+
+
+/* Shared styles for the 3-dot dropdown menu and appearance toggle */
+.appearance-control {
+    border: 1px solid var(--line, rgba(255, 255, 255, 0.1));
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin: 12px 0 0;
+    background: var(--panel-card, rgba(255, 255, 255, 0.04));
+    color: var(--fg, #dffcff);
+}
+
+.theme-toggle {
+    width: 50px;
+    height: 26px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    position: relative;
+    background: var(--toggle-track, #142967);
+    cursor: pointer;
+    padding: 0;
+}
+
+.theme-toggle-thumb {
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--toggle-thumb, #ffffff);
+    display: grid;
+    place-items: center;
+    transition: transform 0.25s ease;
+}
+
+body:not(.light-mode) .theme-toggle-thumb {
+    transform: translate(24px, -50%);
+}
+
+.theme-toggle-thumb i {
+    font-size: 11px;
+    color: var(--toggle-moon, #ffffff);
+}
+
+body.light-mode .theme-toggle-thumb i {
+    display: none;
+}
+
+.theme-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.theme-icon.sun {
+    left: 6px;
+    color: var(--toggle-sun, #d6b900);
+}
+
+.theme-icon.moon {
+    right: 6px;
+    color: var(--toggle-moon, #ffffff);
+}
+
+body.light-mode .theme-icon.sun { opacity: 1; }
+body.light-mode .theme-icon.moon { opacity: 0; }
+body:not(.light-mode) .theme-icon.sun { opacity: 0; }
+body:not(.light-mode) .theme-icon.moon { opacity: 1; }
+
+/* Reset all heading styles to prevent black background boxes or cyan borders */
+h1, h2, h3, h4, h5, h6, .section-title, .footer-title, .footer-heading,
+h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover,
+.section-title:hover, .footer-title:hover, .footer-heading:hover {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* Footer header text clipping fix */
+h4, .footer-heading, .footer-title,
+h4:hover, .footer-heading:hover, .footer-title:hover {
+    white-space: nowrap;
+    overflow: visible;
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    letter-spacing: 0.5px;
+}
+
+/* Footer layout: full-width edge-to-edge flex spacing */
+.footer-container,
+.footer-grid,
+.store-footer-main {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 40px 4%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.footer-column,
+.footer-col,
+.store-footer-main > section,
+.store-footer section,
+.store-footer-brand {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0;
+}
+
+/* First column (logo) aligns to far left without extra offset */
+.store-footer-brand,
+.footer-column:first-child,
+.footer-col:first-child {
+    padding-left: 0;
+}
+
+/* Top headline baseline alignment */
+.footer-column h4,
+.footer-col h4,
+.footer-heading,
+.store-footer h4 {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    white-space: nowrap !important;
+    color: #00ffff !important;
+}
+
+/* Keep brand logo buttons centered; only text headers align left */
+.brand-grid,
+.home-brands-grid {
+    text-align: center !important;
+    justify-content: center !important;
+    justify-items: center !important;
+}
+
+/* Section header alignment */
+.section-header,
+.brand-section-header,
+.brand-section,
+.home-brands {
+    text-align: left !important;
+    margin-left: auto !important;
+    padding-left: 0 !important;
+}
+
+.section-title,
+.brand-section h2,
+.home-brands h2,
+h2 {
+    text-align: left !important;
+}
+
+.section-subtitle,
+.brand-intro,
+.home-brands > p,
+p {
+    text-align: left !important;
+}
+
+.contact-subblock {
+    margin-bottom: 12px;
+}
+.contact-subtitle {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+body.light-mode .contact-subtitle {
+    color: #000000;
+}
+.contact-link {
+    color: #a0aec0;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+}
+.contact-link:hover {
+    color: #00ffff;
+}
+
+/* Documentation / policy page layout grid */
+.help-container,
+.policy-layout,
+.terms-container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 32px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.help-content,
+.policy-content-card,
+.main-article {
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 32px;
+}
+
+@media (max-width: 991px) {
+    .help-container, .policy-layout {
+        grid-template-columns: 1fr;
+    }
+}
+/* Left-align home Shop by brand heading (indented, not edge) */
+body.home-page .home-brands, .home-brands { text-align: left !important; }
+body.home-page .home-brands h2, .home-brands h2 { text-align: left !important; }
+body.home-page .home-brands > p, .home-brands > p { text-align: left !important; }

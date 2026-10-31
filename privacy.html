@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="store-actions.css?v=6">
+    <link rel="stylesheet" href="site-shared.css?v=2">
+    <link rel="stylesheet" href="home-page.css?v=6">
+    <link rel="stylesheet" href="chrome.css?v=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Privacy Policy | RezekeeeShop</title>
+    <style>
+        .content { text-align: left; }
+        h2, h3 { color: var(--heading); }
+        .page-intro { color: var(--muted-text); font-size: 1.05rem; line-height: 1.7; margin: 0 0 14px; }
+        .policy-layout { display: grid; grid-template-columns: 1fr 4fr; gap: 32px; align-items: start; }
+        .privacy-toc { position: sticky; top: 100px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-card); padding: 18px; }
+        .privacy-toc h2 { margin: 0 0 12px; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; }
+        .privacy-toc a { display: block; padding: 6px 0; color: var(--muted-text); font-size: .9rem; text-decoration: none; }
+        .privacy-toc a:hover { color: var(--heading); }
+        .policy-section { border: 1px solid var(--line); border-radius: 14px; background: var(--panel-card); padding: 24px clamp(18px, 4vw, 32px); margin-bottom: 18px; scroll-margin-top: 100px; transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease; }
+        .policy-section:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 0 20px var(--line-glow); }
+        body.light-mode.home-page .content, body.light-mode.home-page .content * { color: #000; }
+        .policy-section h2 { margin: 0 0 12px; font-size: 1.3rem; }
+        .policy-section h3 { margin: 14px 0 8px; font-size: 1.05rem; }
+        .policy-section p, .policy-section li { color: var(--fg); line-height: 1.7; }
+        .policy-section ul, .policy-section ol { padding-left: 22px; margin: 0; }
+        .policy-section li + li { margin-top: 8px; }
+        .policy-section strong { color: var(--heading); }
+        @media (max-width: 720px) { .policy-layout { grid-template-columns: 1fr; } .privacy-toc { position: static; } }
+    </style>
+    <link rel="stylesheet" href="style.css?v=1">
+</head>
+<body class="home-page">
+    <header class="topbar">
+        <a class="brand" href="about.html" aria-label="Go to About Us">
+            <img class="brand-logo" src="inmage/rezekee-shop-horizontal.png" alt="RezekeeeShop logo">
+        </a>
+
+        <nav class="menu" aria-label="Main navigation">
+            <a href="home.html" aria-current="page">Home</a>
+            <a href="products.html#brands">Products</a>
+            <a href="about.html">About</a>
+            <a class="promotion-link" href="promotion.html">Promotion</a>
+        </nav>
+
+        <div class="topbar-actions">
+            <button class="store-action-button" type="button" data-store-view="cart" aria-label="Open shopping basket (0 items)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9.5" cy="19" r="1.2" fill="currentColor"></circle><circle cx="18" cy="19" r="1.2" fill="currentColor"></circle></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="search-button" type="button" id="searchButton" aria-label="Search store" title="Search store" aria-expanded="false" aria-controls="searchPanel">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </button>
+            <button class="store-action-button" type="button" data-store-view="favorites" aria-label="Open favorites (0 saved)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.8 8.8c0 5.3-8.8 11-8.8 11s-8.8-5.7-8.8-11A4.8 4.8 0 0 1 12 6.5a4.8 4.8 0 0 1 8.8 2.3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="profile-button" type="button" id="profileButton" aria-label="Sign in with phone" title="Sign in">
+                <svg id="profileIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"></circle><path d="M4.5 20c.7-3.5 3.2-5.4 7.5-5.4s6.8 1.9 7.5 5.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </button>
+            <button class="dots-box" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidePanel" id="menuToggle">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+        </div>
+        <div class="search-panel" id="searchPanel" aria-label="Store search">
+            <form class="search-form" role="search" id="searchForm">
+                <input class="search-input" id="storeSearch" type="search" aria-label="Search any item you want" placeholder="Search any item you want" autocomplete="off">
+            </form>
+            <div class="search-results" id="searchResults" aria-live="polite"></div>
+        </div>
+    </header>
+<div class="overlay" id="overlay"></div>
+<aside class="side-panel" id="sidePanel" aria-label="More navigation" aria-hidden="true" inert>
+    <button class="side-panel-close" type="button" aria-label="Close navigation menu" id="sidePanelClose">×</button>
+    <a href="home.html">Home page</a>
+    <a href="products.html#brands">Products</a>
+    <a href="promotion.html">Promotions</a>
+    <a href="about.html">About us</a>
+    <div class="appearance-control">
+        <span class="appearance-label" id="appearanceLabel">Appearance</span>
+        <button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false" aria-describedby="appearanceLabel">
+            <span class="theme-toggle-thumb"><i class="fa-solid fa-moon"></i></span>
+            <span class="theme-icon sun" aria-hidden="true"><i class="fa-solid fa-sun"></i></span>
+            <span class="theme-icon moon" aria-hidden="true"><i class="fa-solid fa-moon"></i></span>
+        </button>
+    </div>
+</aside>
+    <main class="content" id="mainContent">
+        <h1>Privacy Policy</h1>
+        <p class="page-intro">We value your privacy and are committed to protecting your personal information. This policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or make an online purchase.</p>
+        <p class="page-intro">By accessing or using our platform, you acknowledge that you have read and agreed to the practices described here.</p>
+        <div class="policy-layout">
+            <nav class="privacy-toc" aria-label="Privacy policy sections">
+                <h2>On this page</h2>
+                <a href="#collect">Information we collect</a>
+                <a href="#use">How we use information</a>
+                <a href="#sharing">Information sharing</a>
+                <a href="#cookies">Cookies</a>
+                <a href="#security">Data security</a>
+                <a href="#updates">Updates &amp; contact</a>
+            </nav>
+<div class="policy-content-card">
+                <section class="policy-section" id="collect">
+                    <h2>I. Information We Collect</h2>
+                    <p>We collect personal and non-personal data to provide you with a smooth and secure shopping experience.</p>
+                    <h3>1. Personal Data (Voluntarily Provided)</h3>
+                    <ul>
+                        <li><strong>Contact Information:</strong> Full name, email address, primary phone number, and physical delivery address.</li>
+                        <li><strong>Account Information:</strong> Username, password, and account registration details.</li>
+                        <li><strong>Payment Information:</strong> Billing address, transaction history, and bank transfer or payment confirmation details.</li>
+                        <li><strong>Order Information:</strong> Purchased products, quantities, prices, warranty records, and order history.</li>
+                    </ul>
+                    <h3>2. Non-Personal &amp; Technical Data</h3>
+                    <ul>
+                        <li><strong>Log Data:</strong> IP address, browser type, operating system, and timestamp of website visits.</li>
+                        <li><strong>Usage Data:</strong> Pages viewed, navigation paths, time spent on pages, and clicked links.</li>
+                    </ul>
+                    <h3>3. Location Information</h3>
+                    <p>With your explicit permission, we may access precise or approximate location information through GPS, Wi-Fi, or cellular signals.</p>
+                    <ul>
+                        <li><strong>Why:</strong> To calculate delivery fees, estimate arrival times, verify drop-off locations, and ensure correct fulfillment across Cambodia.</li>
+                        <li><strong>How:</strong> Location data is only accessed after you grant permission. You can disable tracking in your device settings, although automatic address detection or live delivery tracking may be limited.</li>
+                    </ul>
+                </section>
+
+                <section class="policy-section" id="use">
+                    <h2>II. How We Use Your Information</h2>
+                    <ul>
+                        <li><strong>Order Processing &amp; Delivery:</strong> Fulfill purchases, confirm transactions, and coordinate delivery.</li>
+                        <li><strong>Customer Support:</strong> Assist with inquiries, technical troubleshooting, custom PC consultation, and warranty services.</li>
+                        <li><strong>Platform Improvement:</strong> Analyze performance, improve user experience, and enhance product offerings.</li>
+                        <li><strong>Communication:</strong> Send transaction updates, invoice details, or promotional offers. You may opt out of promotional messages.</li>
+                        <li><strong>Security &amp; Fraud Prevention:</strong> Protect against unauthorized transactions and maintain system security.</li>
+                    </ul>
+                </section>
+                <section class="policy-section" id="sharing">
+                    <h2>III. Sharing Your Information</h2>
+                    <p>RezekeeeShop does not sell, rent, or trade your personal information to third parties.</p>
+                    <ul>
+                        <li><strong>Authorized Service Providers:</strong> Trusted partners helping operate our website, process payments, or deliver orders under strict confidentiality agreements.</li>
+                        <li><strong>Legal Requirements:</strong> When required by applicable Cambodian laws, regulations, or court orders, or to protect our rights, safety, or property.</li>
+                    </ul>
+                </section>
+                <section class="policy-section" id="cookies">
+                    <h2>IV. Cookies and Tracking Technologies</h2>
+                    <p>Our website uses cookies and similar technologies to improve navigation, save shopping cart items, and provide a personalized experience. You can disable cookies through your browser settings, although some site functions may not operate properly.</p>
+                </section>
+                <section class="policy-section" id="security">
+                    <h2>V. Data Security &amp; Storage</h2>
+                    <p>We implement appropriate technical and organizational measures to safeguard personal information against unauthorized access, loss, or alteration. However, no internet transmission or electronic storage method is 100% secure.</p>
+                </section>
+                <section class="policy-section" id="updates">
+                    <h2>VI. Policy Updates &amp; Contact</h2>
+                    <p>RezekeeeShop may update or modify this Privacy Policy at any time. Changes will be posted directly on this page.</p>
+                    <p>If you have questions about this Privacy Policy or your personal data, please contact the RezekeeeShop support team.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="store-actions.js?v=5"></script>
+    <script src="layout.js?v=1"></script>
+    <script src="script.js?v=1"></script>
+</body>
+</html>

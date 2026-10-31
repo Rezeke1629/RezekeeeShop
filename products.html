@@ -1,0 +1,1317 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="store-actions.css?v=6">
+    <link rel="stylesheet" href="site-shared.css?v=2">
+    <link rel="stylesheet" href="home-page.css?v=6">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Products</title>
+    <style>
+        .products-page,
+        body.products-page {
+            background: #ffffff;
+        }
+
+        body.products-page .content {
+            background: #ffffff;
+        }
+        * { box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        :root {
+            --bg: #000000;
+            --bg-soft: rgba(0, 0, 0, 0.55);
+            --fg: #eafcff;
+            --heading: #00eaff;
+            --muted-text: rgba(223, 252, 255, 0.55);
+            --menu: #dffcff;
+            --line: rgba(0, 234, 255, 0.9);
+            --line-strong: #00eaff;
+            --line-glow: rgba(0, 234, 255, 0.5);
+            --panel: rgba(0, 0, 0, 0.9);
+            --panel-card: rgba(0, 234, 255, 0.04);
+            --panel-hover: rgba(0, 234, 255, 0.12);
+            --dot-bg: rgba(0, 234, 255, 0.08);
+            --dot-shadow: rgba(0, 234, 255, 0.6);
+            --dot-color: #ffffff;
+            --button-text: #081d22;
+            --toggle-track: #142967;
+            --toggle-border: #102257;
+            --toggle-thumb: #304da7;
+            --toggle-sun: #d6b900;
+            --toggle-moon: #ffffff;
+            --toggle-shadow: rgba(5, 15, 54, 0.5);
+            --product-surface: #07141b;
+            --product-surface-raised: #0c2029;
+            --product-text: #eafcff;
+            --product-muted: #a4c1c8;
+            --product-border: rgba(0, 234, 255, 0.3);
+            --product-image-bg: #000000;
+            --brand-tile-bg: rgba(0, 0, 0, 0.64);
+        }
+
+        body.light-mode {
+            --bg: #f5f5f5;
+            --bg-soft: rgba(255, 255, 255, 0.85);
+            --fg: #111111;
+            --heading: #111111;
+            --muted-text: rgba(0, 0, 0, 0.55);
+            --menu: #111111;
+            --line: rgba(0, 0, 0, 0.9);
+            --line-strong: #111111;
+            --line-glow: rgba(0, 0, 0, 0.28);
+            --panel: rgba(255, 255, 255, 0.96);
+            --panel-card: rgba(0, 0, 0, 0.03);
+            --panel-hover: rgba(0, 0, 0, 0.06);
+            --dot-bg: rgba(0, 0, 0, 0.05);
+            --dot-shadow: rgba(0, 0, 0, 0.18);
+            --dot-color: #0f0f0f;
+            --button-text: #ffffff;
+            --toggle-track: #f0f0f4;
+            --toggle-border: #e0e0e7;
+            --toggle-thumb: #ffffff;
+            --toggle-sun: #e0b800;
+            --toggle-moon: #6c7897;
+            --toggle-shadow: rgba(25, 34, 76, 0.2);
+            --product-surface: #ffffff;
+            --product-surface-raised: #f1fbfc;
+            --product-text: #14252a;
+            --product-muted: #536c72;
+            --product-border: rgba(0, 130, 150, 0.25);
+            --product-image-bg: #ffffff;
+            --brand-tile-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            font-size: 16px;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        body.light-mode .brand-choice {
+            background: #ffffff;
+            border-color: #111111;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.22);
+        }
+
+        body.light-mode .brand-choice[data-brand="mac"] .brand-logo-image {
+            filter: none;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            font-size: 16px;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 4;
+            width: 100%;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            align-items: center;
+            gap: 18px;
+            padding: 16px clamp(12px, 4vw, 28px);
+            background: var(--bg-soft);
+            border-bottom: 2px solid var(--line);
+            box-shadow: 0 0 18px var(--line-glow);
+            transition: padding 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .topbar.compact {
+            padding-block: 7px;
+            box-shadow: 0 0 12px var(--line-glow);
+        }
+
+        .menu {
+            grid-column: 1;
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 4vw, 28px);
+            justify-self: start;
+        }
+
+        .brand {
+            grid-column: 2;
+            justify-self: center;
+            display: flex;
+            align-items: center;
+            color: inherit;
+            text-decoration: none;
+            min-width: 0;
+            padding: 6px 12px;
+            border: 1px solid var(--line-strong);
+            border-radius: 12px;
+            background: #000;
+            box-shadow: 0 0 14px var(--line-glow);
+        }
+
+        .brand-logo {
+            width: min(22vw, 220px);
+            height: auto;
+            display: block;
+            max-height: 90px;
+            transition: width 0.25s ease, max-height 0.25s ease;
+        }
+
+        .brand-mark {
+            width: clamp(42px, 5vw, 62px);
+            height: clamp(42px, 5vw, 62px);
+            flex: 0 0 auto;
+            display: block;
+            background: url("inmage/Gemini_Generated_Image_30simj30simj30si.jpg") center top / 300% auto no-repeat;
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            margin-left: -2px;
+            color: #eafcff;
+            font-family: "Times New Roman", Times, serif;
+            font-size: clamp(1.05rem, 2vw, 1.45rem);
+            font-weight: 700;
+        }
+
+        body.light-mode .brand-name { color: #111111; }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--menu);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .menu a:hover { color: var(--line-strong); }
+
+        .topbar-actions {
+            grid-column: 3;
+            justify-self: end;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-button { width: 42px; height: 42px; flex-shrink: 0; display: grid; place-items: center; padding: 0; border: 1px solid var(--line-strong); border-radius: 12px; background: var(--dot-bg); color: var(--menu); box-shadow: 0 0 10px var(--dot-shadow); cursor: pointer; transition: width 0.25s ease, height 0.25s ease, color 0.2s ease, background 0.2s ease, border-radius 0.2s ease; }
+        .profile-button:hover { color: var(--line-strong); background: var(--panel-hover); }
+        .profile-button svg { width: 21px; height: 21px; }
+        .topbar.compact .profile-button { width: 36px; height: 36px; }
+        .profile-dialog { width: min(400px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 24px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--panel); color: var(--fg); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); }
+        .profile-dialog .iti { width: 100%; }
+        .profile-dialog .iti__country-list { background: var(--panel); color: var(--fg); border-color: var(--line-strong); }
+        .profile-dialog .iti__country.iti__highlight { background: var(--panel-hover); }
+        .profile-dialog .iti__divider { border-color: var(--line-strong); }
+        .profile-dialog::backdrop { background: rgba(0, 0, 0, 0.62); }
+        .profile-dialog form { margin: 0; }
+        .profile-dialog h2 { margin: 0 0 20px; color: var(--heading); font-size: 1.35rem; }
+        .profile-dialog label { display: block; margin-bottom: 7px; color: var(--fg); font-weight: 600; }
+        .profile-dialog input { width: 100%; padding: 11px 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--bg); color: var(--fg); font: inherit; }
+        .profile-dialog input:focus-visible { outline: 2px solid var(--line-strong); outline-offset: 2px; }
+        .google-signin { width: 100%; padding: 11px 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--panel-card); color: var(--fg); font: inherit; font-weight: 700; cursor: pointer; }
+        .auth-divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; color: var(--muted-text); font-size: 0.85rem; }
+        .auth-divider::before, .auth-divider::after { flex: 1; border-top: 1px solid var(--line); content: ""; }
+        .auth-step[hidden], .account-view[hidden] { display: none; }
+        .auth-message { min-height: 1.4em; margin: 12px 0 0; color: var(--muted-text); font-size: 0.9rem; line-height: 1.45; }
+        .auth-message.error { color: #ff8c8c; }
+        .profile-note { margin: 10px 0 0; color: var(--muted-text); font-size: 0.85rem; line-height: 1.45; }
+        .profile-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 22px; }
+        .profile-actions button { padding: 9px 12px; border: 1px solid var(--line-strong); border-radius: 6px; font: inherit; font-size: 0.9rem; cursor: pointer; }
+        .profile-remove { margin-right: auto; background: transparent; color: var(--fg); }
+        .profile-cancel { background: var(--panel-card); color: var(--fg); }
+        .profile-save { background: var(--line-strong); color: var(--button-text); font-weight: 700; }
+        #sendCodeButton { color: #fff; }
+        .search-button { width: 42px; height: 42px; flex-shrink: 0; display: grid; place-items: center; padding: 0; border: 1px solid var(--line-strong); border-radius: 12px; background: var(--dot-bg); color: var(--menu); box-shadow: 0 0 10px var(--dot-shadow); cursor: pointer; transition: width 0.25s ease, height 0.25s ease, color 0.2s ease, background 0.2s ease, border-radius 0.2s ease; }
+        .search-button:hover { color: var(--line-strong); background: var(--panel-hover); }
+        .search-button svg { width: 20px; height: 20px; }
+        .topbar.compact .search-button { width: 36px; height: 36px; }
+        .search-panel { position: absolute; top: 50%; right: 12px; z-index: 6; display: none; width: min(320px, calc(100% - 24px)); transform: translateY(-50%); color: var(--fg); }
+        .search-panel.open { display: block; }
+        .search-form { display: flex; gap: 8px; margin: 0; padding: 6px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+        .search-input { width: 100%; padding: 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--bg); color: var(--fg); font: inherit; }
+        .search-input:focus-visible, .search-result:focus-visible { outline: 2px solid var(--line-strong); outline-offset: 2px; }
+        .search-results { position: absolute; top: calc(100% + 8px); right: 0; display: grid; gap: 8px; width: 100%; max-height: min(45vh, 360px); overflow-y: auto; padding: 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+        .search-result { display: grid; gap: 4px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 7px; color: var(--fg); text-decoration: none; background: var(--panel-card); }
+        .search-result:hover { background: var(--panel-hover); }
+        .search-result-description, .search-empty { margin: 0; color: var(--muted-text); font-size: 0.9rem; line-height: 1.45; }
+        .search-empty { padding: 8px 2px; }
+
+        .theme-toggle {
+            position: relative;
+            width: 82px;
+            height: 44px;
+            flex-shrink: 0;
+            padding: 0;
+            border: 1px solid var(--toggle-border);
+            border-radius: 999px;
+            background: var(--toggle-track);
+            box-shadow: inset 0 2px 5px var(--toggle-shadow), 0 2px 5px var(--toggle-shadow);
+            cursor: pointer;
+            transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .theme-toggle:focus-visible,
+        .search-button:focus-visible,
+        .dots-box:focus-visible {
+            outline: 3px solid var(--line-strong);
+            outline-offset: 3px;
+        }
+
+        .topbar.compact .dots-box {
+            width: 42px;
+            height: 42px;
+        }
+
+        .topbar.compact .dot {
+            width: 6px;
+            height: 6px;
+        }
+
+        .theme-toggle-thumb {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            z-index: 1;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--toggle-thumb);
+            box-shadow: 0 2px 6px var(--toggle-shadow);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        body:not(.light-mode) .theme-toggle-thumb { transform: translateX(38px); }
+
+        .theme-icon {
+            position: absolute;
+            top: 50%;
+            z-index: 2;
+            transform: translateY(-50%);
+            font-size: 20px;
+            line-height: 1;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .theme-icon.sun { left: 11px; color: var(--toggle-sun); opacity: 0; }
+        .theme-icon.moon { right: 11px; color: var(--toggle-moon); opacity: 1; }
+        body.light-mode .theme-icon.sun { opacity: 1; }
+        body.light-mode .theme-icon.moon { opacity: 0; }
+
+        .dots-box {
+            width: 52px;
+            height: 52px;
+            border: 2px solid var(--line-strong);
+            border-radius: 12px;
+            background: var(--dot-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            box-shadow: 0 0 12px var(--dot-shadow);
+            cursor: pointer;
+            padding: 0;
+            flex-shrink: 0;
+            transition: width 0.2s ease, height 0.2s ease, border-radius 0.2s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--dot-color);
+            display: block;
+            box-shadow: 0 0 8px var(--dot-color);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 5;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50vw;
+            height: 100vh;
+            height: 100dvh;
+            transform: translateX(100%);
+            background: var(--panel);
+            border-left: 2px solid var(--line-strong);
+            box-shadow: -5px 0 20px var(--line-glow);
+            padding: 90px 24px 24px;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease, border-color 0.25s ease;
+            z-index: 10;
+        }
+
+        .side-panel.open { transform: translateX(0); }
+
+        .appearance-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 12px 14px;
+            margin: 12px 0 0;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel-card);
+            color: var(--fg);
+        }
+
+        .appearance-label { font-weight: 600; }
+
+        .side-panel a {
+            display: block;
+            text-decoration: none;
+            color: var(--menu);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 18px 14px;
+            margin: 12px 0;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel-card);
+        }
+
+        .side-panel a:hover {
+            background: var(--panel-hover);
+            color: var(--line-strong);
+            box-shadow: 0 0 10px var(--line-glow);
+        }
+
+
+        .content {
+            max-width: 1600px;
+            margin: clamp(24px, 5vh, 48px) auto;
+            padding: 0 clamp(12px, 2vw, 24px);
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--heading);
+            font-size: clamp(1.75rem, 6vw, 2.5rem);
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: clamp(0.9rem, 3.6vw, 1rem);
+            line-height: 1.5;
+        }
+
+        .content p, .content a {
+            color: var(--fg);
+            font-size: clamp(1rem, 4vw, 1.1rem);
+            line-height: 1.7;
+        }
+
+        .brand-section {
+            margin: 34px auto 44px;
+            text-align: left;
+            scroll-margin-top: 100px;
+        }
+
+        .brand-section[hidden],
+        .models-section[hidden] {
+            display: none;
+        }
+
+        .brand-section h2 {
+            margin: 8px 0 0;
+            color: var(--heading);
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            letter-spacing: -0.04em;
+        }
+
+        .brand-section .brand-eyebrow {
+            margin: 0;
+            color: var(--line-strong);
+            font-size: 0.78rem !important;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            line-height: 1.4;
+            text-transform: uppercase;
+        }
+
+        .brand-section .brand-intro {
+            margin: 8px 0 28px;
+            color: var(--muted-text);
+            font-size: clamp(0.98rem, 2.4vw, 1.1rem) !important;
+        }
+
+        .brand-grid {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .brand-choice {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 160px;
+            height: 120px;
+            padding: 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        body:not(.light-mode) .brand-choice,
+        body.light-mode .brand-choice {
+            background: #ffffff;
+            border-color: #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .brand-choice:hover,
+        .brand-choice[aria-pressed="true"] {
+            transform: translateY(-2px);
+            border-color: #00727f;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .brand-choice:focus-visible {
+            outline: 3px solid var(--line-strong);
+            outline-offset: 3px;
+        }
+
+        .brand-logo-image {
+            display: block;
+            max-width: 80%;
+            max-height: 60%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .brand-choice-custom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-align: center;
+        }
+
+        body:not(.light-mode) .brand-choice-custom,
+        body.light-mode .brand-choice-custom {
+            background: #ffffff;
+            color: #111111;
+        }
+
+        .custom-tile svg {
+            width: 42px;
+            height: 42px;
+            color: #00727f;
+        }
+
+        .custom-tile-title {
+            font-size: 1.02rem;
+            font-weight: 800;
+            color: #00727f;
+            letter-spacing: 0.01em;
+        }
+
+        body.light-mode .custom-tile-title {
+            color: #00727f;
+        }
+
+        .brand-status {
+            min-height: 1.6em;
+            margin: 10px 0 0;
+            color: var(--muted-text);
+            font-size: 0.9rem !important;
+        }
+
+        .models-section {
+            margin: 34px auto 44px;
+            scroll-margin-top: 100px;
+            text-align: left;
+        }
+
+        .models-heading {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+        }
+
+        .models-heading h2 {
+            margin: 0;
+            color: var(--heading);
+            font-size: clamp(1.35rem, 3vw, 1.8rem);
+        }
+
+        .back-to-brands {
+            min-height: 40px;
+            padding: 8px 14px;
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            background: var(--panel-card);
+            color: var(--fg);
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .back-to-brands:hover {
+            background: var(--panel-hover);
+        }
+
+        .back-to-brands:focus-visible {
+            outline: 3px solid var(--line-strong);
+            outline-offset: 3px;
+        }
+
+        .product-list .product-card[hidden] {
+            display: none;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            align-items: stretch;
+            gap: 16px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .product-card {
+            position: relative;
+            display: flex;
+            min-width: 0;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 10px;
+            border: 1px solid var(--product-border);
+            border-radius: 14px;
+            background: linear-gradient(155deg, var(--product-surface-raised), var(--product-surface) 38%);
+            color: var(--product-text);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .product-card::before {
+            position: absolute;
+            top: 0;
+            right: 18px;
+            left: 18px;
+            height: 2px;
+            border-radius: 0 0 99px 99px;
+            background: var(--line-strong);
+            box-shadow: 0 0 12px var(--line-glow);
+            content: "";
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--line-strong);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28), 0 0 16px var(--line-glow);
+        }
+
+        .product-gallery {
+            position: relative;
+            display: grid;
+            height: 240px;
+            place-items: center;
+            overflow: hidden;
+            margin: 5px 0 12px;
+            border: 1px solid var(--product-border);
+            border-radius: 9px;
+            background: var(--product-image-bg);
+        }
+
+        .product-card img {
+            display: block;
+            min-width: 0;
+            min-height: 0;
+            width: 100%;
+            height: 100%;
+            padding: 14px;
+            object-fit: contain;
+        }
+
+        .product-card--roomy-image .product-gallery img {
+            transform: scale(0.72);
+        }
+
+        .gallery-count {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: rgba(4, 18, 24, 0.82);
+            color: #dffcff;
+            font-size: 0.7rem;
+        }
+
+        .product-meta {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 10px 6px;
+            margin-top: 0;
+        }
+
+        .product-sku {
+            grid-column: 1 / -1;
+            width: fit-content;
+            max-width: 100%;
+            overflow: hidden;
+            padding: 4px 8px;
+            border: 1px solid var(--product-border);
+            border-radius: 999px;
+            background: var(--panel-card);
+            color: var(--product-text);
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .product-rating {
+            color: var(--line-strong);
+            font-size: 0.82rem;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .product-stock {
+            color: #07934d;
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .product-card h2 {
+            display: -webkit-box;
+            min-height: 2.7em;
+            overflow: hidden;
+            margin: 12px 0 10px;
+            color: var(--product-text);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        .product-specifications {
+            margin: 0 0 14px;
+            padding: 0 0 0 2px;
+            color: var(--product-muted);
+            font-size: 0.71rem;
+            line-height: 1.48;
+            list-style: none;
+        }
+
+        .product-specifications li::before {
+            margin-right: 4px;
+            color: var(--line-strong);
+            content: "-";
+        }
+
+        .product-description {
+            display: -webkit-box;
+            overflow: hidden;
+            margin: 0 0 16px;
+            color: var(--product-muted);
+            font-size: 0.76rem;
+            line-height: 1.45;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
+
+        .product-card.is-expanded .product-description {
+            display: block;
+            overflow: visible;
+        }
+
+        .product-extra-details {
+            display: none;
+            margin: -6px 0 12px;
+            color: var(--product-muted);
+            font-size: 0.74rem;
+            line-height: 1.45;
+        }
+
+        .product-card.is-expanded .product-extra-details {
+            display: block;
+        }
+
+        .product-card .product-price {
+            margin: auto 0 10px;
+            padding-top: 16px;
+            color: var(--line-strong);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .product-price-original { display: block; color: var(--product-muted); font-size: .78rem; text-decoration: line-through; font-weight: 400; }
+        .product-price-sale { margin-right: 8px; }
+        .product-discount-badge { display: inline-block; padding: 3px 6px; border-radius: 4px; background: #ff684d; color: #fff; font-size: .68rem; vertical-align: middle; }
+
+        .product-actions {
+            display: grid;
+            gap: 8px;
+        }
+
+        .product-actions button {
+            min-height: 38px;
+            border: 1px solid var(--line-strong);
+            border-radius: 7px;
+            font: inherit;
+            font-size: 0.76rem;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .add-to-cart { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .product-actions .button-cart-icon { width: 17px !important; height: 17px !important; padding: 0 !important; flex: 0 0 auto; }
+
+        .add-to-cart {
+            background: var(--line-strong);
+            color: var(--button-text);
+            font-weight: 700;
+        }
+
+        .add-to-cart:hover,
+        .add-to-cart.is-added {
+            background: var(--product-surface-raised);
+            color: var(--line-strong);
+            box-shadow: 0 0 12px var(--line-glow);
+        }
+
+        .see-more {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--product-text);
+        }
+
+        .product-actions .button-eye-icon { width: 14px !important; height: 14px !important; padding: 0 !important; object-fit: contain; filter: invert(1); }
+        body.light-mode .button-eye-icon { filter: none; }
+
+        .see-more:hover {
+            background: var(--panel-hover);
+            color: var(--line-strong);
+        }
+
+        .product-actions button:focus-visible {
+            outline: 3px solid var(--line-strong);
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 1400px) {
+            .product-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+        @media (max-width: 1100px) {
+            .product-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+        @media (max-width: 720px) {
+            .product-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 460px) {
+            .product-list { grid-template-columns: minmax(0, 1fr); }
+            .product-gallery { height: 230px; }
+        }
+        @media (max-width: 560px) {
+            .topbar { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 10px 12px; }
+            .brand { grid-column: 1; grid-row: 1; justify-self: start; }
+            .brand-logo { width: min(28vw, 112px); max-height: 48px; }
+            .menu { display: none; }
+            .topbar-actions { grid-column: 2; grid-row: 1; gap: 6px; }
+            .search-panel { top: 50%; right: 12px; left: auto; width: min(40vw, calc(100% - 160px)); transform: translateY(-50%); }
+            .search-form { padding: 4px; }
+            .search-input { flex: 1; min-width: 0; padding-inline: 6px; font-size: clamp(8px, 2.6vw, 10px); }
+            .profile-button { width: 34px; height: 34px; }
+            .search-button { width: 34px; height: 34px; }
+            .search-button svg { width: 18px; height: 18px; }
+            .dots-box { width: 40px; height: 40px; }
+            .dot { width: 6px; height: 6px; }
+            .topbar.compact .profile-button { width: 30px; height: 30px; }
+            .topbar.compact .search-button { width: 30px; height: 30px; }
+            .topbar.compact .dots-box { width: 34px; height: 34px; }
+            .topbar.compact .dot { width: 5px; height: 5px; }
+            .appearance-control { flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+
+        .topbar { grid-template-columns: auto minmax(0, 1fr) auto; gap: clamp(18px, 3vw, 42px); padding: 12px clamp(16px, 3vw, 40px); }
+        body.home-page .topbar { grid-template-columns: auto minmax(0, 1fr) auto; gap: clamp(18px, 3vw, 42px); padding: 12px clamp(16px, 3vw, 40px); }
+        .brand { grid-column: 1; justify-self: start; padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 12px; background: #000; box-shadow: 0 0 14px var(--line-glow); }
+        body.home-page .brand { grid-column: 1; justify-self: start; padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 12px; background: #000; box-shadow: 0 0 14px var(--line-glow); }
+        .brand-logo { width: min(16vw, 180px); max-height: 68px; }
+        body.home-page .brand-logo { width: min(16vw, 180px); max-height: 68px; }
+        .menu { grid-column: 2; justify-content: center; gap: clamp(12px, 2.4vw, 32px); justify-self: stretch; }
+        body.home-page .menu { grid-column: 2; justify-content: center; gap: clamp(12px, 2.4vw, 32px); justify-self: stretch; }
+        .menu a { letter-spacing: 0.04em; text-transform: uppercase; }
+        .topbar-actions { grid-column: 3; gap: 12px; }
+        body.home-page .topbar-actions { grid-column: 3; gap: 12px; }
+        .promotion-link { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 16px; border: 1px solid var(--line-strong); border-radius: 9px; background: var(--panel-card); color: var(--line-strong); box-shadow: 0 0 12px var(--line-glow); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; text-transform: uppercase; white-space: nowrap; transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
+        .promotion-link:hover { background: var(--panel-hover); box-shadow: 0 0 18px var(--line-glow); transform: translateY(-1px); }
+        .profile-button, .search-button { border-radius: 12px; }
+        .search-panel { top: calc(100% + 8px); right: 12px; width: min(360px, calc(100vw - 24px)); transform: none; }
+
+        @media (max-width: 760px) {
+            .topbar { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 10px 16px; }
+            body.home-page .topbar { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 10px 16px; }
+            .brand { grid-column: 1; grid-row: 1; }
+            body.home-page .brand { grid-column: 1; grid-row: 1; }
+            .brand-logo { width: min(28vw, 132px); max-height: 52px; }
+            body.home-page .brand-logo { width: min(28vw, 132px); max-height: 52px; }
+            .brand-name { display: inline; font-size: clamp(0.85rem, 4vw, 1.15rem); }
+            .menu { display: none; }
+            .topbar-actions { grid-column: 2; grid-row: 1; gap: 6px; }
+            .promotion-link { display: none; }
+            .search-panel { top: calc(100% + 8px); right: 12px; left: auto; width: min(360px, calc(100vw - 24px)); transform: none; }
+            .search-form { padding: 4px; }
+            .search-input { flex: 1; min-width: 0; padding-inline: 10px; font-size: 1rem; }
+            .profile-button, .search-button { width: 34px; height: 34px; }
+            .search-button svg { width: 18px; height: 18px; }
+        }
+
+        @media (max-width: 360px) {
+            .topbar { column-gap: 6px; padding-inline: 8px; }
+            .brand { padding-inline: 4px; }
+            .brand-logo { width: clamp(60px, 24vw, 84px); max-height: 40px; }
+            .brand-name { display: inline; font-size: clamp(0.7rem, 3.5vw, 0.9rem); }
+            .topbar-actions { gap: 4px; }
+            .profile-button, .search-button { width: 30px; height: 30px; border-radius: 9px; }
+            .profile-button svg, .search-button svg { width: 16px; height: 16px; }
+            .dots-box { width: 34px; height: 34px; }
+            .dot { width: 4px; height: 4px; }
+        }
+    </style>
+    <link rel="stylesheet" href="style.css?v=1">
+</head>
+    <body class="home-page">
+    <a class="skip-link" href="#brands">Skip to products</a>
+    <header class="topbar">
+        <a class="brand" href="home.html" aria-label="RezekeeeShop home">
+            <img class="brand-logo" src="inmage/rezekee-shop-horizontal.png" alt="RezekeeeShop logo">
+        </a>
+
+        <nav class="menu" aria-label="Main navigation">
+            <a href="home.html">Home</a>
+            <a href="products.html#brands" aria-current="page">Products</a>
+            <a href="about.html">About</a>
+            <a class="promotion-link" href="promotion.html">Promotion</a>
+        </nav>
+
+        <div class="topbar-actions">
+            <button class="store-action-button" type="button" data-store-view="cart" aria-label="Open shopping basket (0 items)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9.5" cy="19" r="1.2" fill="currentColor"></circle><circle cx="18" cy="19" r="1.2" fill="currentColor"></circle></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="search-button" type="button" id="searchButton" aria-label="Search store" title="Search store" aria-expanded="false" aria-controls="searchPanel">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </button>
+            <button class="store-action-button" type="button" data-store-view="favorites" aria-label="Open favorites (0 saved)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.8 8.8c0 5.3-8.8 11-8.8 11s-8.8-5.7-8.8-11A4.8 4.8 0 0 1 12 6.5a4.8 4.8 0 0 1 8.8 2.3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="profile-button" type="button" id="profileButton" aria-label="Sign in with phone" title="Sign in">
+                <svg id="profileIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"></circle><path d="M4.5 20c.7-3.5 3.2-5.4 7.5-5.4s6.8 1.9 7.5 5.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </button>
+            <button class="dots-box" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidePanel" id="menuToggle">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+        </div>
+        <div class="search-panel" id="searchPanel" aria-label="Store search">
+            <form class="search-form" role="search" id="searchForm">
+                <label class="search-label" for="storeSearch">Search products</label>
+                <input class="search-input" id="storeSearch" type="search" aria-label="Search products" placeholder="Search by product or brand" autocomplete="off">
+            </form>
+            <div class="search-results" id="searchResults" aria-live="polite"></div>
+        </div>
+    </header>
+
+    <dialog class="profile-dialog" id="authDialog" aria-labelledby="authTitle">
+        <form class="auth-step" id="phoneForm">
+            <h2 id="authTitle">Sign in or create an account</h2>
+            <button class="google-signin" id="googleSignInButton" type="button">Continue with Google</button>
+            <div class="auth-divider" aria-hidden="true">or use your phone</div>
+            <label for="authPhone">Phone number</label>
+            <input id="authPhone" name="phone" type="tel" autocomplete="tel" placeholder="Phone number" required>
+            <p class="profile-note">Select your country, then enter your local phone number. We'll send a one-time SMS code.</p>
+            <div class="profile-actions"><button class="profile-cancel" type="button" data-auth-close>Cancel</button><button class="profile-save" id="sendCodeButton" type="submit">Send code</button></div>
+        </form>
+        <form class="auth-step" id="otpForm" hidden>
+            <h2>Verify your phone</h2>
+            <label for="authCode">SMS verification code</label>
+            <input id="authCode" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" required>
+            <div class="profile-actions"><button class="profile-cancel" id="changePhoneButton" type="button">Use another number</button><button class="profile-save" id="verifyCodeButton" type="submit">Verify and sign in</button></div>
+        </form>
+        <section class="account-view" id="accountView" hidden>
+            <h2>Account</h2>
+            <p class="profile-note" id="signedInPhone"></p>
+            <div class="profile-actions"><button class="profile-cancel" type="button" data-auth-close>Close</button><button class="profile-save" id="signOutButton" type="button">Sign out</button></div>
+        </section>
+        <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+    </dialog>
+
+    <div class="overlay" id="overlay"></div>
+
+    <aside class="side-panel" id="sidePanel" aria-label="More navigation" aria-hidden="true" inert>
+        <button class="side-panel-close" type="button" aria-label="Close navigation menu" id="sidePanelClose">&times;</button>
+        <a href="home.html">Home page</a>
+        <a href="products.html#brands">Products</a>
+        <a href="promotion.html">Promotions</a>
+        <a href="about.html">About us</a>
+        <div class="appearance-control">
+            <span class="appearance-label" id="appearanceLabel">Appearance</span>
+            <button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false" aria-describedby="appearanceLabel">
+                <span class="theme-toggle-thumb"><i class="fa-solid fa-moon"></i></span>
+                <span class="theme-icon sun" aria-hidden="true"><i class="fa-solid fa-sun"></i></span>
+                <span class="theme-icon moon" aria-hidden="true"><i class="fa-solid fa-moon"></i></span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="content" id="mainContent">
+        <section class="brand-section" id="brands" aria-labelledby="brandsTitle">
+            <p class="brand-eyebrow">The right laptop starts here</p>
+            <h2 id="brandsTitle">Shop by brand</h2>
+            <p class="brand-intro">Browse models from the brands we carry.</p>
+            <div class="brand-grid" role="group" aria-label="Filter products by brand">
+                <button class="brand-choice" type="button" data-brand="acer" aria-label="Browse Acer models">
+                    <img class="brand-logo-image" src="inmage/kisspng-logo-acer-iconia-one-1-b3-a4-font-ivpro-sistemas-multimedia-1713923641585.webp" alt="Acer">
+                </button>
+                <button class="brand-choice" type="button" data-brand="asus" aria-label="Browse ASUS models">
+                    <img class="brand-logo-image" src="inmage/hd-asus-official-logo-transparent-png-701751694773683zhb9eu5zq3.png" alt="ASUS">
+                </button>
+                <button class="brand-choice" type="button" data-brand="dell" aria-label="Browse Dell models">
+                    <img class="brand-logo-image" src="inmage/images.jpg" alt="Dell">
+                </button>
+                <button class="brand-choice" type="button" data-brand="msi" aria-label="Browse MSI models">
+                    <img class="brand-logo-image" src="inmage/msi-logo-png-svg.webp" alt="MSI">
+                </button>
+                <button class="brand-choice" type="button" data-brand="hp" aria-label="Browse HP models">
+                    <img class="brand-logo-image" src="inmage/HP-logo-technology-brand-emblem-transparent-png-jpg.webp" alt="HP">
+                </button>
+                <button class="brand-choice" type="button" data-brand="lenovo" aria-label="Browse Lenovo models">
+                    <img class="brand-logo-image" src="inmage/lenovo-logo-png-svg.webp" alt="Lenovo">
+                </button>
+                <button class="brand-choice" type="button" data-brand="mac" aria-label="Browse Mac models">
+                    <img class="brand-logo-image" src="inmage/apple-logo-transparent.png" alt="Apple">
+                </button>
+                <button class="brand-choice brand-choice-custom" type="button" data-page="custom-setup.html" aria-label="Build a custom gaming setup at your own budget">
+                    <span class="custom-tile" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v9H4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path><path d="M9 18h6M12 14v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+                    </span>
+                    <span class="custom-tile-title">Custom Setup</span>
+                </button>
+            </div>
+            <p class="brand-status" id="brandStatus" aria-live="polite"></p>
+        </section>
+        <section class="models-section" id="models" aria-labelledby="modelsTitle" hidden>
+            <div class="models-heading">
+                <button class="back-to-brands" id="backToBrands" type="button">&larr; All brands</button>
+                <h2 id="modelsTitle">Models</h2>
+            </div>
+            <p class="brand-status" id="brandStatus" aria-live="polite"></p>
+            <div id="productList" class="product-list"></div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/intlTelInput.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="storefront-data.js?v=5"></script>
+    <script src="owner-nav.js"></script>
+    <script src="store-auth.js"></script>
+    <script src="store-actions.js?v=5"></script>
+    <script>
+        const searchButton = document.getElementById('searchButton');
+        const searchPanel = document.getElementById('searchPanel');
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('storeSearch');
+        const searchResults = document.getElementById('searchResults');
+        const topbar = document.querySelector('.topbar');
+        const profileButton = document.getElementById('profileButton');
+
+        function updateTopbarSize() {
+            const isCompact = window.scrollY > 40;
+            topbar.classList.toggle('compact', isCompact);
+            sessionStorage.setItem('rezekee-topbar-compact', String(isCompact));
+        }
+
+        function restoreTopbarSize() {
+            topbar.classList.toggle('compact', window.scrollY > 40 || sessionStorage.getItem('rezekee-topbar-compact') === 'true');
+        }
+
+        restoreTopbarSize();
+        window.addEventListener('pageshow', restoreTopbarSize);
+        window.addEventListener('scroll', updateTopbarSize, { passive: true });
+
+        // Theme initialization handled by shared script.js.
+
+        const searchableItems = [
+            { title: 'Product 1', description: 'Latest product', keywords: 'product 1', url: 'products.html#product-1' },
+            { title: 'Product 2', description: 'Latest product', keywords: 'product 2', url: 'products.html#product-2' },
+            { title: 'Product 3', description: 'Latest product', keywords: 'product 3', url: 'products.html#product-3' },
+            { title: 'Products', description: 'Browse laptops by brand', keywords: 'products latest store shop items brands acer asus dell msi hp lenovo mac', url: 'products.html#brands' },
+            { title: 'Custom Setup', description: 'Build a gaming PC at your budget', keywords: 'custom setup build pc gaming budget price 1000 dollars parts', url: 'custom-setup.html' },
+            { title: 'Home', description: 'Welcome to Rezekee', keywords: 'home welcome', url: 'home.html' },
+            { title: 'About us', description: 'Learn about our team and goals', keywords: 'about team design digital products', url: 'about.html' }
+        ];
+
+        window.addEventListener('rezekee:products-loaded', (event) => {
+            const products = event.detail.products;
+            searchableItems.splice(0, 3, ...products.map((product) => ({
+                title: product.name,
+                description: product.description || 'Shop product',
+                keywords: `${product.name} ${product.description || ''}`,
+                url: `products.html#product-${product.id}`
+            })));
+            renderSearchResults();
+        });
+
+        function renderSearchResults() {
+            const query = searchInput.value.trim().toLocaleLowerCase();
+            searchResults.replaceChildren();
+            const matches = query
+                ? searchableItems.filter((item) => `${item.title} ${item.description} ${item.keywords}`.toLocaleLowerCase().includes(query))
+                : [];
+            if (!query || !matches.length) {
+                const empty = document.createElement('p');
+                empty.className = 'search-empty';
+                empty.textContent = query ? 'No matching products or pages found.' : 'Type a product or page name to search.';
+                searchResults.append(empty);
+                return;
+            }
+            for (const item of matches) {
+                const link = document.createElement('a');
+                link.className = 'search-result';
+                link.href = item.url;
+                const title = document.createElement('strong');
+                title.textContent = item.title;
+                const description = document.createElement('span');
+                description.className = 'search-result-description';
+                description.textContent = item.description;
+                link.append(title, description);
+                searchResults.append(link);
+            }
+        }
+
+        function setSearchOpen(isOpen) {
+            searchPanel.classList.toggle('open', isOpen);
+            topbar.classList.toggle('search-open', isOpen);
+            searchButton.setAttribute('aria-expanded', String(isOpen));
+            if (isOpen) searchInput.focus();
+        }
+
+        searchButton.addEventListener('click', () => {
+            const isOpen = !searchPanel.classList.contains('open');
+            renderSearchResults();
+            setSearchOpen(isOpen);
+        });
+        searchForm.addEventListener('submit', (event) => event.preventDefault());
+        searchInput.addEventListener('input', renderSearchResults);
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                setSearchOpen(false);
+                searchButton.focus();
+            }
+        });
+        searchResults.addEventListener('click', (event) => {
+            if (event.target instanceof Element && event.target.closest('a.search-result')) setSearchOpen(false);
+        });
+        document.addEventListener('pointerdown', (event) => {
+            if (event.target instanceof Node && !searchPanel.contains(event.target) && !searchButton.contains(event.target)) setSearchOpen(false);
+        });
+
+        // Dropdown menu and theme toggle handled by shared script.js.
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && searchPanel.classList.contains('open')) {
+                setSearchOpen(false);
+                searchButton.focus();
+            }
+        });
+
+        const brandButtons = [...document.querySelectorAll('.brand-choice')].filter((button) => !button.dataset.page);
+        const productList = document.getElementById('productList');
+        const brandStatus = document.getElementById('brandStatus');
+        const brandSection = document.getElementById('brands');
+        const modelsSection = document.getElementById('models');
+        const modelsTitle = document.getElementById('modelsTitle');
+        const backToBrands = document.getElementById('backToBrands');
+        let activeBrand = null;
+
+        function filterProductsByBrand(brand) {
+            activeBrand = brand;
+            const cards = [...productList.querySelectorAll('.product-card')];
+            let visibleCount = 0;
+            for (const card of cards) {
+                const productName = card.querySelector('h2')?.textContent || '';
+                const matches = ({
+                    acer: /\bacer\b/i,
+                    asus: /\basus\b/i,
+                    // Dell's section also lists Dell's families: Alienware, XPS, Inspiron, Latitude, Vostro, Precision.
+                    dell: /\bdell\b|\balien[\s-]?ware\b|\bxps\b|\binspiron\b|\blatitude\b|\bvostro\b|\bprecision\b/i,
+                    msi: /\bmsi\b/i,
+                    hp: /\bhp\b/i,
+                    lenovo: /\blenovo\b/i,
+                    mac: /\bmac(?:book)?\b|\bapple\b/i
+                }[activeBrand]?.test(productName) ?? false);
+                card.hidden = !matches;
+                if (matches) visibleCount++;
+            }
+
+            const selectedButton = brandButtons.find((button) => button.dataset.brand === activeBrand);
+            const brandName = ({
+                acer: 'Acer',
+                asus: 'ASUS',
+                dell: 'Dell',
+                msi: 'MSI',
+                hp: 'HP',
+                lenovo: 'Lenovo',
+                mac: 'Mac'
+            })[selectedButton?.dataset.brand];
+            modelsTitle.textContent = `${brandName} models`;
+            brandStatus.textContent = visibleCount
+                ? `${visibleCount} ${brandName} model${visibleCount === 1 ? '' : 's'} available.`
+                : `No ${brandName} models are available right now.`;
+            brandSection.hidden = true;
+            modelsSection.hidden = false;
+            modelsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        for (const button of brandButtons) {
+            button.addEventListener('click', () => filterProductsByBrand(button.dataset.brand));
+        }
+
+        for (const tile of document.querySelectorAll('.brand-choice[data-page]')) {
+            tile.addEventListener('click', () => {
+                window.location.href = tile.dataset.page;
+            });
+        }
+
+        backToBrands.addEventListener('click', () => {
+            activeBrand = null;
+            modelsSection.hidden = true;
+            brandSection.hidden = false;
+            brandSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        function checkUrlBrand() {
+            const params = new URLSearchParams(window.location.search);
+            const brandParam = params.get('brand');
+            const hash = window.location.hash.replace('#', '').toLowerCase();
+            const target = brandParam || (brandButtons.some(b => b.dataset.brand === hash) ? hash : null);
+            if (target && brandButtons.some(b => b.dataset.brand === target.toLowerCase())) {
+                filterProductsByBrand(target.toLowerCase());
+            }
+        }
+
+        checkUrlBrand();
+        window.addEventListener('popstate', checkUrlBrand);
+
+        document.addEventListener('click', (event) => {
+            if (event.target instanceof Element && event.target.closest('#footerLoginButton')) {
+                profileButton.click();
+            }
+        });
+
+        window.addEventListener('rezekee:products-loaded', () => {
+            if (activeBrand) filterProductsByBrand(activeBrand);
+            else checkUrlBrand();
+        });
+    </script>
+    <link rel="stylesheet" href="site-shared.css?v=2">
+<footer class="store-footer">
+        <div class="store-footer-main">
+            <!-- Column 1: Brand & Opening Hours -->
+            <section class="store-footer-brand">
+                <a href="home.html" aria-label="RezekeeeShop home">
+                    <img class="store-footer-logo" src="inmage/Gemini_Generated_Image_bgsyf5bgsyf5bgsy-removebg-preview.png" alt="RezekeeeShop">
+                </a>
+                <h4>OPENING HOURS</h4>
+                <p>Monday to Sunday, 8:00 AM to 5:30 PM.</p>
+            </section>
+
+            <!-- Column 2: Contact Us -->
+            <section>
+                <h4>CONTACT US</h4>
+                <div class="contact-subblock">
+                    <span class="contact-subtitle">Sales Showroom</span>
+                    <a href="tel:0965110561" class="contact-link"><i class="fa-solid fa-phone"></i> 096 511 0561</a>
+                </div>
+                <div class="contact-subblock">
+                    <span class="contact-subtitle">Service Center</span>
+                    <a href="tel:0965660561" class="contact-link"><i class="fa-solid fa-phone"></i> 096 566 0561</a>
+                </div>
+            </section>
+
+            <!-- Column 3: Information -->
+            <section>
+                <h4>INFORMATION</h4>
+                <ul class="store-footer-list">
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="about.html">About us</a></li>
+                </ul>
+            </section>
+
+            <!-- Column 4: My Account -->
+            <section>
+                <h4>MY ACCOUNT</h4>
+                <ul class="store-footer-list">
+                    <li><button class="footer-login-button" type="button" id="footerLoginButton">Login</button></li>
+                    <li><a href="favorites.html">My favorites</a></li>
+                </ul>
+            </section>
+
+            <!-- Column 5: Follow Us -->
+            <section>
+                <h4>FOLLOW US</h4>
+                <ul class="store-footer-list store-footer-social-list">
+                    <li><a href="https://www.facebook.com/share/19gmzMMRUH/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg> Facebook</a></li>
+                    <li><a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 6.8a4.7 4.7 0 0 1-3.3-1.4 4.7 4.7 0 0 1-1.2-3.2h-3.1v12.4a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .9.1V8.8a6 6 0 0 0-.9-.1 5.9 5.9 0 1 0 5.9 5.9V9.2a7.8 7.8 0 0 0 4.5 1.4V7.5a4.7 4.7 0 0 1-1-.7z"/></svg> TikTok</a></li>
+                    <li><a href="https://www.instagram.com/rezekeee.shop?exln=a21zbm4yenc0MjZz&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg> Instagram</a></li>
+                    <li><a href="https://t.me/RezekeeeShop" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 3.8 11.5c-1.2.5-1.2 1.2-.2 1.5l4.6 1.4 1.8 5.4c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.4-1.7-1.5-1.3z"/></svg> Telegram</a></li>
+                </ul>
+            </section>
+        </div>
+
+        <div class="store-footer-bottom">
+            <span>&copy; RezekeeeShop &middot; Cambodia</span>
+            <div class="store-footer-payments" aria-label="Accepted payment methods">
+                <img class="store-payment-image" src="inmage/Asset102x_1756112120.png" alt="Wing Bank">
+                <img class="store-payment-image" src="inmage/KHQR-available-here-logo-with-bg.webp" alt="KHQR">
+                <img class="store-payment-image" src="inmage/Visa_Inc.-Logo.wine.png" alt="Visa">
+            </div>
+        </div>
+    </footer>
+    <script src="script.js?v=1"></script>
+</body>
+</html>

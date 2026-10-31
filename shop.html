@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="store-actions.css?v=6">
+    <link rel="stylesheet" href="site-shared.css?v=2">
+    <link rel="stylesheet" href="home-page.css?v=6">
+    <link rel="stylesheet" href="chrome.css?v=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Shop | RezekeeeShop</title>
+    <link rel="stylesheet" href="style.css?v=1">
+</head>
+<body class="home-page">
+    <div id="site-header"></div>
+    <main class="content" id="mainContent">
+        <h1>Shop</h1>
+        <div style="display:grid;grid-template-columns:220px 1fr;gap:24px;text-align:left;max-width:1100px;margin:0 auto;">
+            <aside style="border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--panel-card);">
+                <h2 style="color:var(--heading);font-size:1.1rem;">Categories</h2>
+                <ul class="store-footer-list">
+                    <li><a href="#laptops">Gaming Laptops</a></li>
+                    <li><a href="#desktops">Desktop PCs</a></li>
+                    <li><a href="#parts">Components</a></li>
+                    <li><a href="#accessories">Accessories</a></li>
+                </ul>
+                <h2 style="color:var(--heading);font-size:1.1rem;margin-top:16px;">Sort</h2>
+                <select style="width:100%;padding:8px;border-radius:6px;background:var(--bg);color:var(--fg);border:1px solid var(--line);">
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Newest</option>
+                </select>
+            </aside>
+            <section>
+                <form role="search" style="margin-bottom:16px;">
+                    <input class="search-input" type="search" placeholder="Search products..." aria-label="Search products" style="width:100%;">
+                </form>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;" id="productGrid">
+                    <article style="border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--panel-card);">
+                        <img src="inmage/rezekee-shop-horizontal.png" alt="Product" style="width:100%;height:140px;object-fit:contain;">
+                        <h3 style="color:var(--heading);font-size:1rem;margin:8px 0 4px;">Gaming Laptop Pro</h3>
+                        <p style="font-size:0.9rem;margin:0 0 8px;">$1,299.00</p>
+                        <button class="store-action-button" data-store-view="cart" type="button" style="width:100%;">Add to Cart</button>
+                    </article>
+                    <article style="border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--panel-card);">
+                        <img src="inmage/rezekee-shop-horizontal.png" alt="Product" style="width:100%;height:140px;object-fit:contain;">
+                        <h3 style="color:var(--heading);font-size:1rem;margin:8px 0 4px;">Custom Desktop X</h3>
+                        <p style="font-size:0.9rem;margin:0 0 8px;">$1,899.00</p>
+                        <button class="store-action-button" data-store-view="cart" type="button" style="width:100%;">Add to Cart</button>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="store-actions.js?v=5"></script>
+    <script src="layout.js?v=1"></script>
+    <script src="script.js?v=1"></script>
+</body>
+</html>

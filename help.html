@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="store-actions.css?v=6">
+    <link rel="stylesheet" href="site-shared.css?v=2">
+    <link rel="stylesheet" href="home-page.css?v=6">
+    <link rel="stylesheet" href="chrome.css?v=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Help &amp; FAQ | RezekeeeShop</title>
+    <style>
+        .content { text-align: left; }
+        h2, h3 { color: var(--heading); }
+        .page-intro { color: var(--muted-text); font-size: 1.05rem; line-height: 1.7; margin: 0 0 24px; }
+        .help-container { display: grid; grid-template-columns: 1fr 4fr; gap: 32px; align-items: start; }
+        .help-toc { position: sticky; top: 100px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel-card); padding: 18px; }
+        .help-toc h2 { margin: 0 0 12px; font-size: .9rem; letter-spacing: .08em; text-transform: uppercase; }
+        .help-toc a { display: block; padding: 6px 0; color: var(--muted-text); font-size: .9rem; text-decoration: none; }
+        .help-toc a:hover { color: var(--heading); }
+        .help-section { border: 1px solid var(--line); border-radius: 14px; background: var(--panel-card); padding: 24px clamp(18px, 4vw, 32px); margin-bottom: 18px; scroll-margin-top: 100px; transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease; }
+        .help-section:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 0 20px var(--line-glow); }
+        body.light-mode.home-page .content, body.light-mode.home-page .content * { color: #000; }
+        .help-section h2 { margin: 0 0 12px; font-size: 1.3rem; }
+        .help-section p, .help-section li { color: var(--fg); line-height: 1.7; }
+        .help-section ul, .help-section ol { padding-left: 22px; margin: 0; }
+        .help-section li + li { margin-top: 8px; }
+        .help-section strong { color: var(--heading); }
+        .faq { margin: 12px 0; padding: 14px 18px; border-left: 3px solid var(--line-strong); background: var(--panel-card); border-radius: 8px; }
+        .faq p { margin: 0 0 8px; }
+        .faq p:last-child { margin-bottom: 0; }
+        @media (max-width: 720px) { .help-container { grid-template-columns: 1fr; } .help-toc { position: static; } }
+    </style>
+    <link rel="stylesheet" href="style.css?v=1">
+</head>
+<body class="home-page">
+    <header class="topbar">
+        <a class="brand" href="about.html" aria-label="Go to About Us">
+            <img class="brand-logo" src="inmage/rezekee-shop-horizontal.png" alt="RezekeeeShop logo">
+        </a>
+
+        <nav class="menu" aria-label="Main navigation">
+            <a href="home.html" aria-current="page">Home</a>
+            <a href="products.html#brands">Products</a>
+            <a href="about.html">About</a>
+            <a class="promotion-link" href="promotion.html">Promotion</a>
+        </nav>
+
+        <div class="topbar-actions">
+            <button class="store-action-button" type="button" data-store-view="cart" aria-label="Open shopping basket (0 items)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9.5" cy="19" r="1.2" fill="currentColor"></circle><circle cx="18" cy="19" r="1.2" fill="currentColor"></circle></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="search-button" type="button" id="searchButton" aria-label="Search store" title="Search store" aria-expanded="false" aria-controls="searchPanel">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </button>
+            <button class="store-action-button" type="button" data-store-view="favorites" aria-label="Open favorites (0 saved)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.8 8.8c0 5.3-8.8 11-8.8 11s-8.8-5.7-8.8-11A4.8 4.8 0 0 1 12 6.5a4.8 4.8 0 0 1 8.8 2.3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="profile-button" type="button" id="profileButton" aria-label="Sign in with phone" title="Sign in">
+                <svg id="profileIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"></circle><path d="M4.5 20c.7-3.5 3.2-5.4 7.5-5.4s6.8 1.9 7.5 5.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </button>
+            <button class="dots-box" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidePanel" id="menuToggle">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+        </div>
+        <div class="search-panel" id="searchPanel" aria-label="Store search">
+            <form class="search-form" role="search" id="searchForm">
+                <input class="search-input" id="storeSearch" type="search" aria-label="Search any item you want" placeholder="Search any item you want" autocomplete="off">
+            </form>
+            <div class="search-results" id="searchResults" aria-live="polite"></div>
+        </div>
+    </header>
+<div class="overlay" id="overlay"></div>
+<aside class="side-panel" id="sidePanel" aria-label="More navigation" aria-hidden="true" inert>
+    <button class="side-panel-close" type="button" aria-label="Close navigation menu" id="sidePanelClose">×</button>
+    <a href="home.html">Home page</a>
+    <a href="products.html#brands">Products</a>
+    <a href="promotion.html">Promotions</a>
+    <a href="about.html">About us</a>
+    <div class="appearance-control">
+        <span class="appearance-label" id="appearanceLabel">Appearance</span>
+        <button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false" aria-describedby="appearanceLabel">
+            <span class="theme-toggle-thumb"><i class="fa-solid fa-moon"></i></span>
+            <span class="theme-icon sun" aria-hidden="true"><i class="fa-solid fa-sun"></i></span>
+            <span class="theme-icon moon" aria-hidden="true"><i class="fa-solid fa-moon"></i></span>
+        </button>
+    </div>
+</aside>
+    <main class="content" id="mainContent">
+        <h1>Help &amp; FAQ</h1>
+        <p class="page-intro">At RezekeeeShop, we aim to make your online shopping experience smooth, fast, and secure with flexible payment options.</p>
+        <div class="help-container">
+            <nav class="help-toc" aria-label="Help sections">
+                <h2>On this page</h2>
+                <a href="#methods">Payment methods</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#security">Payment security</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+<div class="help-content">
+                <section class="help-section" id="methods">
+                    <h2>I. Accepted Payment Methods</h2>
+                    <ol>
+                        <li><strong>KHQR (Scan to Pay):</strong> Scan and pay using Bakong or any local mobile banking app across Cambodia.</li>
+                        <li><strong>Wing Bank:</strong> Direct transfer or payment through the Wing Bank app.</li>
+                        <li><strong>VISA Card:</strong> Secure payment using valid VISA Credit or Debit cards.</li>
+                        <li><strong>Cash on Delivery (COD):</strong> Pay in cash upon delivery in designated locations.</li>
+                    </ol>
+                </section>
+                <section class="help-section" id="pricing">
+                    <h2>II. Pricing &amp; No Hidden Charges</h2>
+                    <ul>
+                        <li><strong>Transparent Pricing:</strong> There are no hidden charges or surprise fees.</li>
+                        <li><strong>All-Inclusive Product Prices:</strong> The listed product price is the final item price.</li>
+                        <li><strong>Delivery Fees:</strong> Standard delivery charges may apply depending on your location.</li>
+                    </ul>
+                </section>
+                <section class="help-section" id="security">
+                    <h2>III. Payment Security &amp; Fraud Prevention</h2>
+                    <ul>
+                        <li><strong>Secure Encryption:</strong> Card and online payments use high-level security protocols.</li>
+                        <li><strong>3D Secure Verification:</strong> Card payments use 3D Secure verification from partner banks.</li>
+                        <li><strong>Transaction Safety:</strong> Suspicious payments may require identity verification before dispatch.</li>
+                    </ul>
+                </section>
+                <section class="help-section" id="faq">
+                    <h2>IV. Frequently Asked Questions</h2>
+                    <div class="faq">
+                        <p><strong>Q: Is it safe to use my card or bank details?</strong></p>
+                        <p><strong>A:</strong> Yes. Payments use encrypted banking partners and secure gateways. We never store full card details or banking passwords.</p>
+                    </div>
+                    <div class="faq">
+                        <p><strong>Q: What currencies do you accept?</strong></p>
+                        <p><strong>A:</strong> We accept US Dollars (USD) and Khmer Riels (KHR) through KHQR or cash delivery.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="store-actions.js?v=5"></script>
+    <script src="layout.js?v=1"></script>
+    <script src="script.js?v=1"></script>
+</body>
+</html>

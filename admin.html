@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Owner dashboard | RezekeeShop</title>
+    <style>
+        :root { color-scheme: dark; --bg: #05090b; --panel: #10181b; --line: #00eaff; --text: #eafcff; --muted: #a9bec2; --danger: #ff9292; }
+        * { box-sizing: border-box; }
+        body { margin: 0; min-height: 100vh; padding: 28px 16px; background: var(--bg); color: var(--text); font: 16px Arial, sans-serif; }
+        main { width: min(900px, 100%); margin: 0 auto; }
+        header, section { margin-bottom: 20px; padding: 20px; border: 1px solid rgba(0, 234, 255, .55); border-radius: 10px; background: var(--panel); }
+        h1, h2 { margin-top: 0; color: var(--line); }
+        h1 { font-size: 1.7rem; }
+        h2 { font-size: 1.25rem; }
+        p { line-height: 1.5; }
+        .muted { color: var(--muted); }
+        label { display: block; margin: 14px 0 6px; font-weight: 700; }
+        input, textarea, select { width: 100%; padding: 11px; border: 1px solid #456066; border-radius: 6px; background: #05090b; color: var(--text); font: inherit; }
+        textarea { min-height: 100px; resize: vertical; }
+        .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 14px; }
+        .form-grid .full-width { grid-column: 1 / -1; }
+        .field-help { margin: 5px 0 0; color: var(--muted); font-size: .82rem; }
+        input[type="checkbox"] { width: auto; margin-right: 8px; }
+        button, .link-button { display: inline-block; padding: 10px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--line); color: #001114; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
+        button.secondary { background: transparent; color: var(--text); }
+        button.danger { border-color: #d26a6a; background: transparent; color: #ffb2b2; }
+        button:disabled { opacity: .6; cursor: wait; }
+        .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+        .status { min-height: 1.5em; color: var(--muted); }
+        .status.error { color: var(--danger); }
+        .product-list { display: grid; gap: 12px; margin-top: 20px; }
+        .product-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px; border: 1px solid #30474d; border-radius: 8px; }
+        .product-row h3 { margin: 0 0 6px; }
+        .product-row p { margin: 0; color: var(--muted); }
+        .product-row img { width: 60px; height: 60px; object-fit: cover; border-radius: 6px; }
+        .product-info { display: flex; flex: 1 1 250px; align-items: center; gap: 12px; }
+        .notice { padding: 12px; border-left: 3px solid var(--line); background: rgba(0, 234, 255, .06); }
+        .row-discount { display: flex; flex: 1 1 100%; flex-wrap: wrap; align-items: center; gap: 8px; width: 100%; padding-top: 10px; border-top: 1px dashed #30474d; }
+        .discount-badge { padding: 5px 10px; border: 1px solid #456066; border-radius: 999px; color: var(--muted); font-size: .8rem; font-weight: 700; white-space: nowrap; }
+        .discount-badge.on { border-color: var(--line); background: rgba(0, 234, 255, .1); color: var(--line); }
+        .discount-input { width: 78px; padding: 8px; }
+        .switch { display: inline-flex; align-items: center; gap: 6px; margin: 0; color: var(--muted); font-size: .85rem; font-weight: 700; cursor: pointer; }
+        .switch input { margin: 0; }
+        [hidden] { display: none !important; }
+        @media (max-width: 560px) { body { padding: 14px 10px; } header, section { padding: 16px; } }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>RezekeeShop owner dashboard</h1>
+            <p class="muted">Manage products and the text shown on your shop pages.</p>
+            <a class="link-button" href="home.html">View shop</a>
+        </header>
+
+        <section id="loginSection">
+            <h2>Owner sign in</h2>
+            <p class="muted">Use the owner email and password account configured in Supabase.</p>
+            <form id="loginForm">
+                <label for="ownerEmail">Email</label>
+                <input id="ownerEmail" name="email" type="email" autocomplete="username" required>
+                <label for="ownerPassword">Password</label>
+                <input id="ownerPassword" name="password" type="password" autocomplete="current-password" required>
+                <div class="actions"><button id="loginButton" type="submit">Sign in</button></div>
+            </form>
+        </section>
+
+        <div id="dashboard" hidden>
+            <section>
+                <div class="actions" style="justify-content:space-between;align-items:center">
+                    <p id="ownerIdentity" class="muted"></p>
+                    <button class="secondary" id="logoutButton" type="button">Sign out</button>
+                </div>
+            </section>
+
+            <section>
+                <h2>Products</h2>
+                <form id="productForm">
+                    <input id="productId" type="hidden">
+                    <div class="form-grid">
+                        <div>
+                            <label for="productSku">SKU / model code</label>
+                            <input id="productSku" maxlength="80" placeholder="e.g. LURS-0939">
+                        </div>
+                        <div>
+                            <label for="productName">Product name</label>
+                            <input id="productName" maxlength="120" required>
+                        </div>
+                        <div class="full-width">
+                            <label for="productDescription">Full laptop description</label>
+                            <textarea id="productDescription" maxlength="8000" placeholder="Write the complete laptop details shown on the product page."></textarea>
+                        </div>
+                        <div class="full-width">
+                            <label for="productSpecifications">Compact specifications</label>
+                            <textarea id="productSpecifications" maxlength="4000" placeholder="One specification per line, for example:&#10;CPU: Core Ultra 9 Processor&#10;RAM: 32GB LPDDR5X&#10;Storage: SSD 1TB M.2 2280"></textarea>
+                            <p class="field-help">These lines appear on the product card and details page. You can paste raw specs and click below to format.</p>
+                            <button type="button" class="secondary" id="autoFormatSpecsBtn" style="margin-top:6px;font-size:.82rem;padding:6px 12px;">Format / split specifications</button>
+                        </div>
+                        <div>
+                            <label for="productPrice">Original price (USD)</label>
+                            <input id="productPrice" type="number" min="0" step="0.01" required>
+                        </div>
+                        <div>
+                            <label for="productDiscount">Discount (%)</label>
+                            <input id="productDiscount" type="number" min="0" max="100" step="0.01" value="0">
+                            <p class="field-help">Used when adding or editing. Quick put / take out / on-off controls are on every laptop row in the list below.</p>
+                        </div>
+                        <div>
+                            <label for="productSetupCategory">Custom setup category</label>
+                            <select id="productSetupCategory">
+                                <option value="">Not in the setup page</option>
+                                <option value="gpu">Graphics card</option>
+                                <option value="cpu">Processor (CPU)</option>
+                                <option value="ram">Memory (RAM)</option>
+                                <option value="storage">Storage drive</option>
+                                <option value="monitor">Monitor</option>
+                                <option value="peripherals">Keyboard, mouse &amp; headset</option>
+                            </select>
+                            <p class="field-help">Products with a category show up on the Custom Setup page under "Real parts from our shop" and inside the budget builder suggestions.</p>
+                        </div>
+                        <div class="full-width">
+                            <label for="productImages">Image URLs (optional)</label>
+                            <textarea id="productImages" maxlength="12000" placeholder="Paste one public image URL per line"></textarea>
+                            <p class="field-help">The first image is used on the product card. All images appear on the product details page.</p>
+                        </div>
+                    </div>
+                    <label><input id="productActive" type="checkbox" checked>Visible in the shop</label>
+                    <div class="actions">
+                        <button id="saveProductButton" type="submit">Add product</button>
+                        <button class="secondary" id="cancelProductEdit" type="button" hidden>Cancel edit</button>
+                    </div>
+                </form>
+                <div id="productList" class="product-list" aria-live="polite"></div>
+            </section>
+
+            <section>
+                <h2>Home and About page text</h2>
+                <form id="contentForm">
+                    <label for="homeTitle">Home page heading</label>
+                    <input id="homeTitle" maxlength="120" required>
+                    <label for="homeBody">Home page text</label>
+                    <textarea id="homeBody" maxlength="4000" required></textarea>
+                    <label for="aboutTitle">About page heading</label>
+                    <input id="aboutTitle" maxlength="120" required>
+                    <label for="aboutBody">About page text</label>
+                    <textarea id="aboutBody" maxlength="4000" required></textarea>
+                    <div class="actions"><button id="saveContentButton" type="submit">Save page text</button></div>
+                </form>
+            </section>
+
+            <section>
+                <h2>Orders and online payments</h2>
+                <p class="notice">Order checkout and ABA PAYWAY are not connected yet. You said you don't have an ABA merchant account yet. Create the merchant account first; payment credentials must be handled by a secure server-side integration, never placed in this page.</p>
+            </section>
+        </div>
+
+        <p id="dashboardStatus" class="status" role="status" aria-live="polite"></p>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="admin.js?v=4"></script>
+</body>
+</html>

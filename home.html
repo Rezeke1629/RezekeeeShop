@@ -1,0 +1,1674 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="store-actions.css?v=6">
+    <link rel="stylesheet" href="site-shared.css?v=2">
+    <link rel="stylesheet" href="home-page.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>RezekeeeShop | Gaming laptops and custom PCs</title>
+    <style>
+        * { box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        :root {
+            --bg: #f3eeee;
+            --bg-soft: rgba(0, 0, 0, 0.55);
+            --fg: #eafcff;
+            --heading: #00eaff;
+            --muted-text: rgba(223, 252, 255, 0.55);
+            --menu: #dffcff;
+            --line: rgba(0, 234, 255, 0.9);
+            --line-strong: #00eaff;
+            --line-glow: rgba(0, 234, 255, 0.5);
+            --panel: rgba(0, 0, 0, 0.9);
+            --panel-card: rgba(0, 234, 255, 0.04);
+            --panel-hover: rgba(0, 234, 255, 0.12);
+            --dot-bg: rgba(0, 234, 255, 0.08);
+            --dot-shadow: rgba(0, 234, 255, 0.6);
+            --dot-color: #ffffff;
+            --button-text: #081d22;
+            --toggle-track: #142967;
+            --toggle-border: #102257;
+            --toggle-thumb: #304da7;
+            --toggle-sun: #d6b900;
+            --toggle-moon: #ffffff;
+            --toggle-shadow: rgba(5, 15, 54, 0.5);
+        }
+
+        body.light-mode {
+            --bg: #f5f5f5;
+            --bg-soft: rgba(255, 255, 255, 0.85);
+            --fg: #111111;
+            --heading: #f8f8f8;
+            --muted-text: rgba(0, 0, 0, 0.55);
+            --menu: #f5f5f5;
+            --line: rgb(255, 255, 255);
+            --line-strong: #111111;
+            --line-glow: rgba(255, 239, 239, 0.28);
+            --panel: rgba(255, 255, 255, 0.96);
+            --panel-card: rgba(0, 0, 0, 0.03);
+            --panel-hover: rgba(0, 0, 0, 0.06);
+            --dot-bg: rgba(0, 0, 0, 0.05);
+            --dot-shadow: rgba(0, 0, 0, 0.18);
+            --dot-color: #0f0f0f;
+            --button-text: #ffffff;
+            --toggle-track: #f0f0f4;
+            --toggle-border: #e0e0e7;
+            --toggle-thumb: #ffffff;
+            --toggle-sun: #e0b800;
+            --toggle-moon: #6c7897;
+            --toggle-shadow: rgba(25, 34, 76, 0.2);
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            font-size: 16px;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 4;
+            width: 100%;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            align-items: center;
+            gap: 18px;
+            padding: 16px clamp(12px, 4vw, 28px);
+            background: var(--bg-soft);
+            border-bottom: 2px solid var(--line);
+            box-shadow: 0 0 18px var(--line-glow);
+            transition: padding 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .topbar.compact {
+            padding-block: 7px;
+            box-shadow: 0 0 12px var(--line-glow);
+        }
+
+        .menu {
+            grid-column: 2;
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 4vw, 28px);
+            justify-self: start;
+        }
+
+        .brand {
+            grid-column: 1;
+            justify-self: start;
+            display: flex;
+            align-items: center;
+            color: inherit;
+            text-decoration: none;
+            min-width: 0;
+            padding: 6px 12px;
+            border: 1px solid var(--line-strong);
+            border-radius: 12px;
+            background: #000;
+            box-shadow: 0 0 14px var(--line-glow);
+        }
+
+        .brand-logo {
+            width: min(22vw, 220px);
+            height: auto;
+            display: block;
+            max-height: 90px;
+            transition: width 0.25s ease, max-height 0.25s ease;
+        }
+
+        .brand-mark {
+            width: clamp(42px, 5vw, 62px);
+            height: clamp(42px, 5vw, 62px);
+            flex: 0 0 auto;
+            display: block;
+            background: url("inmage/Gemini_Generated_Image_30simj30simj30si.jpg") center top / 300% auto no-repeat;
+            border-radius: 50%;
+        }
+
+        .brand-name {
+            margin-left: -2px;
+            color: #eafcff;
+            font-family: "Times New Roman", Times, serif;
+            font-size: clamp(1.05rem, 2vw, 1.45rem);
+            font-weight: 700;
+        }
+
+        body.light-mode .brand-name { color: #111111; }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--menu);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .menu a:hover { color: var(--line-strong); }
+
+        .topbar-actions {
+            grid-column: 3;
+            justify-self: end;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-button {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            border: 1px solid var(--line-strong);
+            border-radius: 50%;
+            background: var(--dot-bg);
+            color: var(--menu);
+            box-shadow: 0 0 10px var(--dot-shadow);
+            cursor: pointer;
+            transition: width 0.25s ease, height 0.25s ease, color 0.2s ease, background 0.2s ease;
+        }
+
+        .profile-button:hover { color: var(--line-strong); background: var(--panel-hover); }
+        .profile-button svg { width: 21px; height: 21px; }
+        .topbar.compact .profile-button { width: 36px; height: 36px; }
+
+        .profile-dialog {
+            width: min(400px, calc(100vw - 32px));
+            max-height: calc(100dvh - 32px);
+            padding: 24px;
+            border: 1px solid var(--line-strong);
+            border-radius: 10px;
+            background: var(--panel);
+            color: var(--fg);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-dialog::backdrop { background: rgba(0, 0, 0, 0.62); }
+        .profile-dialog form { margin: 0; }
+        .profile-dialog h2 { margin: 0 0 20px; color: var(--heading); font-size: 1.35rem; }
+        .profile-dialog label { display: block; margin-bottom: 7px; color: var(--fg); font-weight: 600; }
+        .profile-dialog input {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid var(--line-strong);
+            border-radius: 6px;
+            background: var(--bg);
+            color: var(--fg);
+            font: inherit;
+        }
+
+        .profile-dialog input:focus-visible { outline: 2px solid var(--line-strong); outline-offset: 2px; }
+        .profile-dialog .iti { width: 100%; }
+        .profile-dialog .iti__country-list { background: var(--panel); color: var(--fg); border-color: var(--line-strong); }
+        .profile-dialog .iti__country.iti__highlight { background: var(--panel-hover); }
+        .profile-dialog .iti__divider { border-color: var(--line-strong); }
+        .google-signin { width: 100%; padding: 11px 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--panel-card); color: var(--fg); font: inherit; font-weight: 700; cursor: pointer; }
+        .auth-divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; color: var(--muted-text); font-size: 0.85rem; }
+        .auth-divider::before, .auth-divider::after { flex: 1; border-top: 1px solid var(--line); content: ""; }
+        .auth-step[hidden], .account-view[hidden] { display: none; }
+        .auth-message { min-height: 1.4em; margin: 12px 0 0; color: var(--muted-text); font-size: 0.9rem; line-height: 1.45; }
+        .auth-message.error { color: #ff8c8c; }
+        .profile-note { margin: 10px 0 0; color: var(--muted-text); font-size: 0.85rem; line-height: 1.45; }
+        .profile-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 22px; }
+        .profile-actions button { padding: 9px 12px; border: 1px solid var(--line-strong); border-radius: 6px; font: inherit; font-size: 0.9rem; cursor: pointer; }
+        .profile-remove { margin-right: auto; background: transparent; color: var(--fg); }
+        .profile-cancel { background: var(--panel-card); color: var(--fg); }
+        .profile-save { background: var(--line-strong); color: var(--button-text); font-weight: 700; }
+        #sendCodeButton { color: #fff; }
+        .search-button { width: 42px; height: 42px; flex-shrink: 0; display: grid; place-items: center; padding: 0; border: 1px solid var(--line-strong); border-radius: 50%; background: var(--dot-bg); color: var(--menu); box-shadow: 0 0 10px var(--dot-shadow); cursor: pointer; transition: width 0.25s ease, height 0.25s ease, color 0.2s ease, background 0.2s ease; }
+        .search-button:hover { color: var(--line-strong); background: var(--panel-hover); }
+        .search-button svg { width: 20px; height: 20px; }
+        .topbar.compact .search-button { width: 36px; height: 36px; }
+        .search-panel { position: absolute; top: 50%; right: 12px; z-index: 6; display: none; width: min(320px, calc(100% - 24px)); transform: translateY(-50%); color: var(--fg); }
+        .search-panel.open { display: block; }
+        .search-form { display: flex; gap: 8px; margin: 0; padding: 6px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+        .search-input { width: 100%; padding: 12px; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--bg); color: var(--fg); font: inherit; }
+        .search-input:focus-visible, .search-result:focus-visible { outline: 2px solid var(--line-strong); outline-offset: 2px; }
+        .search-results { position: absolute; top: calc(100% + 8px); right: 0; display: grid; gap: 8px; width: 100%; max-height: min(45vh, 360px); overflow-y: auto; padding: 10px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
+        .search-result { display: grid; gap: 4px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 7px; color: var(--fg); text-decoration: none; background: var(--panel-card); }
+        .search-result:hover { background: var(--panel-hover); }
+        .search-result-description, .search-empty { margin: 0; color: var(--muted-text); font-size: 0.9rem; line-height: 1.45; }
+        .search-empty { padding: 8px 2px; }
+
+        .theme-toggle {
+            position: relative;
+            width: 82px;
+            height: 44px;
+            flex-shrink: 0;
+            padding: 0;
+            border: 1px solid var(--toggle-border);
+            border-radius: 999px;
+            background: var(--toggle-track);
+            box-shadow: inset 0 2px 5px var(--toggle-shadow), 0 2px 5px var(--toggle-shadow);
+            cursor: pointer;
+            transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .theme-toggle:focus-visible,
+        .search-button:focus-visible,
+        .dots-box:focus-visible {
+            outline: 3px solid var(--line-strong);
+            outline-offset: 3px;
+        }
+
+        .topbar.compact .dots-box {
+            width: 42px;
+            height: 42px;
+        }
+
+        .topbar.compact .dot {
+            width: 6px;
+            height: 6px;
+        }
+
+        .theme-toggle-thumb {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            z-index: 1;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--toggle-thumb);
+            box-shadow: 0 2px 6px var(--toggle-shadow);
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        body:not(.light-mode) .theme-toggle-thumb { transform: translateX(38px); }
+
+        .theme-icon {
+            position: absolute;
+            top: 50%;
+            z-index: 2;
+            transform: translateY(-50%);
+            font-size: 20px;
+            line-height: 1;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .theme-icon.sun { left: 11px; color: var(--toggle-sun); opacity: 0; }
+        .theme-icon.moon { right: 11px; color: var(--toggle-moon); opacity: 1; }
+        body.light-mode .theme-icon.sun { opacity: 1; }
+        body.light-mode .theme-icon.moon { opacity: 0; }
+
+        .dots-box {
+            width: 52px;
+            height: 52px;
+            border: 2px solid var(--line-strong);
+            border-radius: 12px;
+            background: var(--dot-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            box-shadow: 0 0 12px var(--dot-shadow);
+            cursor: pointer;
+            padding: 0;
+            flex-shrink: 0;
+            transition: width 0.2s ease, height 0.2s ease, border-radius 0.2s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--dot-color);
+            display: block;
+            box-shadow: 0 0 8px var(--dot-color);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 5;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50vw;
+            height: 100vh;
+            height: 100dvh;
+            transform: translateX(100%);
+            background: var(--panel);
+            border-left: 2px solid var(--line-strong);
+            box-shadow: -5px 0 20px var(--line-glow);
+            padding: 90px 24px 24px;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease, border-color 0.25s ease;
+            z-index: 10;
+        }
+
+        .side-panel.open { transform: translateX(0); }
+
+        .appearance-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 12px 14px;
+            margin: 12px 0 0;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel-card);
+            color: var(--fg);
+        }
+
+        .appearance-label { font-weight: 600; }
+
+        .side-panel a {
+            display: block;
+            text-decoration: none;
+            color: var(--menu);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 18px 14px;
+            margin: 12px 0;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--panel-card);
+        }
+
+        .side-panel a:hover {
+            background: var(--panel-hover);
+            color: var(--line-strong);
+            box-shadow: 0 0 10px var(--line-glow);
+        }
+
+
+        .content {
+            max-width: 900px;
+            margin: clamp(40px, 10vh, 80px) auto;
+            padding: clamp(20px, 5vw, 40px);
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--heading);
+            font-size: clamp(2rem, 8vw, 3rem);
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: var(--fg);
+            font-size: clamp(1rem, 4vw, 1.1rem);
+            line-height: 1.7;
+        }
+
+        .scroll-test-area {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            border-top: 1px dashed rgba(0, 234, 255, 0.35);
+            color: var(--muted-text);
+        }
+
+        .scroll-test-area p {
+            font-size: 0.9rem;
+        }
+        @media (max-width: 560px) {
+            .topbar { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 10px 12px; }
+            .brand { grid-column: 1; grid-row: 1; justify-self: start; }
+            .brand-logo { width: min(28vw, 112px); max-height: 48px; }
+            .menu { display: none; }
+            .topbar-actions { grid-column: 2; grid-row: 1; gap: 6px; }
+            .search-panel { top: 50%; right: 12px; left: auto; width: min(40vw, calc(100% - 160px)); transform: translateY(-50%); }
+            .search-form { padding: 4px; }
+            .search-input { flex: 1; min-width: 0; padding-inline: 6px; font-size: clamp(8px, 2.6vw, 10px); }
+            .profile-button { width: 34px; height: 34px; }
+            .search-button { width: 34px; height: 34px; }
+            .search-button svg { width: 18px; height: 18px; }
+            .dots-box { width: 40px; height: 40px; }
+            .dot { width: 6px; height: 6px; }
+            .topbar.compact .profile-button { width: 30px; height: 30px; }
+            .topbar.compact .search-button { width: 30px; height: 30px; }
+            .topbar.compact .dots-box { width: 34px; height: 34px; }
+            .topbar.compact .dot { width: 5px; height: 5px; }
+            .appearance-control { flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+
+        .topbar { grid-template-columns: auto minmax(0, 1fr) auto; gap: clamp(18px, 3vw, 42px); padding: 12px clamp(16px, 3vw, 40px); }
+        .brand { grid-column: 1; justify-self: start; padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 12px; background: #000; box-shadow: 0 0 14px var(--line-glow); }
+        .brand-logo { width: min(16vw, 180px); max-height: 68px; }
+        .menu { grid-column: 2; justify-content: center; gap: clamp(12px, 2.4vw, 32px); justify-self: stretch; }
+        .menu a { letter-spacing: 0.04em; text-transform: uppercase; }
+        .topbar-actions { grid-column: 3; gap: 12px; }
+        .promotion-link { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 16px; border: 1px solid var(--line-strong); border-radius: 9px; background: var(--panel-card); color: var(--line-strong); box-shadow: 0 0 12px var(--line-glow); font-size: 0.9rem; font-weight: 700; letter-spacing: 0.02em; text-decoration: none; text-transform: uppercase; white-space: nowrap; transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
+        .promotion-link:hover { background: var(--panel-hover); box-shadow: 0 0 18px var(--line-glow); transform: translateY(-1px); }
+        .profile-button, .search-button { border-radius: 12px; }
+        .search-panel { top: calc(100% + 8px); right: 12px; width: min(360px, calc(100vw - 24px)); transform: none; }
+
+        @media (max-width: 760px) {
+            .topbar { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 10px 16px; }
+            .brand { grid-column: 1; grid-row: 1; }
+            .brand-logo { width: min(28vw, 132px); max-height: 52px; }
+            .brand-name { display: inline; font-size: clamp(0.85rem, 4vw, 1.15rem); }
+            .menu { display: none; }
+            .topbar-actions { grid-column: 2; grid-row: 1; gap: 6px; }
+            .promotion-link { display: none; }
+            .search-panel { top: calc(100% + 8px); right: 12px; left: auto; width: min(360px, calc(100vw - 24px)); transform: none; }
+            .search-form { padding: 4px; }
+            .search-input { flex: 1; min-width: 0; padding-inline: 10px; font-size: 1rem; }
+            .profile-button, .search-button { width: 34px; height: 34px; }
+            .search-button svg { width: 18px; height: 18px; }
+        }
+
+        @media (max-width: 360px) {
+            .topbar { column-gap: 6px; padding-inline: 8px; }
+            .brand { padding-inline: 4px; }
+            .brand-logo { width: clamp(60px, 24vw, 84px); max-height: 40px; }
+            .brand-name { display: inline; font-size: clamp(0.7rem, 3.5vw, 0.9rem); }
+            .topbar-actions { gap: 4px; }
+            .profile-button, .search-button { width: 30px; height: 30px; border-radius: 9px; }
+            .profile-button svg, .search-button svg { width: 16px; height: 16px; }
+            .dots-box { width: 34px; height: 34px; }
+            .dot { width: 4px; height: 4px; }
+        }
+        /* ===== Featured products slider ===== */
+        .home-featured {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto 48px;
+        }
+
+        .home-featured-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .home-featured-header h2 {
+            margin: 0;
+            color: var(--heading);
+            font-size: clamp(1.4rem, 3vw, 1.9rem);
+        }
+
+        .home-featured-header p {
+            margin: 6px 0 0;
+            color: var(--muted-text);
+        }
+
+        .home-featured-header a {
+            color: var(--line-strong);
+            font-weight: 700;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .home-featured-header a:hover { text-decoration: underline; }
+
+        .home-slider { position: relative; }
+
+        .home-slider-track {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(230px, 260px);
+            gap: 14px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 4px 2px 12px;
+            scrollbar-width: none;
+        }
+
+        .home-slider-track::-webkit-scrollbar { display: none; }
+
+        .home-slide {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 14px;
+            border: 1px solid var(--line-strong);
+            border-radius: 12px;
+            background: var(--panel-card);
+            scroll-snap-align: start;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .home-slide:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 16px var(--line-glow);
+        }
+
+        .home-slide-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        body.light-mode .home-slide-image { background: #fff; }
+
+        .home-slide-image img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .home-slide-badge {
+            align-self: flex-start;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: #ff684d;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .home-slide h3 {
+            margin: 0;
+            min-height: 2.6em;
+            color: var(--fg);
+            font-size: 0.95rem;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .home-slide-price {
+            margin: 0;
+            color: var(--heading);
+            font-weight: 800;
+        }
+
+        .home-slide-price s {
+            margin-left: 6px;
+            color: var(--muted-text);
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+
+        .home-slide .add-to-cart {
+            margin-top: auto;
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid var(--line-strong);
+            border-radius: 8px;
+            background: var(--line-strong);
+            color: var(--button-text);
+            font: inherit;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .home-slide .add-to-cart .button-cart-icon {
+            width: 16px;
+            height: 16px;
+            flex: 0 0 auto;
+        }
+
+        .home-slide .add-to-cart:hover,
+        .home-slide .add-to-cart.is-added {
+            background: var(--panel);
+            color: var(--line-strong);
+            box-shadow: 0 0 12px var(--line-glow);
+        }
+
+        .home-slide-details {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            align-self: center;
+            color: var(--line-strong);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 6px 14px;
+            border: 1px solid var(--line-strong);
+            border-radius: 7px;
+            background: transparent;
+            transition: background 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .home-slide-details:hover {
+            background: var(--panel-hover);
+            box-shadow: 0 0 10px var(--line-glow);
+            text-decoration: none;
+        }
+
+        .home-slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--line-strong);
+            border-radius: 50%;
+            background: var(--bg-soft);
+            color: var(--line-strong);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 0 12px var(--line-glow);
+            transition: background 0.15s ease;
+        }
+
+        .home-slider-button:hover { background: var(--panel-hover); }
+        .home-slider-button.prev { left: -14px; }
+        .home-slider-button.next { right: -14px; }
+
+        .home-slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .home-slider-dots button {
+            width: 9px;
+            height: 9px;
+            padding: 0;
+            border: 1px solid var(--line-strong);
+            border-radius: 50%;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .home-slider-dots button.active { background: var(--line-strong); }
+
+        @media (max-width: 760px) {
+            .home-slider-button { display: none; }
+            .home-slider-track { grid-auto-columns: minmax(200px, 72vw); }
+        }
+        /* ===== Shared section wrapper ===== */
+        .home-sections-wrap {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto 0;
+        }
+
+        .home-sections-wrap > .home-featured,
+        .home-sections-wrap > .home-brands {
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            margin-bottom: 34px !important;
+        }
+        /* ===== Brand strip ===== */
+
+        .home-brands {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto 48px;
+            text-align: center;
+        }
+
+        .home-brands h2 {
+            margin: 0;
+            color: var(--home-ink);
+            font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+            letter-spacing: -0.02em;
+        }
+
+        .home-brands > p {
+            margin: 6px 0 14px;
+            color: var(--home-muted);
+            font-size: 0.92rem;
+            line-height: 1.55;
+        }
+
+        .home-brands-grid {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            padding-bottom: 8px;
+        }
+
+        .brand-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            height: 80px;
+            min-width: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            flex: 0 0 auto;
+        }
+
+        .brand-card .brand-logo,
+        .home-brands-grid .brand-logo {
+            width: auto;
+            max-width: 100%;
+            max-height: 45px;
+            object-fit: contain;
+        }
+
+        .home-brand-tile {
+            border: 1px solid var(--line-strong);
+            border-radius: 10px;
+            background: #fff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .home-brand-tile:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 14px var(--line-glow);
+        }
+
+        .home-brand-tile img {
+            filter: none;
+        }
+
+        .home-brand-tile img[src*="HP-logo"],
+        .home-brand-tile img[src*="apple-logo"] {
+            width: auto;
+            max-width: 100%;
+            max-height: 45px;
+        }
+
+        body.light-mode .home-brand-tile { border-color: #111; }
+
+        /* ===== Custom setup banner ===== */
+        .home-setup-banner {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto 48px;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 20px;
+            padding: clamp(20px, 4vw, 36px);
+            border: 1px solid var(--line-strong);
+            border-radius: 16px;
+            background: linear-gradient(120deg, rgba(0, 234, 255, 0.10), rgba(0, 0, 0, 0.6) 55%);
+            box-shadow: 0 0 22px var(--line-glow);
+        }
+
+        .home-setup-banner h2 {
+            margin: 0 0 8px;
+            color: var(--heading);
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+        }
+
+        .home-setup-banner p {
+            margin: 0;
+            max-width: 620px;
+            color: var(--muted-text);
+            line-height: 1.6;
+        }
+
+        .home-setup-actions {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .home-setup-cta {
+            display: inline-flex;
+            align-items: center;
+            min-height: 46px;
+            padding: 0 20px;
+            border: 1px solid var(--line-strong);
+            border-radius: 10px;
+            background: var(--line-strong);
+            color: var(--button-text);
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 0 12px var(--line-glow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .home-setup-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 18px var(--line-glow);
+        }
+
+        .home-setup-cta.secondary {
+            background: transparent;
+            color: var(--fg);
+        }
+
+        .home-setup-visual {
+            display: grid;
+            place-items: center;
+        }
+
+        .home-setup-visual svg {
+            width: clamp(84px, 12vw, 132px);
+            height: auto;
+            color: var(--line-strong);
+            filter: drop-shadow(0 0 14px rgba(0, 234, 255, 0.5));
+        }
+
+        @media (max-width: 700px) {
+            .home-setup-banner { grid-template-columns: 1fr; text-align: center; }
+            .home-setup-visual { order: -1; }
+            .home-setup-banner p { margin-inline: auto; }
+            .home-setup-actions { justify-content: center; }
+        }
+        /* ===== Deal of the week ===== */
+        .home-deal {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto 48px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+            align-items: center;
+            gap: clamp(18px, 4vw, 40px);
+            padding: clamp(20px, 4vw, 36px);
+            border: 1px solid #ff684d;
+            border-radius: 16px;
+            background: linear-gradient(120deg, rgba(255, 104, 77, 0.12), rgba(0, 0, 0, 0.65) 55%);
+            box-shadow: 0 0 22px rgba(255, 104, 77, 0.35);
+        }
+
+        .home-deal-kicker {
+            display: inline-block;
+            margin: 0 0 10px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #ff684d;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .home-deal h2 {
+            margin: 0;
+            color: var(--fg);
+            font-size: clamp(1.3rem, 3vw, 1.9rem);
+            line-height: 1.25;
+        }
+
+        .home-deal-price {
+            margin: 10px 0 0;
+            color: #ff8a70;
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .home-deal-price s {
+            margin-left: 8px;
+            color: var(--muted-text);
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .home-deal-cta {
+            display: inline-flex;
+            align-items: center;
+            min-height: 46px;
+            margin-top: 16px;
+            padding: 0 20px;
+            border: 1px solid #ff684d;
+            border-radius: 10px;
+            background: #ff684d;
+            color: #fff;
+            font-weight: 800;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .home-deal-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 16px rgba(255, 104, 77, 0.55);
+        }
+
+        .home-deal-image {
+            display: grid;
+            place-items: center;
+            min-height: 190px;
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .home-deal-image img {
+            width: 100%;
+            height: 230px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 700px) {
+            .home-deal { grid-template-columns: 1fr; }
+            .home-deal-image { order: -1; }
+        }
+
+        /* ===== Trust badges ===== */
+        .home-trust {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto 56px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+            gap: 14px;
+        }
+
+        .home-trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            border: 1px solid var(--product-border);
+            border-radius: 12px;
+            background: var(--panel-card);
+        }
+
+        .home-trust-item svg {
+            width: 34px;
+            height: 34px;
+            flex: 0 0 auto;
+            color: var(--line-strong);
+        }
+
+        .home-trust-item strong {
+            display: block;
+            color: var(--fg);
+            font-size: 0.95rem;
+        }
+
+        .home-trust-item span {
+            color: var(--muted-text);
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css?v=1">
+</head>
+<body class="home-page">
+    <a class="skip-link" href="#mainContent">Skip to products and shop content</a>
+    <header class="topbar">
+        <a class="brand" href="home.html" aria-label="RezekeeeShop home">
+            <img class="brand-logo" src="inmage/rezekee-shop-horizontal.png" alt="RezekeeeShop logo">
+        </a>
+
+        <nav class="menu" aria-label="Main navigation">
+            <a href="home.html" aria-current="page">Home</a>
+            <a href="products.html#brands">Products</a>
+            <a href="about.html">About</a>
+            <a class="promotion-link" href="promotion.html">Promotion</a>
+        </nav>
+
+        <div class="topbar-actions">
+            <button class="store-action-button" type="button" data-store-view="cart" aria-label="Open shopping basket (0 items)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9.5" cy="19" r="1.2" fill="currentColor"></circle><circle cx="18" cy="19" r="1.2" fill="currentColor"></circle></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="search-button" type="button" id="searchButton" aria-label="Search store" title="Search store" aria-expanded="false" aria-controls="searchPanel">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3" stroke="currentColor" stroke-width="1.8"></circle><path d="m15.5 15.5 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </button>
+            <button class="store-action-button" type="button" data-store-view="favorites" aria-label="Open favorites (0 saved)" aria-haspopup="dialog">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.8 8.8c0 5.3-8.8 11-8.8 11s-8.8-5.7-8.8-11A4.8 4.8 0 0 1 12 6.5a4.8 4.8 0 0 1 8.8 2.3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path></svg>
+                <span class="store-action-count" hidden>0</span>
+            </button>
+            <button class="profile-button" type="button" id="profileButton" aria-label="Sign in with phone" title="Sign in">
+                <svg id="profileIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.8"></circle>
+                    <path d="M4.5 20c.7-3.5 3.2-5.4 7.5-5.4s6.8 1.9 7.5 5.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                </svg>
+            </button>
+            <button class="dots-box" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidePanel" id="menuToggle">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+        </div>
+        <div class="search-panel" id="searchPanel" aria-label="Store search">
+            <form class="search-form" role="search" id="searchForm">
+                <label class="search-label" for="storeSearch">Search products</label>
+                <input class="search-input" id="storeSearch" type="search" aria-label="Search products" placeholder="Search by product or brand" autocomplete="off">
+            </form>
+            <div class="search-results" id="searchResults" aria-live="polite"></div>
+        </div>
+    </header>
+
+    <dialog class="profile-dialog" id="authDialog" aria-labelledby="authTitle">
+        <form class="auth-step" id="phoneForm">
+            <h2 id="authTitle">Sign in or create an account</h2>
+            <button class="google-signin" id="googleSignInButton" type="button">Continue with Google</button>
+            <div class="auth-divider" aria-hidden="true">or use your phone</div>
+            <label for="authPhone">Phone number</label>
+            <input id="authPhone" name="phone" type="tel" autocomplete="tel" placeholder="Phone number" required>
+            <p class="profile-note">Select your country, then enter your local phone number. We'll send a one-time SMS code.</p>
+            <div class="profile-actions"><button class="profile-cancel" type="button" data-auth-close>Cancel</button><button class="profile-save" id="sendCodeButton" type="submit">Send code</button></div>
+        </form>
+        <form class="auth-step" id="otpForm" hidden>
+            <h2>Verify your phone</h2>
+            <label for="authCode">SMS verification code</label>
+            <input id="authCode" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" required>
+            <div class="profile-actions"><button class="profile-cancel" id="changePhoneButton" type="button">Use another number</button><button class="profile-save" id="verifyCodeButton" type="submit">Verify and sign in</button></div>
+        </form>
+        <section class="account-view" id="accountView" hidden>
+            <h2>Account</h2>
+            <p class="profile-note" id="signedInPhone"></p>
+            <div class="profile-actions"><button class="profile-cancel" type="button" data-auth-close>Close</button><button class="profile-save" id="signOutButton" type="button">Sign out</button></div>
+        </section>
+        <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+    </dialog>
+
+    <div class="overlay" id="overlay"></div>
+
+    <aside class="side-panel" id="sidePanel" aria-label="More navigation" aria-hidden="true" inert>
+        <button class="side-panel-close" type="button" aria-label="Close navigation menu" id="sidePanelClose">&times;</button>
+        <a href="home.html">Home page</a>
+        <a href="products.html#brands">Products</a>
+        <a href="promotion.html">Promotions</a>
+        <a href="about.html">About us</a>
+        
+        
+        
+        
+        <div class="appearance-control">
+            <span class="appearance-label" id="appearanceLabel">Appearance</span>
+            <button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false" aria-describedby="appearanceLabel">
+                <span class="theme-toggle-thumb"></span>
+                <span class="theme-icon sun" aria-hidden="true">&#9728;</span>
+                <span class="theme-icon moon" aria-hidden="true">&#9790;</span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="home-main" id="mainContent">
+    <section class="home-hero" aria-labelledby="homeTitle">
+        <div class="home-hero-copy">
+            <p class="home-hero-kicker">Performance without limits</p>
+            <h1 id="homeTitle">Next-Gen Gaming Laptops &amp; Custom Rigs</h1>
+            <p id="homeBody">Discover top-tier laptops, custom PC builds, and gaming accessories with official warranty and fast local delivery.</p>
+            <div class="home-hero-actions">
+                <a class="home-hero-button" href="products.html#productList">Shop now</a>
+                <a class="home-hero-button secondary" href="about.html">Why RezekeeeShop?</a>
+            </div>
+        </div>
+        <div class="home-hero-visual" aria-label="Featured gaming laptop">
+            <img class="brand-logo" src="inmage/ASUS ROG Strix G16 (Model G614PR-RV151W).png" alt="ASUS ROG Strix G16 gaming laptop">
+        </div>
+    </section>
+
+    <div class="home-sections-wrap">
+
+    <section class="home-featured" id="homeFeatured" aria-busy="true" aria-labelledby="featuredTitle">
+        <p class="home-featured-loading" role="status">Loading featured products&hellip;</p>
+        <div class="home-featured-header">
+            <div>
+                <h2 id="featuredTitle">Featured rigs &amp; laptops</h2>
+                <p>Compare selected laptops and components by model and price.</p>
+            </div>
+            <a href="products.html#productList">View all products <span aria-hidden="true">&rarr;</span></a>
+        </div>
+        <div class="home-slider" role="group" aria-label="Featured product browsing controls">
+            <button class="home-slider-button prev" type="button" aria-label="Scroll products left" disabled>&#8249;</button>
+            <div class="home-slider-track" id="homeSliderTrack" role="region" aria-label="Featured products" tabindex="0">
+                <div class="home-slide-skeleton" aria-hidden="true"></div>
+                <div class="home-slide-skeleton" aria-hidden="true"></div>
+                <div class="home-slide-skeleton" aria-hidden="true"></div>
+                <div class="home-slide-skeleton" aria-hidden="true"></div>
+            </div>
+            <button class="home-slider-button next" type="button" aria-label="Scroll products right" disabled>&#8250;</button>
+        </div>
+        <div class="home-slider-dots" id="homeSliderDots" aria-label="Slider pages" hidden></div>
+    </section>
+
+    <section class="home-brands" aria-labelledby="homeBrandsTitle">
+        <h2 id="homeBrandsTitle">Shop by brand</h2>
+        <p>Browse models from the brands we carry.</p>
+        <div class="home-brands-grid">
+            <a class="home-brand-tile brand-card" href="products.html?brand=acer" aria-label="Browse Acer models"><img class="brand-logo" src="inmage/kisspng-logo-acer-iconia-one-1-b3-a4-font-ivpro-sistemas-multimedia-1713923641585.webp" alt="Acer"></a>
+            <a class="home-brand-tile brand-card" href="products.html?brand=asus" aria-label="Browse ASUS models"><img class="brand-logo" src="inmage/hd-asus-official-logo-transparent-png-701751694773683zhb9eu5zq3.png" alt="ASUS"></a>
+            <a class="home-brand-tile brand-card" href="products.html?brand=dell" aria-label="Browse Dell models"><img class="brand-logo" src="inmage/images.jpg" alt="Dell"></a>
+            <a class="home-brand-tile brand-card" href="products.html?brand=msi" aria-label="Browse MSI models"><img class="brand-logo" src="inmage/msi-logo-png-svg.webp" alt="MSI"></a>
+            <a class="home-brand-tile brand-card" href="products.html?brand=hp" aria-label="Browse HP models"><img class="brand-logo" src="inmage/HP-logo-technology-brand-emblem-transparent-png-jpg.webp" alt="HP"></a>
+            <a class="home-brand-tile brand-card" href="products.html?brand=lenovo" aria-label="Browse Lenovo models"><img class="brand-logo" src="inmage/lenovo-logo-png-svg.webp" alt="Lenovo"></a>
+            <a class="home-brand-tile brand-card" href="products.html?brand=mac" aria-label="Browse Mac models"><img class="brand-logo" src="inmage/apple-logo-transparent.png" alt="Apple"></a>
+        </div>
+    </section>
+    </div>
+
+
+    <section class="home-setup-banner" aria-labelledby="homeSetupBannerTitle">
+        <div>
+            <h2 id="homeSetupBannerTitle">Build your own gaming rig - any budget</h2>
+            <p>Tell us your price, even $1000, and our builder splits it into a balanced setup: tower, screen and accessories. Swap any part before you order.</p>
+            <div class="home-setup-actions">
+                <a class="home-setup-cta" href="custom-setup.html">Open the setup builder</a>
+                <a class="home-setup-cta secondary" href="tel:+855965110561">Call the showroom</a>
+            </div>
+        </div>
+        <div class="home-setup-visual" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="12" rx="1.5" stroke="currentColor" stroke-width="1.6"></rect><path d="M9 20h6M12 16v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path><path d="M7 8h4M7 11h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+        </div>
+    </section>
+
+    <section class="home-deal" id="homeDeal" hidden aria-labelledby="homeDealTitle">
+        <div>
+            <p class="home-deal-kicker">Featured offer</p>
+            <h2 id="homeDealTitle"></h2>
+            <p class="home-deal-summary" id="homeDealSummary"></p>
+            <p class="home-deal-price" id="homeDealPrice"></p>
+            <a class="home-deal-cta" id="homeDealCta" href="products.html#productList">View product details</a>
+        </div>
+        <div class="home-deal-image" id="homeDealImage" aria-hidden="true"></div>
+    </section>
+
+    <section class="home-trust" aria-label="Why shop at RezekeeeShop">
+        <div class="home-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6l7-3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path><path d="m8.8 12.2 2.1 2.1 4.3-4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <div><strong>Official warranty</strong><span>Every unit covered by local perfect warranty.</span></div>
+        </div>
+        <div class="home-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path><circle cx="7" cy="18" r="1.8" stroke="currentColor" stroke-width="1.6"></circle><circle cx="17.5" cy="18" r="1.8" stroke="currentColor" stroke-width="1.6"></circle></svg>
+            <div><strong>Fast local delivery</strong><span>Quick dispatch across Cambodia.</span></div>
+        </div>
+        <div class="home-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"></circle><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <div><strong>Open every day</strong><span>Showroom open 8:00 AM to 5:30 PM.</span></div>
+        </div>
+        <div class="home-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.6"></rect><path d="M3 10h18" stroke="currentColor" stroke-width="1.6"></path><path d="M7 14.5h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+            <div><strong>Flexible payments</strong><span>KHQR, Wing, VISA and cash on delivery.</span></div>
+        </div>
+    </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/js/intlTelInput.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="storefront-data.js?v=5"></script>
+    <script src="owner-nav.js"></script>
+    <script src="store-auth.js"></script>
+    <script src="store-actions.js?v=5"></script>
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const searchButton = document.getElementById('searchButton');
+        const profileButton = document.getElementById('profileButton');
+        const searchPanel = document.getElementById('searchPanel');
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('storeSearch');
+        const searchResults = document.getElementById('searchResults');
+        const themeToggle = document.getElementById('themeToggle');
+        const sidePanel = document.getElementById('sidePanel');
+        const sidePanelClose = document.getElementById('sidePanelClose');
+        const overlay = document.getElementById('overlay');
+        const topbar = document.querySelector('.topbar');
+
+        function updateTopbarSize() {
+            const isCompact = window.scrollY > 40;
+            topbar.classList.toggle('compact', isCompact);
+            sessionStorage.setItem('rezekee-topbar-compact', String(isCompact));
+        }
+
+        function restoreTopbarSize() {
+            topbar.classList.toggle('compact', window.scrollY > 40 || sessionStorage.getItem('rezekee-topbar-compact') === 'true');
+        }
+
+        restoreTopbarSize();
+        window.addEventListener('pageshow', restoreTopbarSize);
+        window.addEventListener('scroll', updateTopbarSize, { passive: true });
+
+        function applyTheme(theme) {
+            const isLight = theme === 'light';
+            document.body.classList.toggle('light-mode', isLight);
+            themeToggle.setAttribute('aria-pressed', String(isLight));
+            themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+            localStorage.setItem('rezekee-theme', theme);
+        }
+
+        const savedTheme = localStorage.getItem('rezekee-theme') || 'dark';
+        applyTheme(savedTheme);
+
+        const pageSearchItems = [
+            { title: 'Products', description: 'Browse laptops and components', keywords: 'products store shop items laptops accessories graphics cards brands', url: 'products.html#productList' },
+            { title: 'Home', description: 'RezekeeeShop homepage', keywords: 'home welcome', url: 'home.html' },
+            { title: 'Promotions', description: 'Browse current promotions', keywords: 'promotion promotions deals offers discounts', url: 'promotion.html' },
+            { title: 'Custom setup', description: 'Explore a custom gaming rig', keywords: 'custom setup build gaming rig pc', url: 'custom-setup.html' },
+            { title: 'About us', description: 'Learn about RezekeeeShop', keywords: 'about shop Cambodia', url: 'about.html' }
+        ];
+        let searchableItems = [...pageSearchItems];
+
+        window.addEventListener('rezekee:products-loaded', (event) => {
+            const products = Array.isArray(event.detail?.products) ? event.detail.products : [];
+            if (!products.length) return;
+            const productItems = products.map((product) => ({
+                title: product.name,
+                description: product.description || 'View product details',
+                keywords: `${product.name} ${product.description || ''}`,
+                url: `product-details.html?id=${encodeURIComponent(product.id)}`
+            }));
+            searchableItems = [...productItems, ...pageSearchItems];
+            renderSearchResults();
+        });
+
+        function renderSearchResults() {
+            const query = searchInput.value.trim().toLocaleLowerCase();
+            searchResults.replaceChildren();
+            const matches = query
+                ? searchableItems.filter((item) => `${item.title} ${item.description} ${item.keywords}`.toLocaleLowerCase().includes(query))
+                : [];
+            if (!query || !matches.length) {
+                const empty = document.createElement('p');
+                empty.className = 'search-empty';
+                empty.textContent = query ? 'No matching products or pages found.' : 'Type a product or page name to search.';
+                searchResults.append(empty);
+                return;
+            }
+            for (const item of matches) {
+                const link = document.createElement('a');
+                link.className = 'search-result';
+                link.href = item.url;
+                const title = document.createElement('strong');
+                title.textContent = item.title;
+                const description = document.createElement('span');
+                description.className = 'search-result-description';
+                description.textContent = item.description;
+                link.append(title, description);
+                searchResults.append(link);
+            }
+        }
+
+        function setSearchOpen(isOpen) {
+            searchPanel.classList.toggle('open', isOpen);
+            topbar.classList.toggle('search-open', isOpen);
+            searchButton.setAttribute('aria-expanded', String(isOpen));
+            if (isOpen) searchInput.focus();
+        }
+
+        searchButton.addEventListener('click', () => {
+            const isOpen = !searchPanel.classList.contains('open');
+            renderSearchResults();
+            setSearchOpen(isOpen);
+        });
+        searchForm.addEventListener('submit', (event) => event.preventDefault());
+        searchInput.addEventListener('input', renderSearchResults);
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                setSearchOpen(false);
+                searchButton.focus();
+            }
+        });
+        searchResults.addEventListener('click', (event) => {
+            if (event.target instanceof Element && event.target.closest('a.search-result')) setSearchOpen(false);
+        });
+        document.addEventListener('pointerdown', (event) => {
+            if (event.target instanceof Node && !searchPanel.contains(event.target) && !searchButton.contains(event.target)) setSearchOpen(false);
+        });
+
+        function setMenuOpen(isOpen) {
+            sidePanel.classList.toggle('open', isOpen);
+            overlay.classList.toggle('show', isOpen);
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+            menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+            sidePanel.setAttribute('aria-hidden', String(!isOpen));
+            sidePanel.inert = !isOpen;
+            if (isOpen) sidePanelClose.focus({ preventScroll: true });
+            else menuToggle.focus({ preventScroll: true });
+        }
+
+        menuToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            setMenuOpen(!sidePanel.classList.contains('open'));
+        });
+
+        overlay.addEventListener('click', () => {
+            setMenuOpen(false);
+        });
+        sidePanelClose.addEventListener('click', () => setMenuOpen(false));
+        document.addEventListener('click', (event) => {
+            if (event.target instanceof Element && event.target.closest('#footerLoginButton')) {
+                profileButton.click();
+            }
+        });
+
+        themeToggle.addEventListener('click', () => {
+            applyTheme(document.body.classList.contains('light-mode') ? 'dark' : 'light');
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && searchPanel.classList.contains('open')) {
+                setSearchOpen(false);
+                searchButton.focus();
+            }
+            if (event.key === 'Escape' && sidePanel.classList.contains('open')) {
+                setMenuOpen(false);
+                menuToggle.focus();
+            }
+        });
+    </script>
+    <script>
+        (async function () {
+            const featuredSection = document.getElementById('homeFeatured');
+            const track = document.getElementById('homeSliderTrack');
+            if (!featuredSection || !track) return;
+            const prevButton = featuredSection.querySelector('.home-slider-button.prev');
+            const nextButton = featuredSection.querySelector('.home-slider-button.next');
+
+            const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+            let products = [];
+            let featuredLoadFailed = false;
+
+            async function loadFeaturedProducts() {
+                const config = window.REZEKEE_SUPABASE_CONFIG;
+                if (config && config.url && config.anonKey &&
+                    window.supabase && typeof window.supabase.createClient === 'function') {
+                    try {
+                        const featuredClient = window.supabase.createClient(config.url, config.anonKey);
+                        const { data, error } = await featuredClient
+                            .from('products')
+                            .select('id,name,description,specifications,price_usd,discount_percent,image_url,image_urls')
+                            .eq('is_active', true)
+                            .order('created_at', { ascending: false })
+                            .limit(12);
+                        if (error) throw error;
+                        if (data && data.length) return data;
+                    } catch (error) {
+                        featuredLoadFailed = true;
+                        console.error('Could not load featured products:', error.message || error);
+                    }
+                }
+                try {
+                    const cached = JSON.parse(localStorage.getItem('rezekee-products') || '[]');
+                    if (Array.isArray(cached) && cached.length) return cached.slice(0, 12);
+                } catch (error) { /* ignore unreadable cache */ }
+                return [];
+            }
+
+            function salePriceOf(product) {
+                const base = Number(product.price_usd) || 0;
+                const discount = Math.min(100, Math.max(0, Number(product.discount_percent) || 0));
+                return Math.round(base * (1 - discount / 100) * 100) / 100;
+            }
+
+            function imageUrlsOf(product) {
+                if (Array.isArray(product.image_urls) && product.image_urls.length) return product.image_urls;
+                return product.image_url ? [product.image_url] : [];
+            }
+            function renderSlides() {
+                track.replaceChildren();
+                for (const product of products) {
+                    const imageUrls = imageUrlsOf(product);
+                    const sale = salePriceOf(product);
+                    const base = Number(product.price_usd) || 0;
+                    const discount = Math.min(100, Math.max(0, Number(product.discount_percent) || 0));
+
+                    const card = document.createElement('article');
+                    card.className = 'home-slide product-card';
+                    card.dataset.productId = String(product.id);
+
+                    const imageBox = document.createElement('div');
+                    imageBox.className = 'home-slide-image';
+                    if (imageUrls[0]) {
+                        const image = document.createElement('img');
+                        image.src = imageUrls[0];
+                        image.alt = product.name;
+                        image.loading = 'lazy';
+                        image.decoding = 'async';
+                        image.addEventListener('error', () => {
+                            const fallback = document.createElement('span');
+                            fallback.className = 'home-slide-image-fallback';
+                            fallback.textContent = 'Image unavailable';
+                            imageBox.replaceChildren(fallback);
+                        }, { once: true });
+                        imageBox.append(image);
+                    } else {
+                        const fallback = document.createElement('span');
+                        fallback.className = 'home-slide-image-fallback';
+                        fallback.textContent = 'Image unavailable';
+                        imageBox.append(fallback);
+                    }
+                    card.append(imageBox);
+
+                    if (discount > 0) {
+                        const badge = document.createElement('span');
+                        badge.className = 'home-slide-badge';
+                        badge.textContent = `${Math.round(discount)}% OFF`;
+                        card.append(badge);
+                    }
+
+                    const name = document.createElement('h3');
+                    name.textContent = product.name;
+                    card.append(name);
+
+                    const summary = document.createElement('p');
+                    summary.className = 'home-slide-summary';
+                    summary.textContent = product.description || 'View full product details for specifications.';
+                    card.append(summary);
+
+                    const price = document.createElement('p');
+                    price.className = 'home-slide-price';
+                    price.textContent = money.format(sale);
+                    if (sale < base) {
+                        const oldPrice = document.createElement('s');
+                        oldPrice.textContent = money.format(base);
+                        price.append(oldPrice);
+                    }
+                    card.append(price);
+
+                    const addButton = document.createElement('button');
+                    addButton.type = 'button';
+                    addButton.className = 'add-to-cart';
+                    addButton.innerHTML = '<svg class="button-cart-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 10.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9.5" cy="19" r="1.2" fill="currentColor"></circle><circle cx="18" cy="19" r="1.2" fill="currentColor"></circle></svg><span>Add to basket</span>';
+                    addButton.addEventListener('click', () => {
+                        window.dispatchEvent(new CustomEvent('rezekee:add-to-cart', {
+                            detail: { product: { id: String(product.id), name: product.name, price: sale, image: imageUrls[0] || '', image_urls: imageUrls } }
+                        }));
+                    });
+                    card.append(addButton);
+
+                    const details = document.createElement('a');
+                    details.className = 'home-slide-details';
+                    details.href = `product-details.html?id=${encodeURIComponent(product.id)}`;
+                    details.innerHTML = '<svg class="button-eye-icon" viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;stroke:currentColor;flex-shrink:0;" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="3" stroke-width="1.8"></circle></svg><span>View product details</span>';
+                    card.append(details);
+
+                    track.append(card);
+                }
+                window.dispatchEvent(new CustomEvent('rezekee:products-loaded', { detail: { products } }));
+            }
+            function stepSize() {
+                const slide = track.querySelector('.home-slide');
+                if (!slide) return 260;
+                const gap = parseFloat(getComputedStyle(track).columnGap) || 14;
+                return slide.getBoundingClientRect().width + gap;
+            }
+
+            function updateScrollControls() {
+                const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth - 2);
+                prevButton.disabled = track.scrollLeft <= 2;
+                nextButton.disabled = track.scrollLeft >= maxScroll;
+            }
+
+            function scrollByProducts(direction) {
+                const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+                track.scrollBy({ left: direction * stepSize(), behavior });
+            }
+
+            prevButton.addEventListener('click', () => scrollByProducts(-1));
+            nextButton.addEventListener('click', () => scrollByProducts(1));
+            track.addEventListener('keydown', (event) => {
+                if (event.target !== track) return;
+                if (event.key === 'ArrowLeft') {
+                    event.preventDefault();
+                    scrollByProducts(-1);
+                } else if (event.key === 'ArrowRight') {
+                    event.preventDefault();
+                    scrollByProducts(1);
+                }
+            });
+            track.addEventListener('scroll', updateScrollControls, { passive: true });
+            window.addEventListener('resize', updateScrollControls);
+
+            products = await loadFeaturedProducts();
+            featuredSection.setAttribute('aria-busy', 'false');
+            if (!products.length) {
+                track.replaceChildren();
+                const emptyState = document.createElement('div');
+                emptyState.className = 'home-featured-empty';
+                emptyState.setAttribute('role', 'status');
+                const message = document.createElement('span');
+                message.textContent = featuredLoadFailed
+                    ? 'Featured products could not load right now.'
+                    : 'No featured products are available right now.';
+                const browseLink = document.createElement('a');
+                browseLink.href = 'products.html#productList';
+                browseLink.textContent = 'Browse all products';
+                emptyState.append(message, browseLink);
+                track.append(emptyState);
+                featuredSection.hidden = false;
+                updateScrollControls();
+                return;
+            }
+            renderSlides();
+            featuredSection.hidden = false;
+            updateScrollControls();
+        })();
+    </script>
+    <script>
+        (async function () {
+            const dealSection = document.getElementById('homeDeal');
+            if (!dealSection) return;
+            const config = window.REZEKEE_SUPABASE_CONFIG;
+            if (!config || !config.url || !config.anonKey ||
+                !window.supabase || typeof window.supabase.createClient !== 'function') return;
+            try {
+                const dealClient = window.supabase.createClient(config.url, config.anonKey);
+                const { data, error } = await dealClient
+                    .from('products')
+                    .select('id,name,description,price_usd,discount_percent,image_url,image_urls')
+                    .eq('is_active', true)
+                    .gt('discount_percent', 0)
+                    .order('discount_percent', { ascending: false })
+                    .limit(1);
+                if (error) throw error;
+                const product = data && data[0];
+                if (!product) return;
+
+                const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+                const base = Number(product.price_usd) || 0;
+                const discount = Math.min(100, Math.max(0, Number(product.discount_percent) || 0));
+                const sale = Math.round(base * (1 - discount / 100) * 100) / 100;
+
+                const dealTitleParts = String(product.name || '').split(',');
+                document.getElementById('homeDealTitle').textContent = dealTitleParts[0].trim() || product.name;
+                const dealSummary = document.getElementById('homeDealSummary');
+                dealSummary.textContent = product.description || dealTitleParts.slice(1).join(',').trim();
+                dealSummary.hidden = !dealSummary.textContent;
+                const priceBox = document.getElementById('homeDealPrice');
+                priceBox.textContent = money.format(sale);
+                const oldPrice = document.createElement('s');
+                oldPrice.textContent = money.format(base);
+                priceBox.append(oldPrice);
+
+                const imageUrls = Array.isArray(product.image_urls) && product.image_urls.length
+                    ? product.image_urls
+                    : (product.image_url ? [product.image_url] : []);
+                if (imageUrls[0]) {
+                    const image = document.createElement('img');
+                    image.src = imageUrls[0];
+                    image.alt = product.name;
+                    image.loading = 'lazy';
+                    image.addEventListener('error', () => {
+                        const fallback = document.createElement('span');
+                        fallback.className = 'home-deal-image-fallback';
+                        fallback.textContent = 'Image unavailable';
+                        document.getElementById('homeDealImage').replaceChildren(fallback);
+                    }, { once: true });
+                    document.getElementById('homeDealImage').append(image);
+                } else {
+                    const fallback = document.createElement('span');
+                    fallback.className = 'home-deal-image-fallback';
+                    fallback.textContent = 'Image unavailable';
+                    document.getElementById('homeDealImage').append(fallback);
+                }
+
+                document.getElementById('homeDealCta').href = `product-details.html?id=${encodeURIComponent(product.id)}`;
+                dealSection.hidden = false;
+            } catch (error) {
+                console.error('Could not load deal of the week:', error.message || error);
+            }
+        })();
+    </script>
+    <footer class="store-footer">
+        <div class="store-footer-main">
+            <section class="store-footer-brand">
+                <a href="home.html" aria-label="RezekeeeShop home"><img class="store-footer-logo" src="inmage/Gemini_Generated_Image_bgsyf5bgsyf5bgsy-removebg-preview.png" alt="RezekeeeShop"></a>
+                <h4>OPENING HOURS</h4>
+                <p>Monday to Sunday, 8:00 AM to 5:30 PM.</p>
+            </section>
+            <div class="footer-column">
+                <h4>CONTACT US</h4>
+
+                <div class="contact-subblock">
+                    <span class="contact-subtitle">Sales Showroom</span>
+                    <a href="tel:0965110561" class="contact-link"><i class="fa-solid fa-phone"></i> 096 511 0561</a>
+                </div>
+
+                <div class="contact-subblock">
+                    <span class="contact-subtitle">Service Center</span>
+                    <a href="tel:0965660561" class="contact-link"><i class="fa-solid fa-phone"></i> 096 566 0561</a>
+                </div>
+            </div>
+            <section>
+                <h4>INFORMATION</h4>
+                <ul class="store-footer-list">
+                    <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="about.html">About us</a></li>
+                </ul>
+            </section>
+            <section>
+                <h4>MY ACCOUNT</h4>
+                <ul class="store-footer-list">
+                    <li><button class="footer-login-button" type="button" id="footerLoginButton">Login</button></li>
+                    <li><a href="favorites.html">My favorites</a></li>
+                </ul>
+            </section>
+            <section>
+                <h4>FOLLOW US</h4>
+                <ul class="store-footer-list store-footer-social-list">
+                    <li><a href="https://www.facebook.com/share/19gmzMMRUH/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg> Facebook</a></li>
+                    <li><a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.6 6.8a4.7 4.7 0 0 1-3.3-1.4 4.7 4.7 0 0 1-1.2-3.2h-3.1v12.4a2.8 2.8 0 1 1-2.8-2.8c.3 0 .6 0 .9.1V8.8a6 6 0 0 0-.9-.1 5.9 5.9 0 1 0 5.9 5.9V9.2a7.8 7.8 0 0 0 4.5 1.4V7.5a4.7 4.7 0 0 1-1-.7z"/></svg> TikTok</a></li>
+                    <li><a href="https://www.instagram.com/rezekeee.shop?exln=a21zbm4yenc0MjZz&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg> Instagram</a></li>
+                    <li><a href="https://t.me/RezekeeeShop" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 4.6 3.8 11.5c-1.2.5-1.2 1.2-.2 1.5l4.6 1.4 1.8 5.4c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.4-1.7-1.5-1.3z"/></svg> Telegram</a></li>
+                </ul>
+            </section>
+
+        </div>
+        <div class="store-footer-bottom">
+            <span>&copy; RezekeeeShop &middot; Cambodia</span>
+            <div class="store-footer-payments" aria-label="Accepted payment methods">
+                <img class="store-payment-image" src="inmage/Asset102x_1756112120.png" alt="Wing Bank">
+                <img class="store-payment-image" src="inmage/KHQR-available-here-logo-with-bg.webp" alt="KHQR">
+                <img class="store-payment-image" src="inmage/Visa_Inc.-Logo.wine.png" alt="Visa">
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+</html>

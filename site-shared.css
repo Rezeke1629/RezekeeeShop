@@ -1,0 +1,148 @@
+/* Shared visual refinements used across the storefront pages. */
+.brand-logo {
+    width: min(14vw, 150px);
+    max-height: 56px;
+}
+
+.brand {
+    gap: 0;
+}
+
+.home-hero {
+    width: min(1120px, calc(100% - 32px));
+    min-height: min(620px, calc(100vh - 120px));
+    margin: clamp(24px, 6vw, 72px) auto 48px;
+    padding: clamp(28px, 6vw, 72px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+    align-items: center;
+    gap: clamp(28px, 6vw, 84px);
+    border: 1px solid var(--line-strong);
+    border-radius: 24px;
+    background: linear-gradient(135deg, #071317, #020405 54%, #071114);
+    box-shadow: 0 0 34px var(--line-glow);
+    overflow: hidden;
+}
+
+.home-hero-copy { max-width: 600px; }
+
+.home-hero-kicker {
+    margin: 0 0 14px;
+    color: #00eaff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.home-hero h1 {
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.38), 0 0 24px rgba(0, 234, 255, 0.32);
+    font-size: clamp(1.9rem, 3.6vw, 3.1rem);
+    line-height: 1.08;
+    text-wrap: balance;
+}
+
+.home-hero p {
+    max-width: 540px;
+    margin: 24px 0 0;
+    color: rgba(255, 255, 255, 0.82);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.18);
+    font-size: clamp(1rem, 1.7vw, 1.2rem);
+    line-height: 1.7;
+}
+
+.home-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.home-hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 20px;
+    border: 1px solid #00eaff;
+    border-radius: 10px;
+    background: var(--line-strong);
+    color: #ffffff !important;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.65), 0 0 12px rgba(0, 234, 255, 0.38);
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(0, 234, 255, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.home-hero-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(0, 234, 255, 0.58);
+}
+
+.home-hero-button.secondary {
+    background: transparent;
+    color: #ffffff !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.55), 0 0 16px rgba(0, 234, 255, 0.3);
+    box-shadow: 0 0 10px rgba(0, 234, 255, 0.35);
+}
+
+body:not(.light-mode) .home-hero-button:not(.secondary) {
+    background: #000000;
+}
+
+.home-hero-visual {
+    position: relative;
+    display: grid;
+    min-height: 300px;
+    place-items: center;
+}
+
+.home-hero-visual::before {
+    position: absolute;
+    width: min(90%, 420px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgba(0, 234, 255, 0.15);
+    box-shadow: 0 0 80px rgba(0, 234, 255, 0.24);
+    content: "";
+}
+
+.home-hero-visual img {
+    position: relative;
+    width: min(100%, 480px);
+    max-height: 390px;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.5));
+    animation: hero-laptop-float 4.5s ease-in-out infinite;
+}
+
+@keyframes hero-laptop-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(-1deg); }
+}
+
+@media (max-width: 760px) {
+    .brand-logo { width: min(28vw, 132px); max-height: 52px; }
+    .topbar-actions { gap: 6px; }
+    .home-hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        margin-top: 24px;
+        padding: 28px 22px 34px;
+        border-radius: 18px;
+    }
+    .home-hero h1 { font-size: clamp(1.7rem, 8vw, 2.6rem); }
+    .home-hero-visual { min-height: 220px; order: -1; }
+    .home-hero-visual img { max-height: 250px; }
+}
+
+@media (max-width: 390px) {
+    .brand-logo { width: min(27vw, 108px); max-height: 44px; }
+    .topbar { padding-inline: 8px; }
+    .home-hero { width: calc(100% - 20px); padding-inline: 16px; }
+    .home-hero-actions { flex-direction: column; }
+    .home-hero-button { width: 100%; }
+}

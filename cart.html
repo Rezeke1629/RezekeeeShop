@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="store-actions.css?v=6">
+    <link rel="stylesheet" href="site-shared.css?v=2">
+    <link rel="stylesheet" href="home-page.css?v=6">
+    <link rel="stylesheet" href="chrome.css?v=1">
+    <title>Cart | RezekeeeShop</title>
+</head>
+<body class="home-page">
+    <div id="site-header"></div>
+    <main class="content" id="mainContent">
+        <h1>Your Cart</h1>
+        <div style="max-width:720px;margin:0 auto;text-align:left;">
+            <div id="cartItems" style="border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--panel-card);min-height:120px;">
+                <p>Your cart is empty.</p>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;">
+                <strong style="color:var(--heading);">Subtotal: $0.00</strong>
+                <button class="store-action-button" data-store-view="cart" type="button">Checkout</button>
+            </div>
+        </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="store-actions.js?v=5"></script>
+    <script src="layout.js?v=1"></script>
+</body>
+</html>
