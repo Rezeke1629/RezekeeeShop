@@ -1373,29 +1373,35 @@
 
             async function loadFeaturedProducts() {
                 const config = window.REZEKEE_SUPABASE_CONFIG;
-                if (config && config.url && config.anonKey &&
-                    window.supabase && typeof window.supabase.createClient === 'function') {
-                    try {
-                        const featuredClient = window.supabase.createClient(config.url, config.anonKey);
-                        const { data, error } = await featuredClient
-                            .from('products')
-                            .select('id,name,description,specifications,price_usd,discount_percent,image_url,image_urls')
-                            .eq('is_active', true)
-                            .order('created_at', { ascending: false })
-                            .limit(12);
-                        if (error) throw error;
-                        if (data && data.length) return data;
-                    } catch (error) {
-                        featuredLoadFailed = true;
-                        console.error('Could not load featured products:', error.message || error);
-                    }
+                
+                // Ensure the shared global client exists once
+                if (!window.supabaseClient && config && config.url && config.anonKey && window.supabase) {
+                    window.supabaseClient = window.supabase.createClient(config.url, config.anonKey);
                 }
+                
+                const featuredClient = window.supabaseClient;
+                if (!featuredClient) return [];
+            
                 try {
-                    const cached = JSON.parse(localStorage.getItem('rezekee-products') || '[]');
-                    if (Array.isArray(cached) && cached.length) return cached.slice(0, 12);
-                } catch (error) { /* ignore unreadable cache */ }
-                return [];
-            }
+                    const { data, error } = await featuredClient
+                        .from('products')
+                        .select('id,name,description,specifications,price_usd,discount_percent,image_url,image_urls')
+                        .eq('is_active', true)
+                        .order('created_at', { ascending: false })
+                        .limit(12);
+                    if (error) throw error;
+                    if (data && data.length) return data;
+                } catch (error) {
+                    featuredLoadFailed = true;
+                    console.error('Could not load featured products:', error.message || error);
+                }
+                
+                    try {
+                        const cached = JSON.parse(localStorage.getItem('rezekee-products') || '[]');
+                        if (Array.isArray(cached) && cached.length) return cached.slice(0, 12);
+                    } catch (error) { /* ignore unreadable cache */ }
+                    return [];
+                }
 
             function salePriceOf(product) {
                 const base = Number(product.price_usd) || 0;
