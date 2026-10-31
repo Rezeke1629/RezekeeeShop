@@ -548,6 +548,22 @@ async function deleteProduct(productID) {
     location.reload(); 
   }
 }
+     async function deleteProductByName(productName) {
+  if (!confirm(`Are you sure you want to delete "${productName}"?`)) return;
+
+  const { error } = await window.supabaseClient
+    .from('products')
+    .delete()
+    .eq('name', productName); // Targets the name column instead of ID
+
+  if (error) {
+    console.error('Error deleting product:', error.message);
+    alert('Failed to delete product: ' + error.message);
+  } else {
+    console.log('Product deleted successfully!');
+    location.reload(); 
+  }
+}
     async function restoreSession() {
         try {
             const { data, error } = await getClient().auth.getSession();
