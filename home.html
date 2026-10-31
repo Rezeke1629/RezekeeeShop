@@ -1554,14 +1554,21 @@
         })();
     </script>
     <script>
-        (async function () {
+(async function () {
             const dealSection = document.getElementById('homeDeal');
             if (!dealSection) return;
             const config = window.REZEKEE_SUPABASE_CONFIG;
-            if (!config || !config.url || !config.anonKey ||
-                !window.supabase || typeof window.supabase.createClient !== 'function') return;
+            
+            // Initialize the shared client once if not already created
+            if (!window.supabaseClient && config && config.url && config.anonKey &&
+                window.supabase && typeof window.supabase.createClient === 'function') {
+                window.supabaseClient = window.supabase.createClient(config.url, config.anonKey);
+            }
+            
+            const dealClient = window.supabaseClient;
+            if (!dealClient) return;
+
             try {
-                const dealClient = window.supabase.createClient(config.url, config.anonKey);
                 const { data, error } = await dealClient
                     .from('products')
                     .select('id,name,description,price_usd,discount_percent,image_url,image_urls')
