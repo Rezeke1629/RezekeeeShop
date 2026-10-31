@@ -133,7 +133,7 @@
                     "2Y + 1st Year Local Perfect Warranty"
                 ],
                 price_usd: 2399,
-                image_url: "inmage/ASUS ROG Strix G16 (Model G614PR-RV151W).png"
+                image_url: "ASUS ROG Strix G16 (Model G614PR-RV151W).png"
             },
             {
                 id: "test-asus-rog-zephyrus-g16",
@@ -163,7 +163,7 @@
                     "What's in box: ROG Impact Gaming Mouse + ROG Zephyrus G16 Sleeve"
                 ],
                 price_usd: 3499,
-                image_url: "inmage/ASUS ROG Zephyrus G16 GU606AR-TB042W.png"
+                image_url: "ASUS ROG Zephyrus G16 GU606AR-TB042W.png"
             },
             {
                 id: "test-asus-rog-strix-scar-18",
@@ -185,7 +185,7 @@
                     "2Y + 1st Year Local Perfect Warranty"
                 ],
                 price_usd: 4299,
-                image_url: "inmage/ASUS ROG Strix SCAR 18 G835LWGTQ349W.png"
+                image_url: "ASUS ROG Strix SCAR 18 G835LWGTQ349W.png"
             },
             {
                 id: "test-asus-rog-strix-g18",
@@ -206,7 +206,7 @@
                     "2 years + 1st Year Warranty"
                 ],
                 price_usd: 2649,
-                image_url: "inmage/ASUS ROG Strix G18 G815LP-TT145W.png"
+                image_url: "ASUS ROG Strix G18 G815LP-TT145W.png"
             },
             {
                 id: "test-asus-tuf-fa506ncq",
@@ -227,7 +227,7 @@
                     "2Y + 1st Year Local Perfect Warranty"
                 ],
                 price_usd: 799,
-                image_url: "inmage/asus-tuf-fa506ncq.png"
+                image_url: "asus-tuf-fa506ncq.png"
             }
         ];
         const products = data?.length ? [...data, ...fallbackProducts] : fallbackProducts;
