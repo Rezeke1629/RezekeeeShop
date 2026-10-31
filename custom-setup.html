@@ -1434,11 +1434,18 @@
             }
 
             async function loadSetupProducts() {
-                const config = window.REZEKEE_SUPABASE_CONFIG;
-                if (!config || !config.url || !config.anonKey ||
-                    !window.supabase || typeof window.supabase.createClient !== 'function') return;
+                // Use the shared global client if it already exists, or create it once
+                if (!window.supabaseClient && window.REZEKEE_SUPABASE_CONFIG && window.supabase) {
+                    window.supabaseClient = window.supabase.createClient(
+                        window.REZEKEE_SUPABASE_CONFIG.url,
+                        window.REZEKEE_SUPABASE_CONFIG.anonKey
+                    );
+                }
+                
+                const setupClient = window.supabaseClient;
+                if (!setupClient) return;
+            
                 try {
-                    const setupClient = window.supabase.createClient(config.url, config.anonKey);
                     const { data, error } = await setupClient
                         .from('products')
                         .select('id,name,price_usd,discount_percent,image_url,image_urls,setup_category')
