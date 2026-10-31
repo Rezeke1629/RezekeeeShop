@@ -1,14 +1,19 @@
-﻿(() => {
+(() => {
     const config = window.REZEKEE_SUPABASE_CONFIG;
     if (!config || !config.url || !config.anonKey ||
         !window.supabase || typeof window.supabase.createClient !== "function") return;
 
-    const client = window.supabase.createClient(config.url, config.anonKey);
+    // Use the shared singleton client, or create it once if it doesn't exist yet
+    if (!window.supabaseClient) {
+        window.supabaseClient = window.supabase.createClient(config.url, config.anonKey);
+    }
+    const client = window.supabaseClient;
 
     const previousAboutDefaults = {
         about_title: "About Us",
-        about_body: "We are a creative team focused on clean design, modern web experiences, and customer-friendly digital products. Our goal is to build simple and effective interfaces."
+        about_body: "We are a creative team focused on clean design, modern web experiences, and customer-friendly digital products. Our goal is to build simple an"
     };
+// ... rest of your code remains the same
     const currentAboutDefaults = {
         about_title: "About RezekeeeShop",
         about_body: "Welcome to RezekeeeShop, your trusted online destination for top-quality computer hardware, laptops, custom desktop PCs, and tech accessories in Cambodia."
