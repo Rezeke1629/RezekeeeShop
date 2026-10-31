@@ -51,36 +51,26 @@
         }
     }
 
-    function getClient() {
-        if (client) return client;
-        const config = window.REZEKEE_SUPABASE_CONFIG;
-        if (!config || !config.url || !config.anonKey) {
-            throw new Error("Authentication is not configured yet. Add your Supabase project URL and public anon key to supabase-config.js.");
-        }
-        if (!window.supabase || typeof window.supabase.createClient !== "function") {
-            throw new Error("The Supabase client did not load. Check your internet connection and reload the page.");
-        }
-        client = window.supabase.createClient(config.url, config.anonKey);
-        client.auth.onAuthStateChange((_event, session) => {
-            setAccount(session && session.user);
-        });
-        return client;
+function getClient() {
+    // Return the existing shared client if it's already created
+    if (window.supabaseClient) return window.supabaseClient;
+
+    const config = window.REZEKEE_SUPABASE_CONFIG;
+    if (!config || !config.url || !config.anonKey) {
+        throw new Error("Authentication is not configured yet. Add your Supabase project URL and public anon key to supabase-config.js.");
+    }
+    if (!window.supabase || typeof window.supabase.createClient !== "function") {
+        throw new Error("The Supabase client did not load. Check your internet connection and reload the page.");
     }
 
-    profileButton.addEventListener("click", async () => {
-        phoneForm.hidden = false;
-        otpForm.hidden = true;
-        accountView.hidden = true;
-        showMessage("");
-        dialog.showModal();
-        try {
-            const { data, error } = await getClient().auth.getSession();
-            if (error) throw error;
-            setAccount(data.session && data.session.user);
-        } catch (error) {
-            showMessage(error.message || "Unable to check your account.", true);
-        }
+    // Create it once, attach the auth listener, and store it globally
+    window.supabaseClient = window.supabase.createClient(config.url, config.anonKey);
+    window.supabaseClient.auth.onAuthStateChange((_event, session) => {
+        setAccount(session && session.user);
     });
+    
+    return window.supabaseClient;
+}
 
     googleSignInButton.addEventListener("click", async () => {
         if (!["http:", "https:"].includes(window.location.protocol)) {
