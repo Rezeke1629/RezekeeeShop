@@ -743,15 +743,16 @@
                 const found = allStoredProducts.find((item) => String(item.id) === String(urlProductId));
                 if (found) {
                     product = found;
-                } else if (window.REZEKEE_SUPABASE_CONFIG && window.supabase) {
-                    try {
-                        const sb = window.supabase.createClient(window.REZEKEE_SUPABASE_CONFIG.url, window.REZEKEE_SUPABASE_CONFIG.anonKey);
-                        const { data } = await sb.from("products").select("*").eq("id", urlProductId).maybeSingle();
-                        if (data) product = data;
-                    } catch (e) {
-                        console.warn("Could not fetch product from Supabase:", e);
-                    }
-                }
+               } else if (window.REZEKEE_SUPABASE_CONFIG && window.supabase) {
+        try {
+            // Use the shared global client instance instead of creating a new one
+            const sb = window.supabaseClient;
+            const { data } = await sb.from("products").select("*").eq("id", urlProductId).maybeSingle();
+            if (data) product = data;
+        } catch (e) {
+            console.warn("Could not fetch product from Supabase:", e);
+        }
+    }
             }
 
             if (!product) {
